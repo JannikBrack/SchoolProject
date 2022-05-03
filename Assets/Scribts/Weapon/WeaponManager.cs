@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour
     public Gun[] loadout;
     public Transform weaponParent;
     public GameObject bulletholePrefab;
+    public Transform camera;
     public LayerMask canBeShot;
 
     private GameObject currentWeapon;
@@ -65,7 +66,7 @@ public class WeaponManager : MonoBehaviour
 
     void Shot()
     {
-        Transform spawn = transform.Find("Camera");
+        Transform spawn = camera;
 
         RaycastHit hit = new RaycastHit();
 

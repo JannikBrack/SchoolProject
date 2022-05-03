@@ -64,10 +64,13 @@ public class CPMPlayer : MonoBehaviour
     private Vector3 targetWeaponBobPosition;
     private float playerTopVelocity = 0.0f;
 
+    //Inventory
+    public GameObject Inventory;
+
     // players can queue the next jump just before he hits the ground
     private bool wishJump = false;
 
-    // Used to display real time fricton values
+    // Used to display real time fricton vaes
     private float playerFriction = 0.0f;
 
     // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
@@ -92,6 +95,7 @@ public class CPMPlayer : MonoBehaviour
         // Hide the cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Inventory.SetActive(false);
 
         if (playerView == null)
         {
@@ -143,6 +147,7 @@ public class CPMPlayer : MonoBehaviour
             movementCounter += Time.deltaTime * 4.5f;
             weapon.localPosition = Vector3.Lerp(weapon.localPosition, targetWeaponBobPosition, Time.deltaTime * 6f);
         }
+
         // Do FPS calculation
         frameCount++;
         dt += Time.deltaTime;
@@ -171,8 +176,6 @@ public class CPMPlayer : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
         playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
         weapon.rotation = playerView.rotation;
-
-        
 
         /* Movement, here's the important part */
         QueueJump();
