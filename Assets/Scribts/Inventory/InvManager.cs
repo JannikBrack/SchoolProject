@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InvManager : MonoBehaviour
 {
-    public GameObject Inv;
-    bool InvOpen;
+    [SerializeField] Animator InvAnimator;
+    public bool InvOpen;
 
     // Update is called once per frame
     void Update()
@@ -16,12 +16,12 @@ public class InvManager : MonoBehaviour
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
-                Inv.SetActive(true);
+                InvAnimator.SetTrigger("InvetoryOpen");
                 InvOpen = true;
             }
             else
             {
-                Inv.SetActive(false);
+                InvAnimator.SetTrigger("InventoryClose");
                 InvOpen = false;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;

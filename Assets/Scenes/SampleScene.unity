@@ -237,7 +237,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114904339}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2080165462}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SkillTreeOpen
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &114904339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1907,7 +1919,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1714604639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2080165462}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: InvOpen
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1714604639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,6 +2458,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   fpsDisplayRate: 4
   Inventory: {fileID: 2080165457}
+  invManager: {fileID: 2032696893}
   wallDistance: 1
   wallLeft: 0
   wallRight: 0
@@ -2492,7 +2517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be96eb0491cb954a9fc7ad60b1e7802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inv: {fileID: 2080165457}
+  InvAnimator: {fileID: 2080165462}
+  InvOpen: 0
 --- !u!1 &2058384067
 GameObject:
   m_ObjectHideFlags: 0
