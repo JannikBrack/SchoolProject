@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvManager1 : MonoBehaviour
+public class InvManager : MonoBehaviour
 {
     public GameObject Inv;
     bool InvOpen;

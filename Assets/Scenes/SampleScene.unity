@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 114904339}
   - component: {fileID: 114904338}
   m_Layer: 0
-  m_Name: Button
+  m_Name: InvButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1837,7 +1837,7 @@ GameObject:
   - component: {fileID: 1714604639}
   - component: {fileID: 1714604638}
   m_Layer: 0
-  m_Name: Button
+  m_Name: TreeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2032696888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b188f341f36eb648966cdd8d4c61229, type: 3}
+  m_Script: {fileID: 11500000, guid: 9be96eb0491cb954a9fc7ad60b1e7802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Inv: {fileID: 2080165457}
@@ -2504,6 +2504,7 @@ GameObject:
   - component: {fileID: 2058384068}
   - component: {fileID: 2058384070}
   - component: {fileID: 2058384069}
+  - component: {fileID: 2058384071}
   m_Layer: 0
   m_Name: InvetoryBackground
   m_TagString: Untagged
@@ -2571,6 +2572,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058384067}
   m_CullTransparentMesh: 1
+--- !u!114 &2058384071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058384067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385b7d1277b6c4007a84c065696e0f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+  m_DownSamplingRate: 1
+  m_Softness: 1
+  m_Alpha: 1
+  m_IgnoreParent: 0
+  m_PartOfParent: 0
+  m_IgnoreSelfGraphic: 0
+  m_IgnoreSelfStencil: 0
 --- !u!1 &2061816303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,6 +2635,7 @@ GameObject:
   - component: {fileID: 2080165461}
   - component: {fileID: 2080165460}
   - component: {fileID: 2080165459}
+  - component: {fileID: 2080165462}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -2703,6 +2725,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &2080165462
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080165457}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 840853df5dfeaa64eb86fcb452bf1a7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2112050509
 GameObject:
   m_ObjectHideFlags: 0
