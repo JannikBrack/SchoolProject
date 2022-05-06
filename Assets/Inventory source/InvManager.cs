@@ -5,6 +5,7 @@ using UnityEngine;
 public class InvManager : MonoBehaviour
 {
     [SerializeField] Animator InvAnimator;
+    [SerializeField] GameObject InvPrefab;
     public bool InvOpen;
 
     // Update is called once per frame
@@ -14,6 +15,7 @@ public class InvManager : MonoBehaviour
         {
             if (!InvOpen)
             {
+                InvPrefab.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 InvAnimator.SetTrigger("InvetoryOpen");
