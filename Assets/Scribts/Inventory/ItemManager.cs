@@ -1,27 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] GameObject ItemParent;
     [SerializeField] GameObject Player;
-    [SerializeField] int ItemSlotCount;
-    [SerializeField] int ItemCount;
-    GameObject[] InventoryItems;
+    [SerializeField] GameObject[] slots;
+    
+
     void Start()
     {
-        foreach(Transform child in ItemParent.transform)ItemSlotCount++;
-        InventoryItems = new GameObject[ItemSlotCount];
-        ItemSlotCount = InventoryItems.Length;
+        slots = ItemParent.GetComponentsInChildren<GameObject>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Collider[] hitColiders = Physics.OverlapSphere(Player.transform.position, 0.1f);
+        Collider[] hitColiders = Physics.OverlapSphere(Player.transform.position, 4f);
         foreach (var hitColider in hitColiders)
         {
-            Debug.Log(hitColider.gameObject.name);
+            if(hitColider.gameObject.tag == "Item")
+            {
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if (slots[i].gameObject.GetComponentInChildren<GameObject>().tag == "Items")
+                    {
+                        Debug.Log("ist voll");
+                    }
+                    else
+                    {
+                        hitColider.gameObject.transform.SetParent(slots[i].transform);
+                    }
+                }
+            }
+            
         }
+
     }
 }
