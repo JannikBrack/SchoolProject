@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newGun", menuName = "Gun")]
 public class Gun : ScriptableObject
 {
-    public string name;
+    public string typeName;
     public float firerate;
     public float aimSpeed;
     public bool isAimeble;

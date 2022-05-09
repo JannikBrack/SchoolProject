@@ -79,7 +79,7 @@ public class CPMPlayer : MonoBehaviour
     // Allowing Headbomping
     private bool headBompingisOn;
 
-    public InvManager invManager;
+    public InvOpenClose InvOpenClose;
 
     [Header("WallJump")]
     [SerializeField] private float wallDistance = 0.5f;
@@ -169,7 +169,7 @@ public class CPMPlayer : MonoBehaviour
             
         }
 
-        if (!invManager.InvOpen)
+        if (!InvOpenClose.InvOpen)
         {
             rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
             rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;

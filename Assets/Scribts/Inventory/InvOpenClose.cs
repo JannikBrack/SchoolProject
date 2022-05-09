@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvManager : MonoBehaviour
+public class InvOpenClose : MonoBehaviour
 {
     [SerializeField] Animator InvAnimator;
     [SerializeField] GameObject InvPrefab;

@@ -2070,7 +2070,7 @@ Transform:
   m_GameObject: {fileID: 644312144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.13, z: -0.000032425}
-  m_LocalScale: {x: 100, y: 0.5, z: 3513.7002}
+  m_LocalScale: {x: 100, y: 100, z: 3513.7002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112050510}
@@ -6315,6 +6315,7 @@ GameObject:
   - component: {fileID: 2032696890}
   - component: {fileID: 2032696889}
   - component: {fileID: 2032696893}
+  - component: {fileID: 2032696894}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6338,7 +6339,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eeef6e46556e5f44f95f77870df5e475, type: 2}
   weaponParent: {fileID: 1674836578}
   bulletholePrefab: {fileID: 7107421714853025335, guid: 16e6f2a823f16754d8a8fec38962433a, type: 3}
-  camera: {fileID: 0}
+  cam: {fileID: 1504741074}
   canBeShot:
     serializedVersion: 2
     m_Bits: 193
@@ -6440,7 +6441,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   fpsDisplayRate: 4
   Inventory: {fileID: 2080165457}
-  invManager: {fileID: 2032696893}
+  InvOpenClose: {fileID: 2032696893}
   wallDistance: 1
   wallLeft: 0
   wallRight: 0
@@ -6496,12 +6497,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 2032696888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9be96eb0491cb954a9fc7ad60b1e7802, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cb768a10a16c5f45a41a7880257de39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InvAnimator: {fileID: 2080165462}
-  InvPrefab: {fileID: 2058384067}
+  InvPrefab: {fileID: 2080165457}
   InvOpen: 0
+--- !u!114 &2032696894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032696888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a672a05a185cf4cb8ddef2946d9207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemParent: {fileID: 324922607}
+  Player: {fileID: 2032696888}
+  ItemSlotCount: 0
+  ItemCount: 0
 --- !u!1 &2051058202
 GameObject:
   m_ObjectHideFlags: 0
