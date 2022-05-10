@@ -4,12 +4,12 @@ public class ItemManager : MonoBehaviour
 {
     [SerializeField] GameObject ItemParent;
     [SerializeField] GameObject Player;
-    [SerializeField] GameObject[] slots;
+    [SerializeField] InventorySlot[] slots;
     
 
     void Start()
     {
-        slots = ItemParent.GetComponentsInChildren<GameObject>();
+        slots = ItemParent.GetComponentsInChildren<InventorySlot>();
     }
 
     private void FixedUpdate()
@@ -21,13 +21,9 @@ public class ItemManager : MonoBehaviour
             {
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    if (slots[i].gameObject.GetComponentInChildren<GameObject>().tag == "Items")
+                    if (!slots[i].isFull())
                     {
-                        Debug.Log("ist voll");
-                    }
-                    else
-                    {
-                        hitColider.gameObject.transform.SetParent(slots[i].transform);
+                        slots[i].AddItem(hitColider.gameObject);
                     }
                 }
             }
