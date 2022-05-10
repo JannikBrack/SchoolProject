@@ -5,6 +5,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] GameObject ItemParent;
     [SerializeField] GameObject Player;
     [SerializeField] InventorySlot[] slots;
+    [SerializeField] Item[] items;
     
 
     void Start()
@@ -19,13 +20,24 @@ public class ItemManager : MonoBehaviour
         {
             if(hitColider.gameObject.tag == "Item")
             {
+                Debug.Log(hitColider.gameObject.name);
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    if (!slots[i].isFull())
+                    if (!slots[i].isFull)
                     {
-                        slots[i].AddItem(hitColider.gameObject);
+                        for (int j = 0; j < items.Length; j++)
+                        {
+                            if (items[j].ItemPrefab.name + "(Clone)" == hitColider.gameObject.name) {
+                                slots[i].AddItem(items[j]);
+                                Destroy(hitColider.gameObject);
+                                
+                            }
+                        }
+                        return;
                     }
                 }
+                
+                
             }
             
         }

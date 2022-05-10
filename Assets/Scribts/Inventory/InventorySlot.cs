@@ -1,25 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] GameObject InvSlot;
+    [SerializeField] GameObject ItemImage;
+    public bool isFull;
+    public bool owningItem;
+    public bool StackedItem;
 
-    public void AddItem(GameObject newItem)
+    public void AddItem(Item Item)
     {
-        newItem.transform.SetParent(InvSlot.transform, false);
-        newItem.GetComponent<Rigidbody>().useGravity = false;
-        newItem.transform.localScale = new Vector3(100f, 100f,100f);
-        newItem.layer = 5;
-    }
-
-    public bool isFull()
-    {
-        if (InvSlot.transform.childCount > 2)
+        ItemImage.SetActive(true);
+        ItemImage.GetComponent<Image>().sprite = Item.ItemIcon;
+        StackedItem = Item.isStackable;
+        if (StackedItem)
         {
-            return true;
+            if (Item.stackSize == Item.maxStackSize) isFull = true;
+            else isFull = false;
         }
-        return false;
+        else isFull = true;
     }
+
+
 }
