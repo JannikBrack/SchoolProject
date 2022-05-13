@@ -8,14 +8,17 @@ public class ItemManager : MonoBehaviour
     [SerializeField] Item[] items;
     [SerializeField] GameObject inventorySlotPrefab;
     [SerializeField] GameObject itemParent;
-    int j = 0;
+    int j;
 
     void Start()
     {
+
+        
         for (int i = 0; i < 32; i++)
         {
             Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
         }
+        
         slots = ItemParent.GetComponentsInChildren<InventorySlot>();
     }
 
@@ -28,40 +31,22 @@ public class ItemManager : MonoBehaviour
             {
                 for (int i = 0; i < slots.Length; i++)
                 {
-                    if (slots[i].owningItem && slots[i].CheckItemAmount(items[j]))
+                    if(slots[i].owningItem && slots[i].CheckItemAmount(items[j]) && seachItem(hitColider.gameObject))
                     {
-                        if (seachItem(hitColider.gameObject))
-                        {
-                            slots[i].AddItem(items[i]);
-                            Destroy(hitColider.gameObject);
-                        }
-                    }
-                    else if (slots[i].owningItem)
-                    {
-                        if (slots[i].StackedItem)
-                        {
-                            if (seachItem(hitColider.gameObject) && slots[i].CheckItemAmount(items[j]))
-                            {
-                                slots[i].stackSize++;
-                                Destroy(hitColider.gameObject);
-                            }
-
-                        }
+                        slots[i].AddItemInStack(items[j]);
+                        Destroy(hitColider.gameObject);
                         return;
                     }
-                    else
+                    else if (!slots[i].owningItem && seachItem(hitColider.gameObject))
                     {
-
+                        slots[i].AddItem(items[j]);
+                        Destroy(hitColider.gameObject);
                         return;
                     }
-
+                    
                 }
-                
-                
             }
-            
         }
-
     }
     private bool seachItem(GameObject hitColider)
     {
