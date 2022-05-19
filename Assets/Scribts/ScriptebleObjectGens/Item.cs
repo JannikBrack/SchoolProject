@@ -7,8 +7,9 @@ public class Item : ScriptableObject
 {
     public bool isStackable;
     public int maxStackSize;
-    
+    public int itemID;
+    public bool isUsable;
 
-    public GameObject ItemPrefab;
-    public Sprite ItemIcon;
+    public GameObject itemPrefab;
+    public Sprite itemIcon;
 }

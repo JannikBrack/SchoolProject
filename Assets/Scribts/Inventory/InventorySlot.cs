@@ -4,32 +4,32 @@ using TMPro;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] GameObject ItemImage;
+    [SerializeField] Button itemImage;
     [SerializeField] TextMeshProUGUI stackSizeText;
+    [SerializeField] TextMeshProUGUI itemName;
     public bool owningItem;
     public bool StackedItem;
     public int stackSize = 0;
+    public int maxStackSize;
+    public int itemSlotID;
 
-    public void AddItem(Item item)
+    public void AddNewItem(Item item)
     {
+        itemSlotID = item.itemID;
+        maxStackSize = item.maxStackSize;
         StackedItem = item.isStackable;
-        ItemImage.SetActive(true);
-        ItemImage.GetComponent<Image>().sprite = item.ItemIcon;
+        itemImage.GetComponent<Image>().sprite = item.itemIcon;
         stackSize++;
         stackSizeText.text = stackSize.ToString();
+        itemName.text = item.name;
         owningItem = true;
     }
 
-    public void AddItemInStack(Item item)
+    public void AddItem(Item item)
     {
         stackSize++;
         stackSizeText.text = stackSize.ToString();
     }
 
-    public bool CheckItemAmount(Item item)
-    {
-        if (stackSize < item.maxStackSize) return true;
-        else return false;
-    }
 
 }

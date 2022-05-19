@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9094578593185192087}
   - component: {fileID: 9094578593185192080}
   m_Layer: 0
-  m_Name: BabaCush
+  m_Name: 1
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

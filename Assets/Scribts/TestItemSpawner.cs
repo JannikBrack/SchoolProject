@@ -5,7 +5,7 @@ public class TestItemSpawner : MonoBehaviour
     [SerializeField] private Item toSpawn;
     private void Awake()
     {
-        Instantiate(toSpawn.ItemPrefab,transform.position, Quaternion.identity);
+        Instantiate(toSpawn.itemPrefab,transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

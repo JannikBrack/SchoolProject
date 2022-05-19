@@ -2,59 +2,84 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] GameObject ItemParent;
-    [SerializeField] GameObject Player;
-    [SerializeField] InventorySlot[] slots;
-    [SerializeField] Item[] items;
-    [SerializeField] GameObject inventorySlotPrefab;
-    [SerializeField] GameObject itemParent;
-    int j;
+    [SerializeField] private GameObject player;
+    [SerializeField] private InventorySlot[] slots;
+    [SerializeField] private Item[] items;
+    [SerializeField] private GameObject inventorySlotPrefab;
+    [SerializeField] private GameObject itemParent;
+    private int itemID;
+    private int numbersOfSlots;
 
     void Start()
     {
-
-        
-        for (int i = 0; i < 32; i++)
-        {
-            Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
-        }
-        
-        slots = ItemParent.GetComponentsInChildren<InventorySlot>();
+        numbersOfSlots = 0;
     }
 
     private void FixedUpdate()
     {
-        Collider[] hitColiders = Physics.OverlapSphere(Player.transform.position, 4f);
+        Collider[] hitColiders = Physics.OverlapSphere(player.transform.position, 4f);
         foreach (var hitColider in hitColiders)
         {
             if(hitColider.gameObject.tag == "Item")
             {
-                for (int i = 0; i < slots.Length; i++)
+                if(slots.Length == 0 && itemExist(hitColider.gameObject))
                 {
-                    if(slots[i].owningItem && slots[i].CheckItemAmount(items[j]) && seachItem(hitColider.gameObject))
-                    {
-                        slots[i].AddItemInStack(items[j]);
-                        Destroy(hitColider.gameObject);
-                        return;
-                    }
-                    else if (!slots[i].owningItem && seachItem(hitColider.gameObject))
-                    {
-                        slots[i].AddItem(items[j]);
-                        Destroy(hitColider.gameObject);
-                        return;
-                    }
-                    
+                    createSlot(hitColider.gameObject);
+                    return;
                 }
+                else
+                {
+                    foreach (InventorySlot slot in slots)
+                    {
+                        if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) &&  slot.StackedItem)
+                        {
+                            slot.AddItem(items[itemID]);
+                            Destroy(hitColider.gameObject);
+                            return;
+                        }
+                    }
+                    if (itemExist(hitColider.gameObject))
+                    {
+                        createSlot(hitColider.gameObject);
+                        return;
+                    }
+                }
+
             }
         }
     }
-    private bool seachItem(GameObject hitColider)
+
+    private void createSlot(GameObject hitColider)
     {
-        for (j = 0; j < items.Length; j++)
+        Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
+        slots = itemParent.GetComponentsInChildren<InventorySlot>();
+        slots[numbersOfSlots].AddNewItem(items[itemID]);
+        slots[numbersOfSlots].owningItem = true;
+        numbersOfSlots++;
+        Destroy(hitColider);
+    }
+
+    private bool itemExist(GameObject hitColider)
+    {
+        foreach (Item item in items)
         {
-            if (items[j].ItemPrefab.name + "(Clone)" == hitColider.name) return true;
-            else return false;
+            if (hitColider.name.StartsWith(item.itemID.ToString()))
+            {
+                itemID = item.itemID;
+                return true;
+            }
         }
         return false;
+    }
+
+    private bool sameItemInSlot(InventorySlot slot)
+    {
+        if (itemID == slot.itemSlotID) return true;
+        else return false;
+    }
+    private bool itemStackIsFull(InventorySlot slot)
+    {
+        if (slot.stackSize == slot.maxStackSize) return true;
+        else return false;
     }
 }
