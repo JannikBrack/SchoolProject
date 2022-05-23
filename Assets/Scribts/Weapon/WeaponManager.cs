@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject bulletholePrefab;
     public Transform cam;
     public LayerMask canBeShot;
+    public InvOpenClose invOpenClose;
 
     private GameObject currentWeapon;
     GameObject newEquipment;
@@ -30,7 +31,7 @@ public class WeaponManager : MonoBehaviour
         {
             Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimeble);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen)
             {
                 Shot();
             }

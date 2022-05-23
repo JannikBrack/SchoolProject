@@ -1,9 +1,12 @@
 using UnityEngine;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private InventorySlot[] slots;
+    [SerializeField] private List<InventorySlot> slots;
     [SerializeField] private Item[] items;
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
@@ -22,7 +25,7 @@ public class ItemManager : MonoBehaviour
         {
             if(hitColider.gameObject.tag == "Item")
             {
-                if(slots.Length == 0 && itemExist(hitColider.gameObject))
+                if(slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
                     createSlot(hitColider.gameObject);
                     return;
@@ -52,7 +55,7 @@ public class ItemManager : MonoBehaviour
     private void createSlot(GameObject hitColider)
     {
         Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
-        slots = itemParent.GetComponentsInChildren<InventorySlot>();
+        slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
         slots[numbersOfSlots].AddNewItem(items[itemID]);
         slots[numbersOfSlots].owningItem = true;
         numbersOfSlots++;
@@ -71,7 +74,6 @@ public class ItemManager : MonoBehaviour
         }
         return false;
     }
-
     private bool sameItemInSlot(InventorySlot slot)
     {
         if (itemID == slot.itemSlotID) return true;
@@ -81,5 +83,11 @@ public class ItemManager : MonoBehaviour
     {
         if (slot.stackSize == slot.maxStackSize) return true;
         else return false;
+    }
+    public void RemoveItem(InventorySlot removingSlot)
+    {
+        slots.Remove(removingSlot);
+        Destroy(removingSlot.gameObject);
+        numbersOfSlots--;
     }
 }

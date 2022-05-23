@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 114904339}
   - component: {fileID: 114904338}
   - component: {fileID: 114904341}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InvButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,6 +305,108 @@ MonoBehaviour:
   m_MaskInteraction: 85
   m_UseStencil: 1
   m_RaycastFilter: 0
+--- !u!1001 &228683901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 324922608}
+    m_Modifications:
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690600838419119271, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+      propertyPath: m_Name
+      value: InventorySlot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+--- !u!224 &228683902 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4690600838419119270, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
+  m_PrefabInstance: {fileID: 228683901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &324922607
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +420,7 @@ GameObject:
   - component: {fileID: 324922610}
   - component: {fileID: 324922609}
   - component: {fileID: 324922612}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +438,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 228683902}
   m_Father: {fileID: 1808429746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -845,7 +948,7 @@ GameObject:
   - component: {fileID: 611047015}
   - component: {fileID: 611047017}
   - component: {fileID: 611047016}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1369,7 +1472,7 @@ GameObject:
   - component: {fileID: 755329210}
   - component: {fileID: 755329209}
   - component: {fileID: 755329211}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponSlot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1462,7 +1565,7 @@ GameObject:
   - component: {fileID: 912674442}
   - component: {fileID: 912674441}
   - component: {fileID: 912674443}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponSlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1960,7 +2063,7 @@ GameObject:
   - component: {fileID: 1429670188}
   - component: {fileID: 1429670190}
   - component: {fileID: 1429670189}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2258,7 +2361,7 @@ GameObject:
   - component: {fileID: 1674662586}
   - component: {fileID: 1674662585}
   - component: {fileID: 1674662587}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CurrendWeapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2385,7 +2488,7 @@ GameObject:
   - component: {fileID: 1714604640}
   - component: {fileID: 1714604639}
   - component: {fileID: 1714604638}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TreeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2706,7 +2809,7 @@ GameObject:
   - component: {fileID: 1808429748}
   - component: {fileID: 1808429747}
   - component: {fileID: 1808429749}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InventoryItemList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2802,7 +2905,7 @@ GameObject:
   - component: {fileID: 1836515769}
   - component: {fileID: 1836515768}
   - component: {fileID: 1836515770}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeaponSlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2998,7 +3101,7 @@ GameObject:
   - component: {fileID: 2032696894}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3023,6 +3126,7 @@ MonoBehaviour:
   canBeShot:
     serializedVersion: 2
     m_Bits: 193
+  invOpenClose: {fileID: 2032696893}
 --- !u!114 &2032696890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3214,7 +3318,7 @@ GameObject:
   - component: {fileID: 2058384070}
   - component: {fileID: 2058384069}
   - component: {fileID: 2058384071}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InvetoryBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3345,7 +3449,7 @@ GameObject:
   - component: {fileID: 2080165460}
   - component: {fileID: 2080165459}
   - component: {fileID: 2080165462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InvUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3407,7 +3511,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
