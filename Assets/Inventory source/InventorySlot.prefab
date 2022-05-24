@@ -232,6 +232,7 @@ MonoBehaviour:
   stackSize: 0
   maxStackSize: 0
   itemSlotID: 0
+  isUseble: 0
 --- !u!1 &4690600838622956879
 GameObject:
   m_ObjectHideFlags: 0

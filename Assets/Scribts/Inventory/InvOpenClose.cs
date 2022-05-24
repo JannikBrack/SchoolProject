@@ -6,7 +6,7 @@ public class InvOpenClose : MonoBehaviour
 {
     [SerializeField] Animator InvAnimator;
     [SerializeField] GameObject InvPrefab;
-    public bool InvOpen;
+    public bool InvOpen = false;
 
     // Update is called once per frame
     void Update()
@@ -15,15 +15,17 @@ public class InvOpenClose : MonoBehaviour
         {
             if (!InvOpen)
             {
+                Debug.Log("1");
                 InvPrefab.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
-                InvAnimator.SetTrigger("InvetoryOpen");
+                InvAnimator.Play("InventoryFadeIn");
                 InvOpen = true;
             }
             else
             {
-                InvAnimator.SetTrigger("InventoryClose");
+                Debug.Log("2");
+                InvAnimator.Play("InvetoryFadeOut");
                 InvOpen = false;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
