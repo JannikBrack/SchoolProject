@@ -75,6 +75,18 @@ public class ItemManager : MonoBehaviour
         }
         return false;
     }
+    private bool gunExist()
+    {
+        foreach (Item item in items)
+        {
+            if (hitColider.name.StartsWith(item.itemID.ToString()))
+            {
+                itemID = item.itemID;
+                return true;
+            }
+        }
+        return false;
+    }
     private bool sameItemInSlot(InventorySlot slot)
     {
         if (itemID == slot.itemSlotID) return true;
