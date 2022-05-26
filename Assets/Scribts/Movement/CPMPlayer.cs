@@ -89,6 +89,7 @@ public class CPMPlayer : MonoBehaviour
     [SerializeField] private Transform orientation;
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
+    [SerializeField] PlayerHealth playerHealth;
     #endregion
 
     #region Start&Update
@@ -160,7 +161,7 @@ public class CPMPlayer : MonoBehaviour
             dt -= 1.0f / fpsDisplayRate;
                  }
         /* Ensure that the cursor is locked into the screen */
-        if (Cursor.lockState != CursorLockMode.Locked) {
+        if (Cursor.lockState != CursorLockMode.Locked && !playerHealth.dead) {
             if (!Inventory.activeInHierarchy)
             {
                 if (Input.GetButtonDown("Fire1"))
@@ -169,7 +170,7 @@ public class CPMPlayer : MonoBehaviour
             
         }
 
-        if (!InvOpenClose.InvOpen)
+        if (!InvOpenClose.InvOpen && !playerHealth.dead)
         {
             rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
             rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;

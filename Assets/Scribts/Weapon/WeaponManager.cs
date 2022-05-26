@@ -22,8 +22,18 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            activeSlot = 0;
-            Equip(activeSlot);
+            activeSlot = 1;
+            Equip(activeSlot - 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            activeSlot = 2;
+            Equip(activeSlot - 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            activeSlot = 3;
+            Equip(activeSlot - 1);
         }
 
 

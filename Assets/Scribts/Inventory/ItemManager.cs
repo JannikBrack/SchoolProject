@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private List<InventorySlot> slots;
     [SerializeField] private Item[] items;
+    [SerializeField] private Gun[] Weapons;
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
     private int itemID;
