@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b736b92f4b138f4aba769dc23fb1814, type: 3}
   m_Name: Pistol2
   m_EditorClassIdentifier: 
-  typeName: Pistol2
+  weaponName: Pistol2
+  weaponID: 1
   firerate: 9000
   aimSpeed: 2
-  isAimeble: 1
+  isAimable: 0
   prefab: {fileID: 959242151971703331, guid: d0e57bbaa90f51049a4793cacc77d823, type: 3}
+  weaponIcon: {fileID: 0}

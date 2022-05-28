@@ -15,7 +15,7 @@ public class CPMPlayer : MonoBehaviour
 {
     #region Variables
     [SerializeField] Transform playerView;     // Camera
-    [SerializeField] Transform weapon;
+
 
     [SerializeField] float playerViewYOffset = 0.6f; // The height at which the camera is bound to
     [SerializeField] float xMouseSensitivity = 30.0f;
@@ -61,7 +61,6 @@ public class CPMPlayer : MonoBehaviour
     private Vector3 moveDirectionNorm = Vector3.zero;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 weaponOrigen;
-    private Vector3 targetWeaponBobPosition;
     private float playerTopVelocity = 0.0f;
 
     //Inventory
@@ -76,8 +75,6 @@ public class CPMPlayer : MonoBehaviour
     // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
     private Cmd _cmd;
 
-    // Allowing Headbomping
-    private bool headBompingisOn;
 
     public InvOpenClose InvOpenClose;
 
@@ -112,45 +109,13 @@ public class CPMPlayer : MonoBehaviour
             transform.position.z);
 
         _controller = GetComponent<CharacterController>();
-        weaponOrigen = weapon.localPosition;
     }
 
     private void Update()
     {
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
-        headBompingisOn = _controller.isGrounded;
-
-        #region HeadBob
-        if (_cmd.rightMove == 0 && _cmd.forwardMove == 0 && Input.GetMouseButton(1))
-        {
-            if (headBompingisOn)
-            {
-                Headbob(idleCounter, 0.0125f, 0.0125f);
-            }
-            idleCounter += Time.deltaTime;
-        }
-        else if (_cmd.rightMove == 0 && _cmd.forwardMove == 0)
-        {
-            if (headBompingisOn)
-            {
-                Headbob(idleCounter, 0.025f, 0.025f);
-            }
-            idleCounter += Time.deltaTime;
-            weapon.localPosition = Vector3.Lerp(weapon.localPosition, targetWeaponBobPosition, Time.deltaTime * 2f);
-        }
-        else
-        {
-            if (headBompingisOn)
-            {
-                Headbob(movementCounter, 0.05f, 0.05f);
-            }
-            movementCounter += Time.deltaTime * 4.5f;
-            weapon.localPosition = Vector3.Lerp(weapon.localPosition, targetWeaponBobPosition, Time.deltaTime * 6f);
-        }
-        #endregion
-
-
+        
         // Do FPS calculation
         frameCount++;
         dt += Time.deltaTime;
@@ -185,7 +150,6 @@ public class CPMPlayer : MonoBehaviour
 
         this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
         playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
-        weapon.rotation = playerView.rotation;
 
         /* Movement, here's the important part */
         QueueJump();
@@ -427,14 +391,4 @@ public class CPMPlayer : MonoBehaviour
         playerVelocity.z += accelspeed * wishdir.z;
     }
     #endregion
-
-    #region HeadBob&Breath
-
-    void Headbob(float z, float xIntensity, float yIntensity)
-    {
-        targetWeaponBobPosition = weaponOrigen + new Vector3(Mathf.Cos(z) * xIntensity, Mathf.Sin(z *2) * yIntensity, 0f);
-    }
-
-    #endregion
-
 }

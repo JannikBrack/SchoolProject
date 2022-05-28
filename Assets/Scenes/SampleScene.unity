@@ -767,7 +767,6 @@ GameObject:
   - component: {fileID: 223974227}
   - component: {fileID: 223974230}
   - component: {fileID: 223974229}
-  - component: {fileID: 223974228}
   m_Layer: 5
   m_Name: WeaponSlot3
   m_TagString: Untagged
@@ -796,22 +795,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &223974228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223974226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!114 &223974229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,7 +2729,6 @@ GameObject:
   - component: {fileID: 1114040581}
   - component: {fileID: 1114040584}
   - component: {fileID: 1114040583}
-  - component: {fileID: 1114040582}
   m_Layer: 5
   m_Name: WeaponSlot2
   m_TagString: Untagged
@@ -2775,22 +2757,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1114040582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114040580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!114 &1114040583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3652,7 +3618,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674836577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.7, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4179,7 +4145,6 @@ GameObject:
   - component: {fileID: 1828601336}
   - component: {fileID: 1828601339}
   - component: {fileID: 1828601338}
-  - component: {fileID: 1828601337}
   m_Layer: 5
   m_Name: WeaponSlot1
   m_TagString: Untagged
@@ -4208,22 +4173,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1828601337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828601335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!114 &1828601338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4490,6 +4439,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadout:
   - {fileID: 11400000, guid: eeef6e46556e5f44f95f77870df5e475, type: 2}
+  - {fileID: 11400000, guid: 4b908033a75261544bb5bdc7fc0c3205, type: 2}
+  - {fileID: 11400000, guid: be2d5296479fe794fbc0ad3ebe6265e2, type: 2}
   weaponParent: {fileID: 1674836578}
   bulletholePrefab: {fileID: 7107421714853025335, guid: 16e6f2a823f16754d8a8fec38962433a, type: 3}
   cam: {fileID: 1504741074}
@@ -4497,6 +4448,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 193
   invOpenClose: {fileID: 2032696893}
+  uiSlots:
+  - {fileID: 1828601335}
+  - {fileID: 1114040580}
+  - {fileID: 223974226}
+  color: {r: 0.21960786, g: 0.22352943, b: 0.22352943, a: 1}
 --- !u!114 &2032696890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4510,7 +4466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerView: {fileID: 1504741074}
-  weapon: {fileID: 1674836578}
   playerViewYOffset: 0.6
   xMouseSensitivity: 30
   yMouseSensitivity: 30
@@ -4675,6 +4630,7 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
   - {fileID: 11400000, guid: 2b1995a7e2de08745b284041098a14ee, type: 2}
+  Weapons: []
   inventorySlotPrefab: {fileID: 4690600838419119271, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
   itemParent: {fileID: 324922607}
 --- !u!114 &2032696895

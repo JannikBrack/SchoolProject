@@ -8,10 +8,11 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private List<InventorySlot> slots;
     [SerializeField] private Item[] items;
-    [SerializeField] private Gun[] Weapons;
+    [SerializeField] private Weapon[] Weapons;
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
     private int itemID;
+    private int weaponID;
     private int numbersOfSlots;
 
     void Start()
@@ -28,7 +29,7 @@ public class ItemManager : MonoBehaviour
             {
                 if(slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
-                    createSlot(hitColider.gameObject);
+                    createSlot(hitColider.gameObject,false);
                     return;
                 }
                 else
@@ -44,23 +45,45 @@ public class ItemManager : MonoBehaviour
                     }
                     if (itemExist(hitColider.gameObject))
                     {
-                        createSlot(hitColider.gameObject);
+                        createSlot(hitColider.gameObject,false);
                         return;
                     }
                 }
 
             }
+            else if (hitColider.gameObject.tag == "Weapon")
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (gunExist(hitColider.gameObject))
+                    {
+                        createSlot(hitColider.gameObject, true);
+                    }
+                }
+            }
         }
     }
 
-    private void createSlot(GameObject hitColider)
+    private void createSlot(GameObject hitColider, bool isWeapon)
     {
-        Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
-        slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
-        slots[numbersOfSlots].AddNewItem(items[itemID]);
-        slots[numbersOfSlots].owningItem = true;
-        numbersOfSlots++;
-        Destroy(hitColider);
+        if (isWeapon)
+        {
+            Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
+            slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
+
+            numbersOfSlots++;
+            Destroy(hitColider);
+        }
+        else
+        {
+            Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
+            slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
+            slots[numbersOfSlots].AddNewItem(items[itemID]);
+            slots[numbersOfSlots].owningItem = true;
+            numbersOfSlots++;
+            Destroy(hitColider);
+        }
+        
     }
 
     private bool itemExist(GameObject hitColider)
@@ -75,13 +98,13 @@ public class ItemManager : MonoBehaviour
         }
         return false;
     }
-    private bool gunExist()
+    private bool gunExist(GameObject hitColider)
     {
-        foreach (Item item in items)
+        foreach (Weapon gun in Weapons)
         {
-            if (hitColider.name.StartsWith(item.itemID.ToString()))
+            if (hitColider.name.StartsWith(gun.weaponName))
             {
-                itemID = item.itemID;
+                weaponID = gun.weaponID;
                 return true;
             }
         }

@@ -7,18 +7,24 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI stackSizeText;
     [SerializeField] TextMeshProUGUI itemName;
     public ItemManager itemManager;
-    public bool owningItem;
+    #region itemVariables
     public bool StackedItem;
     public int stackSize = 0;
     public int maxStackSize;
     public int itemSlotID;
     public bool isUseble;
+    #endregion
+    public bool owningItem;
+    #region weaponVariables
+
+    #endregion
 
     void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         itemManager = player.GetComponent<ItemManager>();
     }
+    #region ItemCode
     public void AddNewItem(Item item)
     {
         itemSlotID = item.itemID;
@@ -47,4 +53,12 @@ public class InventorySlot : MonoBehaviour
             else stackSizeText.text = stackSize.ToString();
         }
     }
+    #endregion
+
+    #region WeaponCode
+    public void AddNewWeapon(Weapon weapon)
+    {
+        itemImage.GetComponent<Image>().sprite = weapon.weaponIcon;
+    }
+    #endregion
 }

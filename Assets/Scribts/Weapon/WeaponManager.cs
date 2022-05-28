@@ -1,15 +1,18 @@
-
+using UnityEngine.UI;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
     #region Variables
-    public Gun[] loadout;
-    public Transform weaponParent;
-    public GameObject bulletholePrefab;
-    public Transform cam;
-    public LayerMask canBeShot;
-    public InvOpenClose invOpenClose;
+    [SerializeField] Weapon[] loadout;
+    [SerializeField] Transform weaponParent;
+    [SerializeField] GameObject bulletholePrefab;
+    [SerializeField] Transform cam;
+    [SerializeField] LayerMask canBeShot;
+    [SerializeField] InvOpenClose invOpenClose;
+    public GameObject[] uiSlots;
+    [SerializeField] Color color;
+
 
     private GameObject currentWeapon;
     GameObject newEquipment;
@@ -22,24 +25,33 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            activeSlot = 1;
-            Equip(activeSlot - 1);
+            activeSlot = 0;
+            Equip(0);
+            uiSlots[0].GetComponent<Image>().color = Color.gray;
+            uiSlots[1].GetComponent<Image>().color = color;
+            uiSlots[2].GetComponent<Image>().color = color;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            activeSlot = 2;
-            Equip(activeSlot - 1);
+            activeSlot = 1;
+            Equip(1);
+            uiSlots[1].GetComponent<Image>().color = Color.gray;
+            uiSlots[0].GetComponent<Image>().color = color;
+            uiSlots[2].GetComponent<Image>().color = color;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            activeSlot = 3;
-            Equip(activeSlot - 1);
+            activeSlot = 2;
+            Equip(2);
+            uiSlots[2].GetComponent<Image>().color = Color.gray;
+            uiSlots[1].GetComponent<Image>().color = color;
+            uiSlots[0].GetComponent<Image>().color = color;
         }
 
 
         if (currentWeapon != null)
         {
-            Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimeble);
+            Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
 
             if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen)
             {
@@ -62,16 +74,13 @@ public class WeaponManager : MonoBehaviour
 
     void Aim(bool isAiming)
     {
-        Transform anchor = currentWeapon.transform.Find("Anchor");
-        Transform stateHip = currentWeapon.transform.Find("States/Hip");
-        Transform stateADS = currentWeapon.transform.Find("States/ADS");
         if (isAiming)
         {
-            anchor.position = Vector3.Lerp(anchor.position, stateADS.position, Time.deltaTime * loadout[activeSlot].aimSpeed);
+            
         }
         else
         {
-            anchor.position = Vector3.Lerp(anchor.position, stateHip.position, Time.deltaTime * loadout[activeSlot].aimSpeed);
+            
         }
     }
 
