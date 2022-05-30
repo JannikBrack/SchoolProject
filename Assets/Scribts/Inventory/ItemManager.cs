@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -133,7 +134,6 @@ public class ItemManager : MonoBehaviour
     {
         if (removingSlot.tag == "WeaponSlot")
         {
-            Debug.Log(removingSlot.weaponID);
             weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
             weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID].weaponType, weapons[removingSlot.weaponID].weaponIcon,true);
             if (weaponManager.invWeaponSlots[removingSlot.weaponID] != null)
@@ -157,9 +157,8 @@ public class ItemManager : MonoBehaviour
         if (!weaponManager.invWeaponSlots[weaponType].activeInHierarchy) return;
         foreach(var weapon in weapons)
         {
-            Debug.Log("Okay");
             if (weapon.weaponIcon == null) continue;
-            else if (weaponManager.invWeaponSlots[weaponType].name.Equals(weapon.weaponIcon.name))
+            else if (weaponManager.invWeaponSlots[weaponType].gameObject.GetComponent<Image>().Equals(weapon.weaponIcon))
             {
                 createSlot(weapon.prefab, true);
             }
