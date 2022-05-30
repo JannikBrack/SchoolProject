@@ -1,8 +1,9 @@
 using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "newGun", menuName = "Gun")]
+[CreateAssetMenu(fileName = "newWeapon", menuName = "Weapon")]
 public class Weapon : ScriptableObject
 {
     public string weaponName;
@@ -10,6 +11,7 @@ public class Weapon : ScriptableObject
     public float firerate;
     public float aimSpeed;
     public bool isAimable;
+    public int weaponType;
 
     public GameObject prefab;
     public Sprite weaponIcon;

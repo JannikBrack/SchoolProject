@@ -4,13 +4,14 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField] Weapon[] loadout;
+    public Weapon[] loadout;
     [SerializeField] Transform weaponParent;
     [SerializeField] GameObject bulletholePrefab;
     [SerializeField] Transform cam;
     [SerializeField] LayerMask canBeShot;
     [SerializeField] InvOpenClose invOpenClose;
-    public GameObject[] uiSlots;
+    public GameObject[] uiSlots = new GameObject[3];
+    public GameObject[] invWeaponSlots = new GameObject[3];
     [SerializeField] Color color;
 
 
@@ -96,6 +97,14 @@ public class WeaponManager : MonoBehaviour
             newHole.transform.LookAt(hit.point + hit.normal);
             Destroy(newHole, 5f);
         }
+    }
+
+    public void SwitchWeaponIcon(int weaponType, Sprite weaponImage, bool setActive)
+    {
+        uiSlots[weaponType].GetComponent<Image>().sprite = weaponImage;
+        uiSlots[weaponType].SetActive(setActive);
+        invWeaponSlots[weaponType].GetComponent<Image>().sprite = weaponImage;
+        invWeaponSlots[weaponType].SetActive(setActive);
     }
     #endregion
 }

@@ -227,12 +227,12 @@ MonoBehaviour:
   stackSizeText: {fileID: 8857480870450893853}
   itemName: {fileID: 6642003779932661579}
   itemManager: {fileID: 0}
-  owningItem: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
   itemSlotID: 0
   isUseble: 0
+  owningItem: 0
 --- !u!1 &4690600838622956879
 GameObject:
   m_ObjectHideFlags: 0

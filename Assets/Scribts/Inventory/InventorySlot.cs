@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour
     #endregion
     public bool owningItem;
     #region weaponVariables
-
+    public int weaponID;
     #endregion
 
     void Awake()
@@ -46,10 +46,10 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
-        if (isUseble)
+        if (isUseble || this.tag == "WeaponSlot")
         {
             stackSize--;
-            if (stackSize == 0) itemManager.RemoveItem(this);
+            if (stackSize <= 0) itemManager.RemoveSlot(this);
             else stackSizeText.text = stackSize.ToString();
         }
     }
@@ -59,6 +59,8 @@ public class InventorySlot : MonoBehaviour
     public void AddNewWeapon(Weapon weapon)
     {
         itemImage.GetComponent<Image>().sprite = weapon.weaponIcon;
+        itemName.text = weapon.weaponName;
+        weaponID = weapon.weaponID;
     }
     #endregion
 }

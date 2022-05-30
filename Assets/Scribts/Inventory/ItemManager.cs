@@ -8,9 +8,10 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private List<InventorySlot> slots;
     [SerializeField] private Item[] items;
-    [SerializeField] private Weapon[] Weapons;
+    [SerializeField] private Weapon[] weapons;
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
+    [SerializeField] private WeaponManager weaponManager;
     private int itemID;
     private int weaponID;
     private int numbersOfSlots;
@@ -25,18 +26,18 @@ public class ItemManager : MonoBehaviour
         Collider[] hitColiders = Physics.OverlapSphere(player.transform.position, 4f);
         foreach (var hitColider in hitColiders)
         {
-            if(hitColider.gameObject.tag == "Item")
+            if (hitColider.gameObject.tag == "Item")
             {
-                if(slots.Count == 0 && itemExist(hitColider.gameObject))
+                if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
-                    createSlot(hitColider.gameObject,false);
+                    createSlot(hitColider.gameObject, false);
                     return;
                 }
                 else
                 {
                     foreach (InventorySlot slot in slots)
                     {
-                        if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) &&  slot.StackedItem)
+                        if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
                         {
                             slot.AddItem(items[itemID]);
                             Destroy(hitColider.gameObject);
@@ -45,17 +46,23 @@ public class ItemManager : MonoBehaviour
                     }
                     if (itemExist(hitColider.gameObject))
                     {
-                        createSlot(hitColider.gameObject,false);
+                        createSlot(hitColider.gameObject, false);
                         return;
                     }
                 }
 
             }
-            else if (hitColider.gameObject.tag == "Weapon")
+            else if (hitColider.gameObject.tag == "Weapons")
             {
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (gunExist(hitColider.gameObject))
+                    if(gunExist(hitColider.gameObject) && weaponManager.loadout[weapons[weaponID].weaponType] == null)
+                    {
+                        weaponManager.loadout[weapons[weaponID].weaponType] = weapons[weaponID];
+                        weaponManager.SwitchWeaponIcon(weapons[weaponID].weaponType, weapons[weaponID].weaponIcon,true);
+                        Destroy(hitColider.gameObject);
+                    }
+                    else if (gunExist(hitColider.gameObject))
                     {
                         createSlot(hitColider.gameObject, true);
                     }
@@ -70,7 +77,9 @@ public class ItemManager : MonoBehaviour
         {
             Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
             slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
-
+            slots[numbersOfSlots].AddNewWeapon(weapons[weaponID]);
+            slots[numbersOfSlots].tag = "WeaponSlot";
+            slots[numbersOfSlots].owningItem = true;
             numbersOfSlots++;
             Destroy(hitColider);
         }
@@ -83,7 +92,7 @@ public class ItemManager : MonoBehaviour
             numbersOfSlots++;
             Destroy(hitColider);
         }
-        
+
     }
 
     private bool itemExist(GameObject hitColider)
@@ -100,11 +109,11 @@ public class ItemManager : MonoBehaviour
     }
     private bool gunExist(GameObject hitColider)
     {
-        foreach (Weapon gun in Weapons)
+        foreach (Weapon weapon in weapons)
         {
-            if (hitColider.name.StartsWith(gun.weaponName))
+            if (hitColider.name.StartsWith(weapon.weaponID.ToString()))
             {
-                weaponID = gun.weaponID;
+                weaponID = weapon.weaponID;
                 return true;
             }
         }
@@ -120,10 +129,40 @@ public class ItemManager : MonoBehaviour
         if (slot.stackSize == slot.maxStackSize) return true;
         else return false;
     }
-    public void RemoveItem(InventorySlot removingSlot)
+    public void RemoveSlot(InventorySlot removingSlot)
     {
-        slots.Remove(removingSlot);
-        Destroy(removingSlot.gameObject);
-        numbersOfSlots--;
+        if (removingSlot.tag == "WeaponSlot")
+        {
+            Debug.Log(removingSlot.weaponID);
+            weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
+            weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID].weaponType, weapons[removingSlot.weaponID].weaponIcon,true);
+            if (weaponManager.invWeaponSlots[removingSlot.weaponID] != null)
+            {
+                SwitchWeapons(weapons[removingSlot.weaponID].weaponType);
+            }
+            slots.Remove(removingSlot);
+            Destroy(removingSlot.gameObject);
+            numbersOfSlots--;
+        }
+        else
+        {
+            slots.Remove(removingSlot);
+            Destroy(removingSlot.gameObject);
+            numbersOfSlots--;
+        }
+
+    }
+    public void SwitchWeapons(int weaponType)
+    {
+        if (!weaponManager.invWeaponSlots[weaponType].activeInHierarchy) return;
+        foreach(var weapon in weapons)
+        {
+            Debug.Log("Okay");
+            if (weapon.weaponIcon == null) continue;
+            else if (weaponManager.invWeaponSlots[weaponType].name.Equals(weapon.weaponIcon.name))
+            {
+                createSlot(weapon.prefab, true);
+            }
+        }
     }
 }

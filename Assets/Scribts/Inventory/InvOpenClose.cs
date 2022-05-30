@@ -15,7 +15,6 @@ public class InvOpenClose : MonoBehaviour
         {
             if (!InvOpen)
             {
-                Debug.Log("1");
                 InvPrefab.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
@@ -24,7 +23,6 @@ public class InvOpenClose : MonoBehaviour
             }
             else
             {
-                Debug.Log("2");
                 InvAnimator.Play("InvetoryFadeOut");
                 InvOpen = false;
                 Cursor.visible = false;

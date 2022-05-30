@@ -17,5 +17,6 @@ MonoBehaviour:
   firerate: 9000
   aimSpeed: 2
   isAimable: 0
+  weaponType: 1
   prefab: {fileID: 959242151971703331, guid: d0e57bbaa90f51049a4793cacc77d823, type: 3}
-  weaponIcon: {fileID: 0}
+  weaponIcon: {fileID: 21300000, guid: e98839901abf2d4478fb927c59646c4a, type: 3}
