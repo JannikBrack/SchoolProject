@@ -3,10 +3,14 @@ using UnityEngine;
 using TMPro;
 public class InventorySlot : MonoBehaviour
 {
+    #region Variables
     [SerializeField] Button itemImage;
     [SerializeField] TextMeshProUGUI stackSizeText;
     [SerializeField] TextMeshProUGUI itemName;
     public ItemManager itemManager;
+    public bool owningItem;
+    #endregion
+
     #region itemVariables
     public bool StackedItem;
     public int stackSize = 0;
@@ -14,7 +18,7 @@ public class InventorySlot : MonoBehaviour
     public int itemSlotID;
     public bool isUseble;
     #endregion
-    public bool owningItem;
+
     #region weaponVariables
     public int weaponID;
     #endregion
@@ -24,6 +28,7 @@ public class InventorySlot : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         itemManager = player.GetComponent<ItemManager>();
     }
+
     #region ItemCode
     public void AddNewItem(Item item)
     {
@@ -46,7 +51,7 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
-        if (isUseble || this.tag == "WeaponSlot")
+        if (isUseble || CompareTag("WeaponSlot"))
         {
             stackSize--;
             if (stackSize <= 0) itemManager.RemoveSlot(this);

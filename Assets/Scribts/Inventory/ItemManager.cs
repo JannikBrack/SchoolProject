@@ -60,7 +60,7 @@ public class ItemManager : MonoBehaviour
                     if(gunExist(hitColider.gameObject) && weaponManager.loadout[weapons[weaponID].weaponType] == null)
                     {
                         weaponManager.loadout[weapons[weaponID].weaponType] = weapons[weaponID];
-                        weaponManager.SwitchWeaponIcon(weapons[weaponID].weaponType, weapons[weaponID].weaponIcon,true);
+                        weaponManager.SwitchWeaponIcon(weapons[weaponID], true);
                         Destroy(hitColider.gameObject);
                     }
                     else if (gunExist(hitColider.gameObject))
@@ -95,7 +95,7 @@ public class ItemManager : MonoBehaviour
         }
 
     }
-
+    #region items
     private bool itemExist(GameObject hitColider)
     {
         foreach (Item item in items)
@@ -108,6 +108,43 @@ public class ItemManager : MonoBehaviour
         }
         return false;
     }
+
+    private bool sameItemInSlot(InventorySlot slot)
+    {
+        if (itemID == slot.itemSlotID) return true;
+        else return false;
+    }
+
+    private bool itemStackIsFull(InventorySlot slot)
+    {
+        if (slot.stackSize == slot.maxStackSize) return true;
+        else return false;
+    }
+
+    #endregion
+
+    public void RemoveSlot(InventorySlot removingSlot)
+    {
+        if (removingSlot.tag == "WeaponSlot")
+        {
+            if (weaponManager.invWeaponSlots[removingSlot.weaponID] != null)
+            {
+                SwitchWeapons(weapons[removingSlot.weaponID].weaponType);
+            }
+            weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
+            weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID], true);
+            slots.Remove(removingSlot);
+            Destroy(removingSlot.gameObject);
+            numbersOfSlots--;
+        }
+        else
+        {
+            slots.Remove(removingSlot);
+            Destroy(removingSlot.gameObject);
+            numbersOfSlots--;
+        }
+    }
+
     private bool gunExist(GameObject hitColider)
     {
         foreach (Weapon weapon in weapons)
@@ -120,47 +157,29 @@ public class ItemManager : MonoBehaviour
         }
         return false;
     }
-    private bool sameItemInSlot(InventorySlot slot)
-    {
-        if (itemID == slot.itemSlotID) return true;
-        else return false;
-    }
-    private bool itemStackIsFull(InventorySlot slot)
-    {
-        if (slot.stackSize == slot.maxStackSize) return true;
-        else return false;
-    }
-    public void RemoveSlot(InventorySlot removingSlot)
-    {
-        if (removingSlot.tag == "WeaponSlot")
-        {
-            weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
-            weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID].weaponType, weapons[removingSlot.weaponID].weaponIcon,true);
-            if (weaponManager.invWeaponSlots[removingSlot.weaponID] != null)
-            {
-                SwitchWeapons(weapons[removingSlot.weaponID].weaponType);
-            }
-            slots.Remove(removingSlot);
-            Destroy(removingSlot.gameObject);
-            numbersOfSlots--;
-        }
-        else
-        {
-            slots.Remove(removingSlot);
-            Destroy(removingSlot.gameObject);
-            numbersOfSlots--;
-        }
 
+    private void createNewWeaponSlot(Weapon weapon)
+    {
+        Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
+        slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
+        slots[numbersOfSlots].AddNewWeapon(weapon);
+        slots[numbersOfSlots].tag = "WeaponSlot";
+        slots[numbersOfSlots].owningItem = true;
+        numbersOfSlots++;
     }
+
     public void SwitchWeapons(int weaponType)
     {
         if (!weaponManager.invWeaponSlots[weaponType].activeInHierarchy) return;
         foreach(var weapon in weapons)
         {
             if (weapon.weaponIcon == null) continue;
-            else if (weaponManager.invWeaponSlots[weaponType].gameObject.GetComponent<Image>().Equals(weapon.weaponIcon))
+            else if (weapon.weaponIcon.name.Equals(weaponManager.invWeaponSlots[weaponType].name))
             {
-                createSlot(weapon.prefab, true);
+                Debug.Log(weapon.prefab.name);
+                createNewWeaponSlot(weapon);
+                weaponManager.Equip(weaponType);
+                return;
             }
         }
     }

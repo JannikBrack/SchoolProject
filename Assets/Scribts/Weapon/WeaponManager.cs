@@ -63,7 +63,7 @@ public class WeaponManager : MonoBehaviour
     #endregion
 
     #region Methods
-    void Equip(int slot)
+    public void Equip(int slot)
     {
         if (currentWeapon != null) Destroy(currentWeapon);
 
@@ -99,12 +99,13 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void SwitchWeaponIcon(int weaponType, Sprite weaponImage, bool setActive)
+    public void SwitchWeaponIcon(Weapon weapon, bool setActive)
     {
-        uiSlots[weaponType].GetComponent<Image>().sprite = weaponImage;
-        uiSlots[weaponType].SetActive(setActive);
-        invWeaponSlots[weaponType].GetComponent<Image>().sprite = weaponImage;
-        invWeaponSlots[weaponType].SetActive(setActive);
+        uiSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
+        uiSlots[weapon.weaponType].SetActive(setActive);
+        invWeaponSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
+        invWeaponSlots[weapon.weaponType].GetComponent<Image>().name = weapon.weaponIcon.name;
+        invWeaponSlots[weapon.weaponType].SetActive(setActive);
     }
     #endregion
 }
