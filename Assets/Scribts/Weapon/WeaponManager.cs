@@ -24,7 +24,7 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && loadout[0] != null)
         {
             activeSlot = 0;
             Equip(0);
@@ -32,7 +32,7 @@ public class WeaponManager : MonoBehaviour
             uiSlots[1].GetComponent<Image>().color = color;
             uiSlots[2].GetComponent<Image>().color = color;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && loadout[1] != null)
         {
             activeSlot = 1;
             Equip(1);
@@ -40,7 +40,7 @@ public class WeaponManager : MonoBehaviour
             uiSlots[0].GetComponent<Image>().color = color;
             uiSlots[2].GetComponent<Image>().color = color;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && loadout[2] != null)
         {
             activeSlot = 2;
             Equip(2);
@@ -56,7 +56,7 @@ public class WeaponManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen)
             {
-                Shot();
+                Attack();
             }
         }
     }
@@ -85,16 +85,20 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void Shot()
+    void Attack()
     {
         Transform spawn = cam;
 
         RaycastHit hit = new RaycastHit();
-
-       if(Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
+        if(Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
         {
             GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
             newHole.transform.LookAt(hit.point + hit.normal);
+            if (hit.collider.gameObject.CompareTag("Enemy"))
+            {
+                EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                enemyHealth.GetDamage(loadout[activeSlot].damage);
+            }
             Destroy(newHole, 5f);
         }
     }

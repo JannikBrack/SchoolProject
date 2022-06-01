@@ -133,6 +133,7 @@ public class ItemManager : MonoBehaviour
             }
             weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
             weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID], true);
+            weaponManager.Equip(weapons[removingSlot.weaponID].weaponType);
             slots.Remove(removingSlot);
             Destroy(removingSlot.gameObject);
             numbersOfSlots--;
@@ -176,9 +177,7 @@ public class ItemManager : MonoBehaviour
             if (weapon.weaponIcon == null) continue;
             else if (weapon.weaponIcon.name.Equals(weaponManager.invWeaponSlots[weaponType].name))
             {
-                Debug.Log(weapon.prefab.name);
                 createNewWeaponSlot(weapon);
-                weaponManager.Equip(weaponType);
                 return;
             }
         }

@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Weapons
   - WeaponSlot
+  - Enemy
   layers:
   - Default
   - TransparentFX
