@@ -16,10 +16,6 @@ public class PlayerHealth : MonoBehaviour
         dead = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public void GetDamage(float amountOfDamage)
     {

@@ -195,7 +195,7 @@ RectTransform:
   m_GameObject: {fileID: 4690600838419119271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4690600838622956878}
@@ -227,12 +227,13 @@ MonoBehaviour:
   stackSizeText: {fileID: 8857480870450893853}
   itemName: {fileID: 6642003779932661579}
   itemManager: {fileID: 0}
+  owningItem: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
   itemSlotID: 0
   isUseble: 0
-  owningItem: 0
+  weaponID: 0
 --- !u!1 &4690600838622956879
 GameObject:
   m_ObjectHideFlags: 0

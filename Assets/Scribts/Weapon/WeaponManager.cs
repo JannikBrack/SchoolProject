@@ -13,11 +13,12 @@ public class WeaponManager : MonoBehaviour
     public GameObject[] uiSlots = new GameObject[3];
     public GameObject[] invWeaponSlots = new GameObject[3];
     [SerializeField] Color color;
-
-
     private GameObject currentWeapon;
     GameObject newEquipment;
     private int activeSlot;
+
+    
+
     #endregion
 
     #region Start&Update

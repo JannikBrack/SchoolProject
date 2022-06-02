@@ -18,5 +18,7 @@ MonoBehaviour:
   aimSpeed: 0
   isAimable: 0
   weaponType: 1
+  damage: 0.01
+  dropChances: 0
   prefab: {fileID: 959242151971703331, guid: aae81e8632ac03045917495a6d8df111, type: 3}
   weaponIcon: {fileID: 0}

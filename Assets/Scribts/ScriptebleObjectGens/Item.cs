@@ -12,4 +12,6 @@ public class Item : ScriptableObject
 
     public GameObject itemPrefab;
     public Sprite itemIcon;
+    public int dropChances;
+    public int maxDrops;
 }

@@ -13,6 +13,7 @@ public class Weapon : ScriptableObject
     public bool isAimable;
     public int weaponType;
     public float damage;
+    public double dropChances;
 
     public GameObject prefab;
     public Sprite weaponIcon;
