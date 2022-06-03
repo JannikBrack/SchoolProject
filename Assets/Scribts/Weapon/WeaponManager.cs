@@ -107,7 +107,7 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-        else if (loadout[3] != null)
+        else if (loadout[2] != null)
         {
             //punch
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))

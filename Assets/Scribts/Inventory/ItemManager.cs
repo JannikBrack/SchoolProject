@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
     [SerializeField] private List<InventorySlot> slots;
     [SerializeField] private Item[] items;
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
+    [SerializeField] private GameObject itemOrientation;
     [SerializeField] private WeaponManager weaponManager;
     private int itemID;
     private int weaponID;
@@ -24,7 +24,7 @@ public class ItemManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] hitColiders = Physics.OverlapSphere(player.transform.position, 4f);
+        Collider[] hitColiders = Physics.OverlapSphere(transform.position, 4f);
         foreach (var hitColider in hitColiders)
         {
             if (hitColider.gameObject.tag == "Item")
@@ -32,8 +32,14 @@ public class ItemManager : MonoBehaviour
                 if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
                     
-                    createSlot(hitColider.gameObject, false);
-                    return;
+                    hitColider.gameObject.transform.position = Vector3.Lerp(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.5f);
+                    
+                    if (hitColider.transform.position == itemOrientation.transform.position)
+                    {
+                        Debug.Log("ja");
+                        createSlot(hitColider.gameObject, false);
+                        return;
+                    }
                 }
                 else
                 {

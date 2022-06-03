@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1295,7 +1295,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2354,7 +2354,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2735,6 +2735,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
   toSpawnGun: {fileID: 43157748068784472, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+--- !u!1 &1257989250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1257989251}
+  m_Layer: 0
+  m_Name: ItemOrientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257989251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257989250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2032696892}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1326273524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,7 +3202,7 @@ Transform:
   - {fileID: 1674836578}
   - {fileID: 1869444807}
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1504741075
 AudioListener:
@@ -3434,7 +3465,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1626540249
 GameObject:
@@ -4863,6 +4894,7 @@ Transform:
   m_Children:
   - {fileID: 657294061}
   - {fileID: 61602674}
+  - {fileID: 1257989251}
   - {fileID: 2061816304}
   - {fileID: 1604072133}
   - {fileID: 1504741074}
@@ -4899,7 +4931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a672a05a185cf4cb8ddef2946d9207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2032696888}
   slots: []
   items:
   - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
@@ -4910,6 +4941,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be2d5296479fe794fbc0ad3ebe6265e2, type: 2}
   inventorySlotPrefab: {fileID: 4690600838419119271, guid: 8f5a626b5e38a524780b5c40509dd674, type: 3}
   itemParent: {fileID: 324922607}
+  itemOrientation: {fileID: 1257989250}
   weaponManager: {fileID: 2032696889}
 --- !u!114 &2032696895
 MonoBehaviour:
@@ -5055,7 +5087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2080165457
 GameObject:
@@ -5094,7 +5126,7 @@ RectTransform:
   - {fileID: 2058384068}
   - {fileID: 4879548}
   m_Father: {fileID: 2032696892}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
