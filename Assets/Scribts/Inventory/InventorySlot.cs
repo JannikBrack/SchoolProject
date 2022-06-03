@@ -51,7 +51,7 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
-        if (isUseble || CompareTag("WeaponSlot"))
+        if (isUseble)
         {
             stackSize--;
             if (stackSize <= 0) itemManager.RemoveSlot(this);

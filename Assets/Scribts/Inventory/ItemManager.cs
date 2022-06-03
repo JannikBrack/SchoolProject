@@ -31,6 +31,7 @@ public class ItemManager : MonoBehaviour
             {
                 if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
+                    
                     createSlot(hitColider.gameObject, false);
                     return;
                 }
@@ -57,15 +58,11 @@ public class ItemManager : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if(gunExist(hitColider.gameObject) && weaponManager.loadout[weapons[weaponID].weaponType] == null)
+                    if(gunExist(hitColider.gameObject))
                     {
                         weaponManager.loadout[weapons[weaponID].weaponType] = weapons[weaponID];
                         weaponManager.SwitchWeaponIcon(weapons[weaponID], true);
                         Destroy(hitColider.gameObject);
-                    }
-                    else if (gunExist(hitColider.gameObject))
-                    {
-                        createSlot(hitColider.gameObject, true);
                     }
                 }
             }
@@ -125,25 +122,9 @@ public class ItemManager : MonoBehaviour
 
     public void RemoveSlot(InventorySlot removingSlot)
     {
-        if (removingSlot.tag == "WeaponSlot")
-        {
-            if (weaponManager.invWeaponSlots[removingSlot.weaponID] != null)
-            {
-                SwitchWeapons(weapons[removingSlot.weaponID].weaponType);
-            }
-            weaponManager.loadout[weapons[removingSlot.weaponID].weaponType] = weapons[removingSlot.weaponID];
-            weaponManager.SwitchWeaponIcon(weapons[removingSlot.weaponID], true);
-            weaponManager.Equip(weapons[removingSlot.weaponID].weaponType);
             slots.Remove(removingSlot);
             Destroy(removingSlot.gameObject);
             numbersOfSlots--;
-        }
-        else
-        {
-            slots.Remove(removingSlot);
-            Destroy(removingSlot.gameObject);
-            numbersOfSlots--;
-        }
     }
 
     private bool gunExist(GameObject hitColider)

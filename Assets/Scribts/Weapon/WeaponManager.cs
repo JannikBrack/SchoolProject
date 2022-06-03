@@ -16,62 +16,67 @@ public class WeaponManager : MonoBehaviour
     private GameObject currentWeapon;
     GameObject newEquipment;
     private int activeSlot;
+    private bool EmptySlot;
 
-    
+
 
     #endregion
-
+    private void Awake()
+    {
+        Equip(0);
+    }
     #region Start&Update
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && loadout[0] != null)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             activeSlot = 0;
-            Equip(0);
+            Equip(activeSlot);
             uiSlots[0].GetComponent<Image>().color = Color.gray;
             uiSlots[1].GetComponent<Image>().color = color;
             uiSlots[2].GetComponent<Image>().color = color;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && loadout[1] != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             activeSlot = 1;
-            Equip(1);
+            Equip(activeSlot);
             uiSlots[1].GetComponent<Image>().color = Color.gray;
             uiSlots[0].GetComponent<Image>().color = color;
             uiSlots[2].GetComponent<Image>().color = color;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && loadout[2] != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             activeSlot = 2;
-            Equip(2);
+            Equip(activeSlot);
             uiSlots[2].GetComponent<Image>().color = Color.gray;
             uiSlots[1].GetComponent<Image>().color = color;
             uiSlots[0].GetComponent<Image>().color = color;
         }
 
+        if (currentWeapon != null) Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
 
-        if (currentWeapon != null)
-        {
-            Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
-
-            if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen)
-            {
-                Attack();
-            }
-        }
+        if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen) Attack();
     }
     #endregion
 
     #region Methods
     public void Equip(int slot)
     {
-        if (currentWeapon != null) Destroy(currentWeapon);
-
-        newEquipment = Instantiate(loadout[slot].prefab, weaponParent.position, weaponParent.rotation, weaponParent) as GameObject;
-        newEquipment.transform.localPosition = Vector3.zero;
-        newEquipment.transform.localEulerAngles = Vector3.zero;
-        currentWeapon = newEquipment;
+        if (loadout[slot] == null)
+        {
+            Destroy(currentWeapon);
+            EmptySlot = true;
+        }
+        else
+        {
+            EmptySlot = false;
+            if (currentWeapon != null) Destroy(currentWeapon);
+            newEquipment = Instantiate(loadout[slot].prefab, weaponParent.position, weaponParent.rotation, weaponParent) as GameObject;
+            newEquipment.transform.localPosition = Vector3.zero;
+            newEquipment.transform.localEulerAngles = Vector3.zero;
+            currentWeapon = newEquipment;
+        }
     }
 
     void Aim(bool isAiming)
@@ -89,19 +94,46 @@ public class WeaponManager : MonoBehaviour
     void Attack()
     {
         Transform spawn = cam;
-
         RaycastHit hit = new RaycastHit();
-        if(Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
+        if (EmptySlot)
         {
-            GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
-            newHole.transform.LookAt(hit.point + hit.normal);
-            if (hit.collider.gameObject.CompareTag("Enemy"))
+            //punch
+            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
             {
-                EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                enemyHealth.GetDamage(loadout[activeSlot].damage);
+                if (hit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                    if (loadout[activeSlot] == null) enemyHealth.GetDamage(0.05f);
+                }
             }
-            Destroy(newHole, 5f);
         }
+        else if (loadout[3] != null)
+        {
+            //punch
+            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
+            {
+                if (hit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                    enemyHealth.GetDamage(loadout[activeSlot].damage);
+                }
+            }
+        }
+        else
+        {
+            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
+            {
+                GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
+                newHole.transform.LookAt(hit.point + hit.normal);
+                if (hit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                    enemyHealth.GetDamage(loadout[activeSlot].damage);
+                }
+                Destroy(newHole, 5f);
+            }
+        }
+        
     }
 
     public void SwitchWeaponIcon(Weapon weapon, bool setActive)
