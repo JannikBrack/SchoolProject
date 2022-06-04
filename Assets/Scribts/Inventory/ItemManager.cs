@@ -24,39 +24,43 @@ public class ItemManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] hitColiders = Physics.OverlapSphere(transform.position, 4f);
+        Collider[] hitColiders = Physics.OverlapSphere(transform.position, 5f);
         foreach (var hitColider in hitColiders)
         {
             if (hitColider.gameObject.tag == "Item")
             {
                 if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
-                    
-                    hitColider.gameObject.transform.position = Vector3.Lerp(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.5f);
-                    
+                    hitColider.gameObject.transform.position = Vector3.MoveTowards(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.25f);
+                    hitColider.gameObject.transform.localScale = Vector3.Lerp(hitColider.gameObject.transform.localScale, new Vector3(0f, 0f, 0f), 0.01f);
                     if (hitColider.transform.position == itemOrientation.transform.position)
                     {
-                        Debug.Log("ja");
                         createSlot(hitColider.gameObject, false);
                         return;
                     }
                 }
                 else
                 {
-                    foreach (InventorySlot slot in slots)
+                    hitColider.gameObject.transform.position = Vector3.MoveTowards(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.25f);
+                    hitColider.gameObject.transform.localScale = Vector3.Lerp(hitColider.gameObject.transform.localScale, new Vector3(0f, 0f, 0f), 0.01f);
+                    if (hitColider.transform.position == itemOrientation.transform.position)
                     {
-                        if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
+                        foreach (InventorySlot slot in slots)
                         {
-                            slot.AddItem(items[itemID]);
-                            Destroy(hitColider.gameObject);
+                            if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
+                            {
+                                slot.AddItem(items[itemID]);
+                                Destroy(hitColider.gameObject);
+                                return;
+                            }
+                        }
+                        if (itemExist(hitColider.gameObject))
+                        {
+                            createSlot(hitColider.gameObject, false);
                             return;
                         }
                     }
-                    if (itemExist(hitColider.gameObject))
-                    {
-                        createSlot(hitColider.gameObject, false);
-                        return;
-                    }
+                        
                 }
 
             }
@@ -168,5 +172,10 @@ public class ItemManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
