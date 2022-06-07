@@ -13,6 +13,11 @@ public class EnemyHealth : MonoBehaviour
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
     [SerializeField] Weapon[] lootWeapons;
+
+    private void Awake()
+    {
+        healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
+    }
     private void FixedUpdate()
     {
 
@@ -65,6 +70,7 @@ public class EnemyHealth : MonoBehaviour
             
             Destroy(gameObject);
         }
+        Debug.Log(enemyHealth);
         healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
     }
 }

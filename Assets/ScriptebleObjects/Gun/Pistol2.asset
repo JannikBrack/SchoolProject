@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pistol2
   weaponID: 1
-  firerate: 9000
+  firerate: 0.5
   aimSpeed: 2
   isAimable: 0
   weaponType: 1

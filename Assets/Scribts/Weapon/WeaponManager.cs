@@ -17,6 +17,7 @@ public class WeaponManager : MonoBehaviour
     GameObject newEquipment;
     private int activeSlot;
     private bool EmptySlot;
+    private float lastShot;
 
 
 
@@ -95,44 +96,51 @@ public class WeaponManager : MonoBehaviour
     {
         Transform spawn = cam;
         RaycastHit hit = new RaycastHit();
-        if (EmptySlot)
+        if (Time.time < lastShot + loadout[activeSlot].firerate)
         {
-            //punch
-            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
+            if (EmptySlot)
             {
-                if (hit.collider.gameObject.CompareTag("Enemy"))
+                //punch
+                if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
                 {
-                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                    if (loadout[activeSlot] == null) enemyHealth.GetDamage(0.05f);
+                    if (hit.collider.gameObject.CompareTag("Enemy"))
+                    {
+                        EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                        if (loadout[activeSlot] == null) enemyHealth.GetDamage(0.05f);
+                    }
                 }
             }
-        }
-        else if (loadout[2] != null)
-        {
-            //punch
-            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
+            else if (loadout[2] != null)
             {
-                if (hit.collider.gameObject.CompareTag("Enemy"))
+                //punch
+                if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
                 {
-                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                    enemyHealth.GetDamage(loadout[activeSlot].damage);
+                    if (hit.collider.gameObject.CompareTag("Enemy"))
+                    {
+                        EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                        enemyHealth.GetDamage(loadout[activeSlot].damage);
+                    }
                 }
             }
-        }
-        else
-        {
-            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
+            else
             {
-                GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
-                newHole.transform.LookAt(hit.point + hit.normal);
-                if (hit.collider.gameObject.CompareTag("Enemy"))
+                if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
                 {
-                    EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                    enemyHealth.GetDamage(loadout[activeSlot].damage);
+                    GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
+                    newHole.transform.LookAt(hit.point + hit.normal);
+                    if (hit.collider.gameObject.CompareTag("Enemy"))
+                    {
+                        EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                        enemyHealth.GetDamage(loadout[activeSlot].damage);
+                        Destroy(newHole, 5f / (hit.collider.gameObject.GetComponent<EnemyController>().speed * 2.5f));
+                    }
+                    else
+                        Destroy(newHole, 5f);
                 }
-                Destroy(newHole, 5f);
             }
+            lastShot = Time.time;
         }
+        
         
     }
 
