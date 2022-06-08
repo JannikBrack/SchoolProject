@@ -96,8 +96,7 @@ public class WeaponManager : MonoBehaviour
     {
         Transform spawn = cam;
         RaycastHit hit = new RaycastHit();
-        if (Time.time < lastShot + loadout[activeSlot].firerate)
-        {
+        
             if (EmptySlot)
             {
                 //punch
@@ -137,11 +136,7 @@ public class WeaponManager : MonoBehaviour
                     else
                         Destroy(newHole, 5f);
                 }
-            }
-            lastShot = Time.time;
-        }
-        
-        
+            }    
     }
 
     public void SwitchWeaponIcon(Weapon weapon, bool setActive)
