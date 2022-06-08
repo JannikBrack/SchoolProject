@@ -131,7 +131,7 @@ public class WeaponManager : MonoBehaviour
                     {
                         EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
                         enemyHealth.GetDamage(loadout[activeSlot].damage);
-                        Destroy(newHole, 5f / (hit.collider.gameObject.GetComponent<EnemyController>().speed * 2.5f));
+                        Destroy(newHole, 5f / (hit.collider.gameObject.GetComponent<EnemyController>().ChaseSpeed * 2.5f));
                     }
                     else
                         Destroy(newHole, 5f);

@@ -122,7 +122,8 @@ MonoBehaviour:
   healthBarParent: {fileID: 8638979925381028713}
   enemyHealth: 3
   itemSpawner: {fileID: 31850838508579759}
-  lootItems: []
+  lootItems:
+  - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
   lootWeapons: []
 --- !u!54 &5925598081669715344
 Rigidbody:
@@ -153,8 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 20
-  speed: 5
+  ChaseSpeed: 5
+  IdleSpeed: 2
   damage: 0.2
+  coldownTime: 2
 --- !u!1 &5300174115519758413
 GameObject:
   m_ObjectHideFlags: 0

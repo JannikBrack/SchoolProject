@@ -70,7 +70,6 @@ public class EnemyHealth : MonoBehaviour
             
             Destroy(gameObject);
         }
-        Debug.Log(enemyHealth);
         healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
     }
 }
