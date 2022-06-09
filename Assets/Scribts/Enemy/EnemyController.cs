@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float lookRadius = 10f;
-    public float speed = 5f;
+
+    public float ChaseSpeed = 5f;
+    public float IdleSpeed = 2f;
     [SerializeField] float damage;
 
     float nextAttack = 0f;
@@ -19,7 +21,7 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         target = PlayerManager.instance.player.transform;
-        agent.speed = speed;
+        agent.speed = ChaseSpeed;
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class EnemyController : MonoBehaviour
         float distace = Vector3.Distance(target.position, transform.position);
         if (distace <= lookRadius)
         {
+            agent.speed = ChaseSpeed;
             agent.SetDestination(target.position);
 
             if (distace <= agent.stoppingDistance)
@@ -39,8 +42,14 @@ public class EnemyController : MonoBehaviour
                     FaceTarget();
                     nextAttack = Time.time + coldownTime;
                 }
-                
+
             }
+        }
+        else
+        {
+            agent.speed = IdleSpeed;
+            Vector3 patrolPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+            if (!(agent.stoppingDistance <= Vector3.Distance(patrolPosition, transform.position))) agent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
         }
     }
 

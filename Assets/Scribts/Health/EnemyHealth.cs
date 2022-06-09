@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject healthBarParent;
     [SerializeField] float enemyHealth;
     [SerializeField] GameObject itemSpawner;
+    [SerializeField] LayerMask Player;
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
@@ -70,7 +71,6 @@ public class EnemyHealth : MonoBehaviour
             
             Destroy(gameObject);
         }
-        Debug.Log(enemyHealth);
         healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
     }
 }
