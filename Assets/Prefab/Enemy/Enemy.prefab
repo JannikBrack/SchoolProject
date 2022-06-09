@@ -122,6 +122,9 @@ MonoBehaviour:
   healthBarParent: {fileID: 8638979925381028713}
   enemyHealth: 3
   itemSpawner: {fileID: 31850838508579759}
+  Player:
+    serializedVersion: 2
+    m_Bits: 256
   lootItems:
   - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
   lootWeapons: []

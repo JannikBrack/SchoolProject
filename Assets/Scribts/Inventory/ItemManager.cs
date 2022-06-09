@@ -13,6 +13,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private GameObject itemParent;
     [SerializeField] private GameObject itemOrientation;
     [SerializeField] private WeaponManager weaponManager;
+    [SerializeField] private LayerMask liftable;
     private int itemID;
     private int weaponID;
     private int numbersOfSlots;
@@ -24,7 +25,7 @@ public class ItemManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] hitColiders = Physics.OverlapSphere(transform.position, 5f);
+        Collider[] hitColiders = Physics.OverlapSphere(transform.position, 5f,liftable);
         foreach (var hitColider in hitColiders)
         {
             if (hitColider.gameObject.tag == "Item")

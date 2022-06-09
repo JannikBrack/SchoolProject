@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject healthBarParent;
     [SerializeField] float enemyHealth;
     [SerializeField] GameObject itemSpawner;
+    [SerializeField] LayerMask Player;
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;

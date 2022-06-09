@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float lookRadius = 10f;
+
     public float ChaseSpeed = 5f;
     public float IdleSpeed = 2f;
     [SerializeField] float damage;

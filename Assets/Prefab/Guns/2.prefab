@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 959242151953233591}
   - component: {fileID: 959242151953233588}
   - component: {fileID: 959242151953233589}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 2
   m_TagString: Weapons
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 959242151971703330}
   - component: {fileID: -9217702216672232739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 2
   m_TagString: Weapons
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 959242152581060064}
   - component: {fileID: 959242152581060065}
   - component: {fileID: 959242152581060094}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Weapons
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959242152962776428}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Design
   m_TagString: Weapons
   m_Icon: {fileID: 0}
