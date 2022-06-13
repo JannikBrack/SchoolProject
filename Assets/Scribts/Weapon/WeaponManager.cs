@@ -57,7 +57,7 @@ public class WeaponManager : MonoBehaviour
 
         if (currentWeapon != null) Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
 
-        if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen) Attack();
+        if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused) Attack();
     }
     #endregion
 
@@ -131,7 +131,7 @@ public class WeaponManager : MonoBehaviour
                     {
                         EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
                         enemyHealth.GetDamage(loadout[activeSlot].damage);
-                        Destroy(newHole, 5f / (hit.collider.gameObject.GetComponent<EnemyController>().ChaseSpeed * 2.5f));
+                        Destroy(newHole, 0.05f);
                     }
                     else
                         Destroy(newHole, 5f);

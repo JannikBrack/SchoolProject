@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 50
-  ChaseSpeed: 5
+  ChaseSpeed: 50
   IdleSpeed: 2
   damage: 0.25
   cooldownTime: 2

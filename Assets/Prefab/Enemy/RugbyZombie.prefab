@@ -120,12 +120,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5300174115519758413}
   healthBarParent: {fileID: 8638979925381028713}
-  enemyHealth: 3
+  enemyHealth: 10
   itemSpawner: {fileID: 31850838508579759}
   Player:
     serializedVersion: 2
     m_Bits: 256
-  xP_Dropamount: 0.5
+  xP_Dropamount: 5
   lootItems:
   - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
   lootWeapons: []
@@ -157,6 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e947315c2a7d54882822d6e0d3fc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookRadius: 100
+  ChaseSpeed: 50
+  IdleSpeed: 5
+  damage: 0.8
+  cooldownTime: 3.5
 --- !u!1 &5300174115519758413
 GameObject:
   m_ObjectHideFlags: 0

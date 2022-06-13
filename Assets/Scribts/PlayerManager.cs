@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public float xP_Amount = 0;
     public float xP_Meeter = 0;
     public bool deadPlayer;
+    public bool gamePaused;
 
     [Header("Skills")]
     public bool doubleJump;
@@ -43,10 +44,8 @@ public class PlayerManager : MonoBehaviour
 
     public void MeeterToAmount()
     {
-        if (deadPlayer)
-        {
-            xP_Amount = xP_Meeter;
-            xP_Meeter = 0;
-        }
+        xP_Amount = xP_Meeter;
+        xP_Meeter = 0;
+        UpdateXpAmount();
     }
 }

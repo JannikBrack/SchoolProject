@@ -23,6 +23,7 @@ public class Sway : MonoBehaviour
 
     private void Update()
     {
+        if(PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused)
         UpdateSway();
     }
 

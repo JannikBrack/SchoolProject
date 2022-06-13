@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieController : MonoBehaviour
+public class RubbyZombieCotroller : MonoBehaviour
 {
     [SerializeField] float lookRadius;
 
@@ -16,7 +16,6 @@ public class ZombieController : MonoBehaviour
     NavMeshAgent agent;
     float distance;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +28,11 @@ public class ZombieController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused) agent.isStopped = true;
-        else agent.isStopped = false;
         distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= lookRadius && !PlayerManager.instance.deadPlayer)
+        if (distance <= lookRadius && !PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused)
         {
             Chase();
-            if (distance <= 7f)
+            if (distance <= 30f)
             {
                 Charge();
             }
@@ -63,7 +60,7 @@ public class ZombieController : MonoBehaviour
         {
             Attack();
         }
-        
+
     }
     private void Attack()
     {
@@ -76,7 +73,7 @@ public class ZombieController : MonoBehaviour
             target.GetComponent<PlayerHealth>().GetDamage(damage);
             FaceTarget();
             StartCooldown();
-            
+
         }
     }
     private void Patrol()
@@ -100,4 +97,4 @@ public class ZombieController : MonoBehaviour
     {
         ChaseTime = cooldownTime;
     }
-    }
+}
