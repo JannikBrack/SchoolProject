@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float enemyHealth;
     [SerializeField] GameObject itemSpawner;
     [SerializeField] LayerMask Player;
+    [SerializeField] float xP_Dropamount;
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
@@ -47,6 +48,10 @@ public class EnemyHealth : MonoBehaviour
         {
             float randomNumber = Random.Range(0, 100);
             //deathAnimations
+
+            PlayerManager.instance.xP_Meeter += xP_Dropamount; 
+            
+
             if (!(lootItems.Length <= 0))
             {
                 foreach (var item in lootItems)

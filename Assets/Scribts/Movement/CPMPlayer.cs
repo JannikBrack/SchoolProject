@@ -26,45 +26,31 @@ public class CPMPlayer : MonoBehaviour
 
     [SerializeField] float friction = 6; //Ground friction
 
-    /* Movement stuff */
-    [SerializeField] float moveSpeed = 7.0f;                // Ground move speed
-    [SerializeField] float runAcceleration = 14.0f;         // Ground accel
-    [SerializeField] float runDeacceleration = 10.0f;       // Deacceleration that occurs when running on the ground
-    [SerializeField] float airAcceleration = 2.0f;          // Air accel
-    [SerializeField] float airDecceleration = 2.0f;         // Deacceleration experienced when ooposite strafing
-    [SerializeField] float airControl = 0.3f;               // How precise air control is
-    [SerializeField] float sideStrafeAcceleration = 50.0f;  // How fast acceleration occurs to get up to sideStrafeSpeed when
-    [SerializeField] float sideStrafeSpeed = 1.0f;          // What the max speed to generate when side strafing
-    [SerializeField] float jumpSpeed = 8.0f;                // The speed at which the character's up axis gains when hitting jump
+    [Header("Movement Vatiables")]
+    [SerializeField] float moveSpeed = 7.0f;                
+    [SerializeField] float runAcceleration = 14.0f;         
+    [SerializeField] float runDeacceleration = 10.0f;       
+    [SerializeField] float airAcceleration = 2.0f;          
+    [SerializeField] float airDecceleration = 2.0f;         
+    [SerializeField] float airControl = 0.3f;               
+    [SerializeField] float sideStrafeAcceleration = 50.0f;  
+    [SerializeField] float sideStrafeSpeed = 1.0f;          
+    [SerializeField] float jumpSpeed = 8.0f;                
     [SerializeField] bool holdJumpToBhop = false;
-    // When enabled allows player to just hold jump button to keep on bhopping perfectly. Beware: smells like casual.
 
-    private float movementCounter;
-    private float idleCounter;
-
-    /*print() style */
-    [SerializeField] GUIStyle style;
-
-    /*FPS Stuff */
-    [SerializeField] float fpsDisplayRate = 4.0f; // 4 updates per sec
-
-    private int frameCount = 0;
-    private float dt = 0.0f;
-    private float fps = 0.0f;
-
+    //Character Controller
     private CharacterController _controller;
 
     // Camera rotations
     private float rotX = 0.0f;
     private float rotY = 0.0f;
-
     private Vector3 moveDirectionNorm = Vector3.zero;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 weaponOrigen;
     private float playerTopVelocity = 0.0f;
 
     //Inventory
-    [SerializeField] GameObject Inventory;
+    
 
     // players can queue the next jump just before he hits the ground
     private bool wishJump = false;
@@ -75,8 +61,9 @@ public class CPMPlayer : MonoBehaviour
     // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
     private Cmd _cmd;
 
-
+    [Header("Inventory")]
     public InvOpenClose InvOpenClose;
+    [SerializeField] GameObject Inventory;
 
     [Header("WallJump")]
     [SerializeField] private float wallDistance = 0.5f;
@@ -86,6 +73,8 @@ public class CPMPlayer : MonoBehaviour
     [SerializeField] private Transform orientation;
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
+
+    [Header("PlayerHealth")]
     [SerializeField] PlayerHealth playerHealth;
     #endregion
 
@@ -113,76 +102,73 @@ public class CPMPlayer : MonoBehaviour
 
     private void Update()
     {
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
-        
-        // Do FPS calculation
-        frameCount++;
-        dt += Time.deltaTime;
-        if (dt > 1.0 / fpsDisplayRate)
+        if (!PlayerManager.instance.deadPlayer)
         {
-            fps = Mathf.Round(frameCount / dt);
-            frameCount = 0;
-            dt -= 1.0f / fpsDisplayRate;
-                 }
-        /* Ensure that the cursor is locked into the screen */
-        if (Cursor.lockState != CursorLockMode.Locked && !playerHealth.dead) {
-            if (!Inventory.activeInHierarchy)
+            wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
+            wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
+
+
+            /* Ensure that the cursor is locked into the screen */
+            if (Cursor.lockState != CursorLockMode.Locked)
             {
-                if (Input.GetButtonDown("Fire1"))
-                    Cursor.lockState = CursorLockMode.Locked;
+                if (!Inventory.activeInHierarchy)
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                        Cursor.lockState = CursorLockMode.Locked;
+                }
+
             }
-            
+
+            if (!InvOpenClose.InvOpen)
+            {
+                rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
+                rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;
+
+                // Clamp the X rotation
+                if (rotX < -90)
+                    rotX = -90;
+                else if (rotX > 90)
+                    rotX = 90;
+            }
+
+
+            this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
+            playerView.rotation = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
+
+            /* Movement, here's the important part */
+            QueueJump();
+            if (_controller.isGrounded)
+                GroundMove();
+            else if (!_controller.isGrounded && wallLeft && Input.GetKey(KeyCode.Space))
+            {
+                Vector3 wallRunJumpDirection = transform.up + leftWallHit.normal;
+                playerVelocity = wallRunJumpDirection * wallJumpForce;
+            }
+            else if (!_controller.isGrounded && wallRight && Input.GetKey(KeyCode.Space))
+            {
+                Vector3 wallRunJumpDirection = transform.up + rightWallHit.normal;
+                playerVelocity = wallRunJumpDirection * wallJumpForce;
+            }
+            else if (!_controller.isGrounded)
+                AirMove();
+
+            // Move the controller
+            _controller.Move(playerVelocity * Time.deltaTime);
+
+            /* Calculate top velocity */
+            Vector3 udp = playerVelocity;
+            udp.y = 0.0f;
+            if (udp.magnitude > playerTopVelocity)
+                playerTopVelocity = udp.magnitude;
+
+            //Need to move the camera after the player has been moved because otherwise the camera will clip the player if going fast enough and will always be 1 frame behind.
+            // Set the camera's position to the transform
+            playerView.position = new Vector3(
+                transform.position.x,
+                transform.position.y + playerViewYOffset,
+                transform.position.z);
         }
-
-        if (!InvOpenClose.InvOpen && !playerHealth.dead)
-        {
-            rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
-            rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;
-
-            // Clamp the X rotation
-            if (rotX < -90)
-                rotX = -90;
-            else if (rotX > 90)
-                rotX = 90;
-        }
-
-
-        this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
-        playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
-
-        /* Movement, here's the important part */
-        QueueJump();
-        if(_controller.isGrounded)
-            GroundMove();
-        else if (!_controller.isGrounded && wallLeft && Input.GetKey(KeyCode.Space))
-        {
-            Vector3 wallRunJumpDirection = transform.up + leftWallHit.normal;
-            playerVelocity = wallRunJumpDirection * wallJumpForce;
-        }
-        else if (!_controller.isGrounded && wallRight && Input.GetKey(KeyCode.Space))
-        {
-            Vector3 wallRunJumpDirection = transform.up + rightWallHit.normal;
-            playerVelocity = wallRunJumpDirection * wallJumpForce;
-        }
-        else if (!_controller.isGrounded)
-            AirMove();
-
-        // Move the controller
-        _controller.Move(playerVelocity * Time.deltaTime);
-
-        /* Calculate top velocity */
-        Vector3 udp = playerVelocity;
-        udp.y = 0.0f;
-        if(udp.magnitude > playerTopVelocity)
-            playerTopVelocity = udp.magnitude;
-
-        //Need to move the camera after the player has been moved because otherwise the camera will clip the player if going fast enough and will always be 1 frame behind.
-        // Set the camera's position to the transform
-        playerView.position = new Vector3(
-            transform.position.x,
-            transform.position.y + playerViewYOffset,
-            transform.position.z);
+        
     }
     #endregion
 
@@ -198,7 +184,7 @@ public class CPMPlayer : MonoBehaviour
     }
 
     /**
-     * Queues the next jump just like in Q3
+     * Queues the next jump 
      */
     private void QueueJump()
     {

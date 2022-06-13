@@ -8,27 +8,45 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject deadScreen;
     [SerializeField] Transform spawnpoint;
     [SerializeField] Animator deadScreeAnimator;
-    public bool dead;
     void Awake()
     {
         playerHealth = 1;
         deadScreen.SetActive(false);
-        dead = false;
     }
 
 
     public void GetDamage(float amountOfDamage)
     {
-        if (!dead)
+        if (!PlayerManager.instance.deadPlayer)
         {
             playerHealth -= amountOfDamage;
             if (playerHealth <= 0)
             {
-                //Dead
-                deadScreeAnimator.Play("PlayerDied");
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
-                dead = true;
+                if (PlayerManager.instance.DeadlyEscape && amountOfDamage > playerHealth)
+                {
+                    int ranNum = Random.Range(0, 100);
+                    if (ranNum <= 15)
+                    {
+                        playerHealth = 0.01f;
+                    }
+                    else
+                    {
+                        //Dead
+                        deadScreeAnimator.Play("PlayerDied");
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.Confined;
+                        PlayerManager.instance.deadPlayer = true;
+                        Debug.Log(PlayerManager.instance.deadPlayer);
+                    }
+                }
+                else
+                {
+                    //Dead
+                    deadScreeAnimator.Play("PlayerDied");
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+                    PlayerManager.instance.deadPlayer = true;
+                }
             }
             healthbar.fillAmount = playerHealth;
         }
@@ -36,11 +54,13 @@ public class PlayerHealth : MonoBehaviour
     public void Respawn()
     {
         deadScreeAnimator.SetTrigger("Respawn");
-        dead = false;
+        PlayerManager.instance.deadPlayer = false;
+        PlayerManager.instance.MeeterToAmount();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         playerHealth = 1;
         healthbar.fillAmount = playerHealth;
-        Vector3.Lerp(transform.position, spawnpoint.position,Vector3.Distance(spawnpoint.position,transform.position));
+        transform.position = spawnpoint.position;
+        Physics.SyncTransforms();
     }
 }
