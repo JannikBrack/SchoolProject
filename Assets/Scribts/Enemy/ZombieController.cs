@@ -11,12 +11,14 @@ public class ZombieController : MonoBehaviour
     public float IdleSpeed = 2f;
     [SerializeField] float damage;
 
-    float nextAttack = 0f;
-    float nextAttackStep = 0f;
-    [SerializeField] float cooldownTime = 5f;
-    [SerializeField] float cooldownAttackTime = 2f;
+    float ChaseTime = 0f;
+    float attackTime = 0f;
+    [SerializeField] float cooldownTime;
+    [SerializeField] float cooldownAttackTime;
     Transform target;
     NavMeshAgent agent;
+    float distance;
+    bool canAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -24,54 +26,78 @@ public class ZombieController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = PlayerManager.instance.player.transform;
         agent.speed = ChaseSpeed;
-        nextAttackStep = Time.time + cooldownTime;
-        nextAttack = Time.time + cooldownAttackTime;
+        StartCooldown();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= lookRadius)
+        distance = Vector3.Distance(target.position, transform.position);
+        if (distance <= lookRadius && !PlayerManager.instance.deadPlayer)
         {
-            agent.speed = ChaseSpeed;
-            agent.SetDestination(target.position);
-
-            if (distance <= 5f)
+            Chase();
+            if (distance <= 7f)
             {
-                agent.SetDestination(transform.position);
-                if (Time.time - nextAttackStep < cooldownTime)
-                {
-                    Debug.Log(1);
-                    agent.speed = 50f;
-                    agent.SetDestination(target.position);
-                    if (distance <= agent.stoppingDistance && Time.time - nextAttack < cooldownAttackTime)
-                    {
-                        Debug.Log(2);
-                        target.GetComponent<PlayerHealth>().GetDamage(damage);
-                        FaceTarget();
-                        agent.SetDestination(transform.position);
-                        nextAttack = Time.time + cooldownAttackTime;
-                    }
-                    nextAttackStep = Time.time;
-                }
-                
+                Charge();
             }
+            else
+            {
+                StartCooldown();
+                agent.SetDestination(target.position);
+            }
+
         }
         else
         {
-            agent.speed = IdleSpeed;
-            Vector3 patrolPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
-            if (!(agent.stoppingDistance <= Vector3.Distance(patrolPosition, transform.position))) agent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
+            Patrol();
         }
     }
+    private void Charge()
+    {
+        agent.SetDestination(transform.position);
+        if (ChaseTime > 0)
+        {
+            ChaseTime -= Time.deltaTime;
+        }
+        else
+        {
+            Attack();
+        }
+        
+    }
+    private void Attack()
+    {
+        agent.SetDestination(target.position);
+        agent.speed = 1000f;
+        if (distance <= agent.stoppingDistance)
+        {
 
+            agent.SetDestination(transform.position);
+            target.GetComponent<PlayerHealth>().GetDamage(damage);
+            FaceTarget();
+            StartCooldown();
+            
+        }
+    }
+    private void Patrol()
+    {
+        agent.speed = IdleSpeed;
+        Vector3 patrolPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+        if (!(agent.stoppingDistance <= Vector3.Distance(patrolPosition, transform.position))) agent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
+    }
+    private void Chase()
+    {
+        agent.speed = ChaseSpeed;
+        agent.SetDestination(target.position);
+    }
     void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookrotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookrotation, Time.deltaTime * 5f);
     }
-
-
-}
+    private void StartCooldown()
+    {
+        ChaseTime = cooldownTime;
+    }
+    }
