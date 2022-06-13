@@ -1227,8 +1227,9 @@ MonoBehaviour:
   player: {fileID: 2032696888}
   numberOfXP: {fileID: 1300392390}
   xP_Amount: 0
-  lastXP_Amount: 0
+  xP_Meeter: 0
   deadPlayer: 0
+  gamePaused: 0
   doubleJump: 0
   DeadlyEscape: 0
   SpyEye: 0
@@ -1876,7 +1877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &474720397
 Transform:
   m_ObjectHideFlags: 0
@@ -1905,7 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
 --- !u!1 &518929750
 GameObject:
   m_ObjectHideFlags: 0
@@ -4477,7 +4478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
 --- !u!1 &1080547870
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,7 +4869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1207665784
 Transform:
   m_ObjectHideFlags: 0
@@ -4897,7 +4898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
 --- !u!1 &1220949315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7972,7 +7973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1794398009
 Transform:
   m_ObjectHideFlags: 0
