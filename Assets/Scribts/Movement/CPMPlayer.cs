@@ -1,7 +1,4 @@
-﻿
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Contains the command the user wishes upon the character
 struct Cmd
@@ -49,9 +46,6 @@ public class CPMPlayer : MonoBehaviour
     private Vector3 weaponOrigen;
     private float playerTopVelocity = 0.0f;
 
-    //Inventory
-    
-
     // players can queue the next jump just before he hits the ground
     private bool wishJump = false;
 
@@ -76,11 +70,18 @@ public class CPMPlayer : MonoBehaviour
 
     [Header("PlayerHealth")]
     [SerializeField] PlayerHealth playerHealth;
+
+    //Dash
+    private float dashCooldownTime;
+    private float dashTime;
+    [SerializeField] bool canDash;
+    [SerializeField] bool dashing;
     #endregion
 
     #region Start&Update
     private void Start()
     {
+        ResetCooldown();
         // Hide the cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -131,12 +132,20 @@ public class CPMPlayer : MonoBehaviour
                     rotX = 90;
             }
 
+            if ((playerHealth.GetHealth() <= (playerHealth.GetMaxHealth() * 0.05f)) && PlayerManager.instance.fastChicken) moveSpeed = 10.5f;
+            else moveSpeed = 7;
+
 
             this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
             playerView.rotation = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
 
             /* Movement, here's the important part */
             QueueJump();
+            if(Input.GetKey(KeyCode.F) && PlayerManager.instance.sideStep && canDash)
+            {
+                dashing = true;
+            }
+            Dash();
             if (_controller.isGrounded)
                 GroundMove();
             else if (!_controller.isGrounded && wallLeft && Input.GetKey(KeyCode.Space))
@@ -300,6 +309,7 @@ public class CPMPlayer : MonoBehaviour
 
         SetMovementDir();
 
+
         wishdir = new Vector3(_cmd.rightMove, 0, _cmd.forwardMove);
         wishdir = transform.TransformDirection(wishdir);
         wishdir.Normalize();
@@ -319,6 +329,44 @@ public class CPMPlayer : MonoBehaviour
             wishJump = false;
         }
     }
+    private void Dash()
+    {
+        if (dashCooldownTime > 0)
+        {
+            canDash = false;
+            dashCooldownTime -= Time.deltaTime;
+        }
+        else
+        {
+            canDash = true;
+            if (dashing)
+            {
+                if (dashTime > 0)
+                {
+                    SetMovementDir();
+                    if (!(_cmd.forwardMove == 1))
+                    {
+                        moveSpeed = 20f;
+                    }
+
+                    dashTime -= Time.deltaTime;
+                }
+                else
+                {
+                    moveSpeed = 7;
+                    ResetCooldown();
+                }
+            }
+        }
+    }
+    private void ResetCooldown()
+    {
+        dashCooldownTime = 3f;
+        dashTime = 0.5f;
+        canDash = true;
+        dashing = false;
+    }
+
     #endregion
 
     #region Applyfriction

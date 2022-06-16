@@ -368,6 +368,8 @@ namespace UnityEngine.AI
                 return false;
 
             // Prefab parent owns the asset reference
+#pragma warning disable CS0618 // Type or member is obsolete
+
             var prefabType = UnityEditor.PrefabUtility.GetPrefabType(this);
             if (prefabType == UnityEditor.PrefabType.Prefab)
                 return false;
@@ -384,7 +386,7 @@ namespace UnityEngine.AI
                 if (surface != this && surface.m_NavMeshData == m_NavMeshData)
                     return true;
             }
-
+#pragma warning restore CS0618
             // Asset is not referenced by known surfaces
             return false;
         }

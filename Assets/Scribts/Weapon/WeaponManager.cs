@@ -96,6 +96,31 @@ public class WeaponManager : MonoBehaviour
     {
         Transform spawn = cam;
         RaycastHit hit = new RaycastHit();
+        float calculatedDamage = 0f;
+        if (PlayerManager.instance.deadlyPrecision)
+        {
+            if (Random.Range(0,100) <= 20)
+            {
+                if (loadout[activeSlot] == null)
+                {
+                    calculatedDamage = 0.1f;
+                }
+                else
+                    calculatedDamage = loadout[activeSlot].damage * 2;
+            }
+            else if(loadout[activeSlot] == null)
+            { 
+                calculatedDamage = 0.05f;
+            }
+            else
+                calculatedDamage = loadout[activeSlot].damage;
+        }
+        else if (loadout[activeSlot] == null)
+        {
+            calculatedDamage = 0.05f;
+        }
+        else
+            calculatedDamage = loadout[activeSlot].damage;
         
             if (EmptySlot)
             {
@@ -117,7 +142,7 @@ public class WeaponManager : MonoBehaviour
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
                         EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                        enemyHealth.GetDamage(loadout[activeSlot].damage);
+                        enemyHealth.GetDamage(calculatedDamage);
                     }
                 }
             }
@@ -130,7 +155,7 @@ public class WeaponManager : MonoBehaviour
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
                         EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-                        enemyHealth.GetDamage(loadout[activeSlot].damage);
+                        enemyHealth.GetDamage(calculatedDamage);
                         Destroy(newHole, 0.05f);
                     }
                     else

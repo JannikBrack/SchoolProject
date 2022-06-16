@@ -1,19 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] Image healthbar;
     [SerializeField] float playerHealth;
+    private float lvlPlayerhealth;
+    [SerializeField] TextMeshProUGUI LP_Amount;
     [SerializeField] GameObject deadScreen;
     [SerializeField] Transform spawnpoint;
     [SerializeField] Animator deadScreeAnimator;
     void Awake()
     {
-        playerHealth = 1;
         deadScreen.SetActive(false);
     }
 
+    private void Update()
+    {
+        //for presetation instandkill
+        if (Input.GetKeyUp(KeyCode.K)) GetDamage(playerHealth);
+    }
 
     public void GetDamage(float amountOfDamage)
     {
@@ -22,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
             playerHealth -= amountOfDamage;
             if (playerHealth <= 0)
             {
-                if (PlayerManager.instance.DeadlyEscape && amountOfDamage > playerHealth)
+                if (PlayerManager.instance.closeCall && amountOfDamage > playerHealth)
                 {
                     int ranNum = Random.Range(0, 100);
                     if (ranNum <= 15)
@@ -36,7 +43,6 @@ public class PlayerHealth : MonoBehaviour
                         Cursor.visible = true;
                         Cursor.lockState = CursorLockMode.Confined;
                         PlayerManager.instance.deadPlayer = true;
-                        Debug.Log(PlayerManager.instance.deadPlayer);
                     }
                 }
                 else
@@ -48,19 +54,42 @@ public class PlayerHealth : MonoBehaviour
                     PlayerManager.instance.deadPlayer = true;
                 }
             }
-            healthbar.fillAmount = playerHealth;
+            healthbar.fillAmount = playerHealth / lvlPlayerhealth;
+            LP_Amount.text = playerHealth.ToString() + " LP";
         }
     }
     public void Respawn()
     {
+        //Animation
         deadScreeAnimator.SetTrigger("Respawn");
+
         PlayerManager.instance.deadPlayer = false;
+
+        //LevelManagement
         PlayerManager.instance.MeeterToAmount();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        playerHealth = 1;
-        healthbar.fillAmount = playerHealth;
+        PlayerManager.instance.LevelUp(1);
+
+        //Respawn
         transform.position = spawnpoint.position;
         Physics.SyncTransforms();
+
+        //Cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void SetHealth(float newHealth)
+    {
+        playerHealth = newHealth;
+        lvlPlayerhealth = newHealth;
+        healthbar.fillAmount = 1;
+        LP_Amount.text = playerHealth.ToString() + " LP";
+    }
+    public float GetHealth()
+    {
+        return playerHealth;
+    }
+    public float GetMaxHealth()
+    {
+        return lvlPlayerhealth;
     }
 }

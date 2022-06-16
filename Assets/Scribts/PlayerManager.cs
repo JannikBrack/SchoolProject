@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
@@ -11,41 +10,196 @@ public class PlayerManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        Lvl1SetUp();
     }
     #endregion
 
     public GameObject player;
-    [SerializeField] TextMeshProUGUI numberOfXP;
-    public float xP_Amount = 0;
-    public float xP_Meeter = 0;
+    public Image cc_Background;
+    public Image dp_Background;
+    public Image fh_Background;
+    public Image ss_Background;
+    public Image fc_Background;
+
+    public PlayerHealth health;
+    [SerializeField] TextMeshProUGUI numberofSP;
+    [SerializeField] TextMeshProUGUI playerLevelUI;
+    public int playerLevel;
+    private float nextLvl_Up;
+    public float xP_Amount;
+    public float xP_Meeter;
+    public float skillpointAmount;
     public bool deadPlayer;
     public bool gamePaused;
 
-    [Header("Skills")]
-    public bool doubleJump;
-    public bool DeadlyEscape;
-    public bool SpyEye;
-    public bool DeagleDemon;
-    public bool ShadowStep;
-    public bool Laplas;
-    public bool FastChicken;
-    public bool FlashDash;
+    private float lastHealth;
+    private float nextHealth;
+    private float nextSkillPoint;
 
+    [Header("Skills")]
+    public bool closeCall;
+    public bool deadlyPrecision;
+    public bool fastHands;
+    public bool sideStep;
+    public bool fastChicken;
+
+    /*
+    public int lvl_Ups = 0;
+    */
 
     private void FixedUpdate()
     {
-        UpdateXpAmount();
+        #region forPresentation
+        /*
+        if (Input.GetKey(KeyCode.P))
+        {
+            if (lvl_Ups > 0)
+            {
+                for (int i = 0; i < lvl_Ups; i++)
+                {
+                    lvl_Ups--;
+                    float lastNeededXP = nextLvl_Up;
+                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+                    xP_Amount += nextLvl_Up;
+                    nextLvl_Up = lastNeededXP;
+                    LevelUp(lvl_Ups);
+                }
+            }
+        }
+        */
+        #endregion
     }
 
-    private void UpdateXpAmount()
+    private void UpdateUI()
     {
-            numberOfXP.text = xP_Amount.ToString() + " Xp";
+        numberofSP.text = skillpointAmount.ToString() + " Skillpoints";
+        playerLevelUI.text = "Player Level: " + playerLevel.ToString();
     }
-
     public void MeeterToAmount()
     {
         xP_Amount = xP_Meeter;
         xP_Meeter = 0;
-        UpdateXpAmount();
+    }
+    private void Lvl1SetUp()
+    {
+        playerLevel = 1;
+        xP_Meeter = 0;
+        xP_Amount = 0;
+        skillpointAmount = 0;
+        lastHealth = 2000f;
+        health.SetHealth(lastHealth);
+        nextLvl_Up = 100f;
+        nextSkillPoint = 10f;
+    }
+    public void LevelUp(int lvl)
+    {
+        if (lvl == 1)
+        {
+            while (xP_Amount >= nextLvl_Up)
+            {
+                if (xP_Amount >= nextLvl_Up)
+                {
+                    playerLevel++;
+
+                    if (playerLevel == nextSkillPoint && playerLevel <= 50)
+                    {
+                        skillpointAmount++;
+                        nextSkillPoint += 10;
+                        UpdateUI();
+                    }
+
+                    nextHealth = lastHealth + (lastHealth * 0.065f);
+                    nextHealth = Mathf.Round(nextHealth);
+                    lastHealth = nextHealth;
+                    health.SetHealth(nextHealth);
+
+                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+                    xP_Amount -= nextLvl_Up;
+                    if (xP_Amount < 0)
+                    {
+                        xP_Amount = 0f;
+                    }
+
+                    UpdateUI();
+                }
+            }
+        }
+        #region ForPresentation
+        /*
+        else if (lvl > 1)
+        {
+            for (int i = 0; i < lvl; i++)
+            {
+                if (xP_Amount >= nextLvl_Up)
+                {
+                    playerLevel++;
+
+                    nextHealth = lastHealth + (lastHealth * 0.065f);
+                    nextHealth = Mathf.Round(nextHealth);
+                    lastHealth = nextHealth;
+                    health.SetHealth(nextHealth);
+
+                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+                    xP_Amount -= nextLvl_Up;
+                    if (xP_Amount < 0)
+                    {
+                        xP_Amount = 0f;
+                    }
+                }
+            }
+        */
+        #endregion
+    }
+
+    public void buyCloseCall()
+    {
+        if (skillpointAmount > 0 && !closeCall)
+        {
+            skillpointAmount--;
+            closeCall = true;
+            cc_Background.color = Color.green;
+            UpdateUI();
+        }
+    }
+    public void buydeadlyPrecision()
+    {
+        if (skillpointAmount > 0 && ! deadlyPrecision)
+        {
+            skillpointAmount--;
+            deadlyPrecision = true;
+            dp_Background.color = Color.green;
+            UpdateUI();
+        }
+    }
+    public void buyFastHands()
+    {
+        if (skillpointAmount > 0 && !fastHands)
+        {
+            skillpointAmount--;
+            fastHands = true;
+            fh_Background.color = Color.green;
+            UpdateUI();
+        }
+    }
+    public void buySideStep()
+    {
+        if (skillpointAmount > 0 && !sideStep)
+        {
+            skillpointAmount--;
+            sideStep = true;
+            ss_Background.color = Color.green;
+            UpdateUI();
+        }
+    }
+    public void buyFastChicken()
+    {
+        if (skillpointAmount > 0 && !fastChicken)
+        {
+            skillpointAmount--;
+            fastChicken = true;
+            fc_Background.color = Color.green;
+            UpdateUI();
+        }
     }
 }
+
