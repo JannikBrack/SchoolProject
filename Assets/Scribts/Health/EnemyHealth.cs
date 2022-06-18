@@ -7,10 +7,14 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] GameObject healthBar;
     [SerializeField] GameObject healthBarParent;
-    [SerializeField] float enemyHealth;
     [SerializeField] GameObject itemSpawner;
-    [SerializeField] LayerMask Player;
+
+    [SerializeField] float enemyHealth;
     [SerializeField] float xP_Dropamount;
+    private float enemyHealthPercent;
+    private float enemyMaxHealth;
+
+    [SerializeField] LayerMask Player;
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
@@ -18,11 +22,15 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-        healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
+        enemyHealthPercent = 1f;
+        healthBar.transform.localScale = new Vector3(3 * enemyHealthPercent, 0.25f, 0.01f);
+        enemyMaxHealth = EnemyManager.instance.zombie_Health;
     }
     private void FixedUpdate()
     {
-
+        enemyHealth = EnemyManager.instance.zombie_Health * enemyHealthPercent;
+        enemyMaxHealth = EnemyManager.instance.zombie_Health;
+        xP_Dropamount = EnemyManager.instance.zombie_Xp_Dropamount;
         Collider[] hitColiders = Physics.OverlapSphere(transform.position, 20f);
 
         foreach (var hitcolider in hitColiders)
@@ -44,13 +52,16 @@ public class EnemyHealth : MonoBehaviour
     public void GetDamage(float amountOfDamage)
     {
         enemyHealth -= amountOfDamage;
+        Debug.Log("Enemyhealth: " + enemyHealth);
+        Debug.Log("EnemyMaxhealth: " + enemyMaxHealth);
+        enemyHealthPercent = enemyHealth / enemyMaxHealth;
         if (enemyHealth <= 0)
         {
             float randomNumber = Random.Range(0, 100);
             //deathAnimations
 
-            PlayerManager.instance.xP_Meeter += xP_Dropamount; 
-            
+            PlayerManager.instance.xP_Meeter += xP_Dropamount;
+
 
             if (!(lootItems.Length <= 0))
             {
@@ -62,20 +73,20 @@ public class EnemyHealth : MonoBehaviour
                         {
                             Instantiate(item.itemPrefab, itemSpawner.transform.position, Quaternion.identity);
                         }
-                        
+
                     }
                 }
             }
             else if (!(lootWeapons.Length <= 0))
             {
-                foreach(var weapon in lootWeapons)
+                foreach (var weapon in lootWeapons)
                 {
                     if (randomNumber <= weapon.dropChances) Instantiate(weapon.prefab, transform.position, Quaternion.identity);
                 }
             }
-            
+
             Destroy(gameObject);
         }
-        healthBar.transform.localScale = new Vector3(enemyHealth, 0.25f, 0.01f);
+        healthBar.transform.localScale = new Vector3(3 * enemyHealthPercent, 0.25f, 0.01f);
     }
 }
