@@ -8,7 +8,7 @@ public class ZombieController : MonoBehaviour
 
     public float ChaseSpeed;
     public float IdleSpeed;
-    [SerializeField] float damage;
+    public float damage;
 
     float ChaseTime;
     [SerializeField] float cooldownTime;
@@ -29,6 +29,8 @@ public class ZombieController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        damage = EnemyManager.instance.zombie_Damage;
+
         if (PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused) agent.isStopped = true;
         else agent.isStopped = false;
         distance = Vector3.Distance(target.position, transform.position);

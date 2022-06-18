@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 2357331766231563465}
   - component: {fileID: 4525590793517335658}
   - component: {fileID: 6170244979150313019}
-  - component: {fileID: 2687799756488471572}
   - component: {fileID: 5925598081669715344}
   - component: {fileID: 4559871026223961345}
+  - component: {fileID: 4044349788294359319}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Enemy
@@ -106,29 +106,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2687799756488471572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2581448955462082092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaaf9d1ee6ae75e45a5e41dc5693da34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 5300174115519758413}
-  healthBarParent: {fileID: 8638979925381028713}
-  enemyHealth: 3
-  itemSpawner: {fileID: 31850838508579759}
-  Player:
-    serializedVersion: 2
-    m_Bits: 256
-  xP_Dropamount: 0.5
-  lootItems:
-  - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
-  lootWeapons: []
 --- !u!54 &5925598081669715344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,7 +139,28 @@ MonoBehaviour:
   IdleSpeed: 2
   damage: 0.25
   cooldownTime: 2
-  cooldownAttackTime: 1
+--- !u!114 &4044349788294359319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581448955462082092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f22b63417158ed43a1c9c95ee9f4d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 5300174115519758413}
+  healthBarParent: {fileID: 8638979925381028713}
+  itemSpawner: {fileID: 31850838508579759}
+  enemyHealth: 0
+  xP_Dropamount: 0
+  Player:
+    serializedVersion: 2
+    m_Bits: 256
+  lootItems: []
+  lootWeapons: []
 --- !u!1 &5300174115519758413
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +257,7 @@ GameObject:
   - component: {fileID: 4844840656869187621}
   m_Layer: 9
   m_Name: GFX
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

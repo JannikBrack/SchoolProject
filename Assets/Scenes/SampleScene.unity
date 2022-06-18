@@ -1146,6 +1146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 258819290}
   - component: {fileID: 258819289}
+  - component: {fileID: 258819291}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1174,6 +1175,7 @@ MonoBehaviour:
   health: {fileID: 2032696895}
   numberofSP: {fileID: 1300392390}
   playerLevelUI: {fileID: 364687770}
+  enemyManager: {fileID: 258819291}
   playerLevel: 1
   xP_Amount: 0
   xP_Meeter: 0
@@ -1200,6 +1202,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &258819291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258819288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2d1b58732442c4fad22d55ee26e174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy_Level: 0
+  zombie_Health: 0
+  zombie_Damage: 0
+  zombie_Xp_Dropamount: 0
 --- !u!1 &316816475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4144,7 +4162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1077973080
 Transform:
   m_ObjectHideFlags: 0
@@ -4173,7 +4191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
+  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
 --- !u!1 &1080547870
 GameObject:
   m_ObjectHideFlags: 0
@@ -8625,7 +8643,7 @@ MonoBehaviour:
   cam: {fileID: 1504741074}
   canBeShot:
     serializedVersion: 2
-    m_Bits: 705
+    m_Bits: 704
   invOpenClose: {fileID: 2032696893}
   uiSlots:
   - {fileID: 627629812}

@@ -22,19 +22,25 @@ public class PlayerManager : MonoBehaviour
     public Image fc_Background;
 
     public PlayerHealth health;
+
     [SerializeField] TextMeshProUGUI numberofSP;
     [SerializeField] TextMeshProUGUI playerLevelUI;
+
+    [SerializeField] EnemyManager enemyManager;
+
     public int playerLevel;
-    private float nextLvl_Up;
+
     public float xP_Amount;
     public float xP_Meeter;
     public float skillpointAmount;
+
     public bool deadPlayer;
     public bool gamePaused;
 
     private float lastHealth;
     private float nextHealth;
     private float nextSkillPoint;
+    private float nextLvl_Up;
 
     [Header("Skills")]
     public bool closeCall;
@@ -86,15 +92,24 @@ public class PlayerManager : MonoBehaviour
         xP_Meeter = 0;
         xP_Amount = 0;
         skillpointAmount = 0;
+
         lastHealth = 2000f;
         health.SetHealth(lastHealth);
+
         nextLvl_Up = 100f;
+
         nextSkillPoint = 10f;
+
+        enemyManager.levelSetUp(playerLevel);
     }
     public void LevelUp(int lvl)
     {
         if (lvl == 1)
         {
+            if(xP_Amount < nextLvl_Up)
+            {
+                return;
+            }
             while (xP_Amount >= nextLvl_Up)
             {
                 if (xP_Amount >= nextLvl_Up)
@@ -119,7 +134,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         xP_Amount = 0f;
                     }
-
+                    EnemyManager.instance.levelSetUp(playerLevel);
                     UpdateUI();
                 }
             }

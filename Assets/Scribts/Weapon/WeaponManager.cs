@@ -141,6 +141,7 @@ public class WeaponManager : MonoBehaviour
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
+                    
                         EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
                         enemyHealth.GetDamage(calculatedDamage);
                     }
@@ -154,7 +155,8 @@ public class WeaponManager : MonoBehaviour
                     newHole.transform.LookAt(hit.point + hit.normal);
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                        ZombieHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<ZombieHealth>();
+                        
                         enemyHealth.GetDamage(calculatedDamage);
                         Destroy(newHole, 0.05f);
                     }

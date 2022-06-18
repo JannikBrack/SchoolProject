@@ -76,6 +76,15 @@ public class PlayerHealth : MonoBehaviour
         //Cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Refill Health
+        RefillPlayerHealth(lvlPlayerhealth);
+    }
+    public void RefillPlayerHealth(float refillAmount)
+    {
+        playerHealth += refillAmount;
+        LP_Amount.text = playerHealth.ToString() + " LP";
+        healthbar.fillAmount = playerHealth / lvlPlayerhealth;
     }
     public void SetHealth(float newHealth)
     {
