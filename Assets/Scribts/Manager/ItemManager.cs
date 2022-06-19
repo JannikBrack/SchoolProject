@@ -7,12 +7,17 @@ using System.Collections.Generic;
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private List<InventorySlot> slots;
+
     [SerializeField] private Item[] items;
     [SerializeField] private Weapon[] weapons;
+
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject itemParent;
     [SerializeField] private GameObject itemOrientation;
+
     [SerializeField] private WeaponManager weaponManager;
+    [SerializeField] private PlayerHealth playerHealth;
+
     [SerializeField] private LayerMask liftable;
     private int itemID;
     private int weaponID;
@@ -133,9 +138,9 @@ public class ItemManager : MonoBehaviour
 
     public void RemoveSlot(InventorySlot removingSlot)
     {
-            slots.Remove(removingSlot);
-            Destroy(removingSlot.gameObject);
-            numbersOfSlots--;
+        slots.Remove(removingSlot);
+        Destroy(removingSlot.gameObject);
+        numbersOfSlots--;
     }
 
     private bool gunExist(GameObject hitColider)
@@ -175,8 +180,62 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public Item GetItem(int itemID)
     {
-        
+        return items[itemID];
+    }
+
+    public void WeaponLevelReset()
+    {
+        foreach(var weapon in weapons)
+        {
+            if (weapon.weaponType == 0)
+            {
+                
+            }
+            if (weapon.weaponType == 1)
+            {
+                weapon.damage = 200f;
+            }
+            if (weapon.weaponType == 2)
+            {
+                
+            }
+        }
+    }
+    public void WeaponLevelUp(int lvl)
+    {
+        foreach (var weapon in weapons)
+        {
+            if (weapon.weaponType == 0)
+            {
+                //weapon scaling
+            }
+            if (weapon.weaponType == 1)
+            {
+                if (lvl == 1)
+                    weapon.damage = 200;
+                else if (lvl <= 25f)
+                    for (int i = 2; i < lvl + 1; i++)
+                    {
+                        if (i <= 25f) weapon.damage = weapon.damage + (weapon.damage * 0.2f);
+                        else
+                            return;
+                    }
+                else
+                    for (int i = 2; i < 26; i++)
+                    {
+                        Debug.Log(i);
+                        if (i <= 25f) weapon.damage = weapon.damage + (weapon.damage * 0.2f);
+                        else
+                            return;
+                    }
+
+            }
+            if (weapon.weaponType == 2)
+            {
+                //weapon scaling
+            }
+        }
     }
 }

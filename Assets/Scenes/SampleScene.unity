@@ -1176,6 +1176,7 @@ MonoBehaviour:
   numberofSP: {fileID: 1300392390}
   playerLevelUI: {fileID: 364687770}
   enemyManager: {fileID: 258819291}
+  itemManager: {fileID: 2032696894}
   playerLevel: 1
   xP_Amount: 0
   xP_Meeter: 0
@@ -1979,7 +1980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &474720397
 Transform:
   m_ObjectHideFlags: 0
@@ -2008,7 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
+  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
 --- !u!1 &518929750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2227,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2032696894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
         m_MethodName: SwitchWeapons
         m_Mode: 3
@@ -2414,7 +2415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &553790106
 Transform:
   m_ObjectHideFlags: 0
@@ -4579,7 +4580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1207665784
 Transform:
   m_ObjectHideFlags: 0
@@ -4662,7 +4663,6 @@ MonoBehaviour:
   itemImage: {fileID: 360129983}
   stackSizeText: {fileID: 0}
   itemName: {fileID: 855709318}
-  itemManager: {fileID: 0}
   owningItem: 0
   StackedItem: 0
   stackSize: 0
@@ -4891,7 +4891,6 @@ MonoBehaviour:
   itemImage: {fileID: 1775563290}
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1470928976}
-  itemManager: {fileID: 0}
   owningItem: 0
   StackedItem: 0
   stackSize: 0
@@ -6068,7 +6067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0 LP
+  m_text: '0 HP
 
 
 '
@@ -7272,7 +7271,6 @@ MonoBehaviour:
   itemImage: {fileID: 1678134564}
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1868851156}
-  itemManager: {fileID: 0}
   owningItem: 0
   StackedItem: 0
   stackSize: 0
@@ -7460,7 +7458,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2032696894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
         m_MethodName: SwitchWeapons
         m_Mode: 3
@@ -8090,7 +8088,6 @@ MonoBehaviour:
   itemImage: {fileID: 198167138}
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1989960955}
-  itemManager: {fileID: 0}
   owningItem: 0
   StackedItem: 0
   stackSize: 0
@@ -8182,7 +8179,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2032696894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
         m_MethodName: SwitchWeapons
         m_Mode: 3
@@ -8765,6 +8762,8 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
   - {fileID: 11400000, guid: 2b1995a7e2de08745b284041098a14ee, type: 2}
+  - {fileID: 11400000, guid: 9245f6102eabdd34cb6c502dbe586e79, type: 2}
+  - {fileID: 11400000, guid: 454eba9de6c19384d9d2bb33f2b1c2cc, type: 2}
   weapons:
   - {fileID: 11400000, guid: eeef6e46556e5f44f95f77870df5e475, type: 2}
   - {fileID: 11400000, guid: 4b908033a75261544bb5bdc7fc0c3205, type: 2}
@@ -8773,6 +8772,7 @@ MonoBehaviour:
   itemParent: {fileID: 324922607}
   itemOrientation: {fileID: 1257989250}
   weaponManager: {fileID: 2032696889}
+  playerHealth: {fileID: 2032696895}
   liftable:
     serializedVersion: 2
     m_Bits: 8
@@ -8978,7 +8978,6 @@ MonoBehaviour:
   itemImage: {fileID: 518929752}
   stackSizeText: {fileID: 0}
   itemName: {fileID: 316816477}
-  itemManager: {fileID: 0}
   owningItem: 0
   StackedItem: 0
   stackSize: 0

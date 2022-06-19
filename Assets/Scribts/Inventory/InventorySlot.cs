@@ -7,7 +7,10 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] Button itemImage;
     [SerializeField] TextMeshProUGUI stackSizeText;
     [SerializeField] TextMeshProUGUI itemName;
-    public ItemManager itemManager;
+
+    private ItemManager itemManager;
+    private PlayerHealth playerHealth;
+
     public bool owningItem;
     #endregion
 
@@ -27,6 +30,7 @@ public class InventorySlot : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         itemManager = player.GetComponent<ItemManager>();
+        playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     #region ItemCode
@@ -51,8 +55,11 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
+        Item item = itemManager.GetItem(itemSlotID);
         if (isUseble)
         {
+            if (item.isHealing)
+                playerHealth.RefillPlayerHealth(item.healPercent);
             stackSize--;
             if (stackSize <= 0) itemManager.RemoveSlot(this);
             else stackSizeText.text = stackSize.ToString();

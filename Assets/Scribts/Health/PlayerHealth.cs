@@ -55,11 +55,14 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
             healthbar.fillAmount = playerHealth / lvlPlayerhealth;
-            LP_Amount.text = playerHealth.ToString() + " LP";
+            LP_Amount.text = playerHealth.ToString() + " HP";
         }
     }
     public void Respawn()
     {
+        //Refill Health
+        RefillPlayerHealth(lvlPlayerhealth);
+
         //Animation
         deadScreeAnimator.SetTrigger("Respawn");
 
@@ -67,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
 
         //LevelManagement
         PlayerManager.instance.MeeterToAmount();
-        PlayerManager.instance.LevelUp(1);
+        PlayerManager.instance.LevelUp();
 
         //Respawn
         transform.position = spawnpoint.position;
@@ -77,13 +80,21 @@ public class PlayerHealth : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        //Refill Health
-        RefillPlayerHealth(lvlPlayerhealth);
+        
     }
     public void RefillPlayerHealth(float refillAmount)
     {
         playerHealth += refillAmount;
-        LP_Amount.text = playerHealth.ToString() + " LP";
+        LP_Amount.text = playerHealth.ToString() + " HP";
+        healthbar.fillAmount = playerHealth / lvlPlayerhealth;
+    }
+    public void RefillPlayerHealth(double refillPercent)
+    {
+        float refillingHealth = (float)(lvlPlayerhealth * refillPercent);
+        playerHealth += refillingHealth;
+        if (playerHealth > lvlPlayerhealth) playerHealth = lvlPlayerhealth;
+
+        LP_Amount.text = playerHealth.ToString() + " HP";
         healthbar.fillAmount = playerHealth / lvlPlayerhealth;
     }
     public void SetHealth(float newHealth)
@@ -91,7 +102,7 @@ public class PlayerHealth : MonoBehaviour
         playerHealth = newHealth;
         lvlPlayerhealth = newHealth;
         healthbar.fillAmount = 1;
-        LP_Amount.text = playerHealth.ToString() + " LP";
+        LP_Amount.text = playerHealth.ToString() + " HP";
     }
     public float GetHealth()
     {

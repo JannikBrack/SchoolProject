@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 6170244979150313019}
   - component: {fileID: 5925598081669715344}
   - component: {fileID: 4559871026223961345}
-  - component: {fileID: 2396273958343804869}
+  - component: {fileID: 6520443114478540451}
+  - component: {fileID: 3167935024356643470}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Enemy
@@ -138,8 +139,8 @@ MonoBehaviour:
   ChaseSpeed: 50
   IdleSpeed: 5
   damage: 0.25
-  cooldownTime: 2
---- !u!114 &2396273958343804869
+  cooldownTime: 1
+--- !u!114 &6520443114478540451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,18 +149,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2581448955462082092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaaf9d1ee6ae75e45a5e41dc5693da34, type: 3}
+  m_Script: {fileID: 11500000, guid: a03dc46110ed56246a9447ea25886f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5300174115519758413}
   healthBarParent: {fileID: 8638979925381028713}
+  enemyHealthManager: {fileID: 3167935024356643470}
+--- !u!114 &3167935024356643470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581448955462082092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917327f7e2fd12e4b9e5dfc56c02b4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 5300174115519758413}
   itemSpawner: {fileID: 31850838508579759}
-  enemyHealth: 0
-  xP_Dropamount: 0
-  Player:
-    serializedVersion: 2
-    m_Bits: 256
-  lootItems: []
+  lootItems:
+  - {fileID: 11400000, guid: 9245f6102eabdd34cb6c502dbe586e79, type: 2}
+  - {fileID: 11400000, guid: 454eba9de6c19384d9d2bb33f2b1c2cc, type: 2}
   lootWeapons: []
 --- !u!1 &5300174115519758413
 GameObject:

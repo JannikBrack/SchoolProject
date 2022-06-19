@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 2357331766231563465}
   - component: {fileID: 4525590793517335658}
   - component: {fileID: 6170244979150313019}
-  - component: {fileID: 2687799756488471572}
   - component: {fileID: 5925598081669715344}
   - component: {fileID: 3333647133399856841}
+  - component: {fileID: 5363275982273596252}
+  - component: {fileID: 6499563375773655180}
   m_Layer: 9
   m_Name: RugbyZombie
   m_TagString: Enemy
@@ -106,29 +107,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2687799756488471572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2581448955462082092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaaf9d1ee6ae75e45a5e41dc5693da34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 5300174115519758413}
-  healthBarParent: {fileID: 8638979925381028713}
-  enemyHealth: 10
-  itemSpawner: {fileID: 31850838508579759}
-  Player:
-    serializedVersion: 2
-    m_Bits: 256
-  xP_Dropamount: 5
-  lootItems:
-  - {fileID: 11400000, guid: 291cf9e32c5a12b48ba41f44f033916b, type: 2}
-  lootWeapons: []
 --- !u!54 &5925598081669715344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,6 +140,38 @@ MonoBehaviour:
   IdleSpeed: 5
   damage: 0.8
   cooldownTime: 3.5
+--- !u!114 &5363275982273596252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581448955462082092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56812dcf19843b349a4d34ee441cddb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 5300174115519758413}
+  healthBarParent: {fileID: 8638979925381028713}
+  enemyHealthManager: {fileID: 6499563375773655180}
+--- !u!114 &6499563375773655180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581448955462082092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917327f7e2fd12e4b9e5dfc56c02b4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 5300174115519758413}
+  healthBarParent: {fileID: 8638979925381028713}
+  itemSpawner: {fileID: 31850838508579759}
+  lootItems: []
+  lootWeapons: []
 --- !u!1 &5300174115519758413
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class Weapon : ScriptableObject
     public int weaponType;
     public float damage;
     public double dropChances;
+    public float cooldownTime;
 
     public GameObject prefab;
     public Sprite weaponIcon;

@@ -28,6 +28,8 @@ public class RubbyZombieCotroller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        damage = EnemyManager.instance.zombie_Damage * 2;
+
         distance = Vector3.Distance(target.position, transform.position);
         if (distance <= lookRadius && !PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused)
         {

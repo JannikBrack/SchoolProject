@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerLevelUI;
 
     [SerializeField] EnemyManager enemyManager;
+    [SerializeField] ItemManager itemManager;
 
     public int playerLevel;
 
@@ -83,7 +84,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void MeeterToAmount()
     {
-        xP_Amount = xP_Meeter;
+        xP_Amount =  xP_Amount + xP_Meeter;
         xP_Meeter = 0;
     }
     private void Lvl1SetUp()
@@ -101,12 +102,11 @@ public class PlayerManager : MonoBehaviour
         nextSkillPoint = 10f;
 
         enemyManager.levelSetUp(playerLevel);
+        itemManager.WeaponLevelReset();
     }
-    public void LevelUp(int lvl)
+    public void LevelUp()
     {
-        if (lvl == 1)
-        {
-            if(xP_Amount < nextLvl_Up)
+            if (xP_Amount < nextLvl_Up)
             {
                 return;
             }
@@ -128,42 +128,53 @@ public class PlayerManager : MonoBehaviour
                     lastHealth = nextHealth;
                     health.SetHealth(nextHealth);
 
-                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
                     xP_Amount -= nextLvl_Up;
-                    if (xP_Amount < 0)
-                    {
-                        xP_Amount = 0f;
-                    }
-                    EnemyManager.instance.levelSetUp(playerLevel);
-                    UpdateUI();
+                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+
+                    if (xP_Amount < 0) xP_Amount = 0f;
                 }
             }
-        }
-        #region ForPresentation
-        /*
-        else if (lvl > 1)
+            enemyManager.levelSetUp(playerLevel);
+            itemManager.WeaponLevelUp(playerLevel);
+            UpdateUI();
+    }
+    public void LoadPlayLevel(int lvl, float lastXp_Amount, float last_Health)
+    {
+        for (int i = 1; i < lvl; i++)
         {
-            for (int i = 0; i < lvl; i++)
-            {
-                if (xP_Amount >= nextLvl_Up)
-                {
-                    playerLevel++;
+            playerLevel++;
 
-                    nextHealth = lastHealth + (lastHealth * 0.065f);
-                    nextHealth = Mathf.Round(nextHealth);
-                    lastHealth = nextHealth;
-                    health.SetHealth(nextHealth);
+            nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+        }
+        xP_Amount = lastXp_Amount;
 
-                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
-                    xP_Amount -= nextLvl_Up;
-                    if (xP_Amount < 0)
-                    {
-                        xP_Amount = 0f;
-                    }
-                }
-            }
-        */
-        #endregion
+        lastHealth = last_Health;
+
+        nextHealth = lastHealth + (lastHealth * 0.065f);
+        nextHealth = Mathf.Round(nextHealth);
+        lastHealth = nextHealth;
+        health.SetHealth(nextHealth);
+        enemyManager.levelSetUp(playerLevel);
+        itemManager.WeaponLevelUp(lvl);
+        UpdateUI();
+    }
+    public void LoadPlayLevel(int lvl)
+    {
+        for (int i = 1; i < lvl; i++)
+        {
+            
+            playerLevel++;
+
+            nextHealth = lastHealth + (lastHealth * 0.065f);
+            nextHealth = Mathf.Round(nextHealth);
+            lastHealth = nextHealth;
+            health.SetHealth(nextHealth);
+
+            nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+        }
+        enemyManager.levelSetUp(playerLevel);
+        itemManager.WeaponLevelUp(lvl);
+        UpdateUI();
     }
 
     public void buyCloseCall()
