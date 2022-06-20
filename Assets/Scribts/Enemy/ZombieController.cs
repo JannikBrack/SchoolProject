@@ -7,6 +7,7 @@ public class ZombieController : MonoBehaviour
     [SerializeField] float lookRadius;
 
     public float ChaseSpeed;
+    public float AttackSpeed;
     public float IdleSpeed;
     public float damage;
 
@@ -70,7 +71,7 @@ public class ZombieController : MonoBehaviour
     private void Attack()
     {
         agent.SetDestination(target.position);
-        agent.speed = ChaseSpeed;
+        agent.speed = AttackSpeed;
         if (distance <= agent.stoppingDistance)
         {
 
