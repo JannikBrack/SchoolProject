@@ -8,13 +8,20 @@ public class Weapon : ScriptableObject
 {
     public string weaponName;
     public int weaponID;
+    public int weaponType;
+
     public float firerate;
+    public float cooldownTime;
+    public int magazineSize;
+    public int currentMagAmmoAmount;
+    public int ammoAmount;
+
     public float aimSpeed;
     public bool isAimable;
-    public int weaponType;
+
     public float damage;
+
     public double dropChances;
-    public float cooldownTime;
 
     public GameObject prefab;
     public Sprite weaponIcon;

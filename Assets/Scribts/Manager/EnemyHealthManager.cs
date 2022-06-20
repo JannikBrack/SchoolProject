@@ -45,7 +45,7 @@ public class EnemyHealthManager : MonoBehaviour
                 {
                     if (randomNumber <= item.dropChances)
                     {
-                        for (int i = 0; i < Random.Range(1, item.maxDrops); i++)
+                        for (int i = 0; i < Random.Range(item.minDrops, item.maxDrops); i++)
                         {
                             Instantiate(item.itemPrefab, itemSpawner.transform.position, Quaternion.identity);
                         }

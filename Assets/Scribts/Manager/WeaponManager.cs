@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Transform cam;
     [SerializeField] LayerMask canBeShot;
     [SerializeField] InvOpenClose invOpenClose;
+    [SerializeField] TextMeshProUGUI ammoText;
     public GameObject[] uiSlots = new GameObject[3];
     public GameObject[] invWeaponSlots = new GameObject[3];
     [SerializeField] Color color;
@@ -18,6 +20,7 @@ public class WeaponManager : MonoBehaviour
     private int activeSlot;
     private bool EmptySlot;
     private float CooldownTime;
+    private bool emptyWeapon;
 
 
 
@@ -55,25 +58,33 @@ public class WeaponManager : MonoBehaviour
             uiSlots[0].GetComponent<Image>().color = color;
         }
 
-        if (currentWeapon != null) Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
+        if (Input.GetKeyDown(KeyCode.R)) Reload();
+
+        if (loadout[activeSlot] != null && ((loadout[activeSlot].ammoAmount == 0 && loadout[activeSlot].currentMagAmmoAmount == 0) || loadout[activeSlot].currentMagAmmoAmount == 0)) emptyWeapon = true;
+
+        if (activeSlot == 2 || loadout[activeSlot] == null) ammoText.text = "-/-";
+        else
+            ammoText.text = loadout[activeSlot].currentMagAmmoAmount.ToString() + "/" + loadout[activeSlot].magazineSize.ToString();
+
+        if (currentWeapon != null)
+            Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
+
+        if (CooldownTime > 0)
         {
-            if (CooldownTime > 0)
+            CooldownTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
             {
-                CooldownTime -= Time.deltaTime;
-            }
-            else
-            {
-                if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused)
-                {
-                    Attack();
-                    if (loadout[activeSlot] != null)
-                        ResetCooldown(loadout[activeSlot].cooldownTime);
-                    else
-                        ResetCooldown(0);
-                }
+                Attack();
+                if (loadout[activeSlot] != null)
+                    ResetCooldown(loadout[activeSlot].cooldownTime);
+                else
+                    ResetCooldown(0);
             }
         }
-        
+
     }
     #endregion
 
@@ -94,6 +105,43 @@ public class WeaponManager : MonoBehaviour
             newEquipment.transform.localEulerAngles = Vector3.zero;
             currentWeapon = newEquipment;
         }
+    }
+
+    private void Reload()
+    {
+        int magAmmoAmount = CurrentMagAmmoAmount;
+        int magSize = MagazineSize;
+        int ammoAmount = AmmoAmount;
+        int reloadAmmo;
+        if (loadout[activeSlot] != null && MagazineSize <= AmmoAmount)
+        {
+            //ReloadAnimation
+
+            reloadAmmo = magSize - magAmmoAmount;
+            Debug.Log(reloadAmmo);
+            CurrentMagAmmoAmount += reloadAmmo;
+            AmmoAmount -= reloadAmmo;
+
+            emptyWeapon = false;
+        }
+        else if (loadout[activeSlot] != null && MagazineSize > AmmoAmount)
+        {
+            //ReloadAnimation
+            reloadAmmo = magSize - magAmmoAmount;
+            if (reloadAmmo >= AmmoAmount)
+            {
+                CurrentMagAmmoAmount += AmmoAmount;
+                AmmoAmount = 0;
+            }
+            else
+            {
+                CurrentMagAmmoAmount += reloadAmmo;
+                AmmoAmount -= reloadAmmo;
+            }
+            emptyWeapon = false;
+        }
+        
+        
     }
 
     void Aim(bool isAiming)
@@ -178,6 +226,7 @@ public class WeaponManager : MonoBehaviour
                 }
                 else
                     Destroy(newHole, 5f);
+                loadout[activeSlot].currentMagAmmoAmount--;
             }
         }
     }
@@ -193,5 +242,11 @@ public class WeaponManager : MonoBehaviour
         invWeaponSlots[weapon.weaponType].GetComponent<Image>().name = weapon.weaponIcon.name;
         invWeaponSlots[weapon.weaponType].SetActive(setActive);
     }
+    #endregion
+
+    #region Get/Set Methods
+    private int CurrentMagAmmoAmount { get => loadout[activeSlot].currentMagAmmoAmount; set => loadout[activeSlot].currentMagAmmoAmount = value; }
+    private int MagazineSize { get => loadout[activeSlot].magazineSize;}
+    private int AmmoAmount { get => loadout[activeSlot].ammoAmount; set => loadout[activeSlot].ammoAmount = value; }
     #endregion
 }

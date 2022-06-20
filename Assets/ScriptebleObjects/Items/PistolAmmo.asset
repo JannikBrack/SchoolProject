@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cd9d47707bb8544b92e8947d6d21c84, type: 3}
-  m_Name: Healing25%
+  m_Name: PistolAmmo
   m_EditorClassIdentifier: 
   isStackable: 1
-  maxStackSize: 20
-  itemID: 2
-  isUsable: 1
-  isHealing: 1
-  healPercent: 0.25
-  isAmmo: 0
+  maxStackSize: 250
+  itemID: 4
+  isUsable: 0
+  isHealing: 0
+  healPercent: 0
+  isAmmo: 1
   weaponID: 0
-  itemPrefab: {fileID: 3054432550975441819, guid: 72d601b21b4ab2847bb8fe6e240c8ad5, type: 3}
+  itemPrefab: {fileID: 395106985547502804, guid: 076dcbafa49a13944a1eb7376a727a35, type: 3}
   itemIcon: {fileID: 21300000, guid: f861a6bb5996667488b524c9a2c04f9d, type: 3}
-  dropChances: 25
-  maxDrops: 3
-  minDrops: 1
+  dropChances: 80
+  maxDrops: 10
+  minDrops: 5

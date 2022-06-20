@@ -18,7 +18,10 @@ MonoBehaviour:
   isUsable: 1
   isHealing: 1
   healPercent: 0.5
+  isAmmo: 0
+  weaponID: 0
   itemPrefab: {fileID: 3054432550975441819, guid: fd1dd7f0ccd9a4b42b9ae9bf1001814f, type: 3}
   itemIcon: {fileID: 21300000, guid: f861a6bb5996667488b524c9a2c04f9d, type: 3}
-  dropChances: 100
+  dropChances: 10
   maxDrops: 1
+  minDrops: 1

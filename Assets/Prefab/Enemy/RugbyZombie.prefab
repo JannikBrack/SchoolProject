@@ -169,7 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5300174115519758413}
   itemSpawner: {fileID: 31850838508579759}
-  lootItems: []
+  lootItems:
+  - {fileID: 11400000, guid: 454eba9de6c19384d9d2bb33f2b1c2cc, type: 2}
+  - {fileID: 11400000, guid: a9d2b1b58f225224ea5051e24802182b, type: 2}
   lootWeapons: []
 --- !u!1 &5300174115519758413
 GameObject:

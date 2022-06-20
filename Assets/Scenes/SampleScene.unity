@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1837,7 +1837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &405115279
 Transform:
   m_ObjectHideFlags: 0
@@ -3757,7 +3757,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10/10
+  m_text: 0/0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4123,7 +4123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1034332662
 Transform:
   m_ObjectHideFlags: 0
@@ -4799,6 +4799,7 @@ MonoBehaviour:
   stackSizeText: {fileID: 0}
   itemName: {fileID: 855709318}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
@@ -5027,6 +5028,7 @@ MonoBehaviour:
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1470928976}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
@@ -7407,6 +7409,7 @@ MonoBehaviour:
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1868851156}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
@@ -8224,6 +8227,7 @@ MonoBehaviour:
   stackSizeText: {fileID: 0}
   itemName: {fileID: 1989960955}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
@@ -8777,6 +8781,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 704
   invOpenClose: {fileID: 2032696893}
+  ammoText: {fileID: 974943412}
   uiSlots:
   - {fileID: 627629812}
   - {fileID: 2095284920}
@@ -8899,6 +8904,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b1995a7e2de08745b284041098a14ee, type: 2}
   - {fileID: 11400000, guid: 9245f6102eabdd34cb6c502dbe586e79, type: 2}
   - {fileID: 11400000, guid: 454eba9de6c19384d9d2bb33f2b1c2cc, type: 2}
+  - {fileID: 11400000, guid: a9d2b1b58f225224ea5051e24802182b, type: 2}
   weapons:
   - {fileID: 11400000, guid: eeef6e46556e5f44f95f77870df5e475, type: 2}
   - {fileID: 11400000, guid: 4b908033a75261544bb5bdc7fc0c3205, type: 2}
@@ -9114,6 +9120,7 @@ MonoBehaviour:
   stackSizeText: {fileID: 0}
   itemName: {fileID: 316816477}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0

@@ -11,8 +11,12 @@ public class Item : ScriptableObject
     public bool isHealing;
     public double healPercent;
 
+    public bool isAmmo;
+    public int weaponID; 
+
     public GameObject itemPrefab;
     public Sprite itemIcon;
     public int dropChances;
     public int maxDrops;
+    public int minDrops;
 }

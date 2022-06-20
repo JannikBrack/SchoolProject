@@ -22,6 +22,7 @@ public class ItemManager : MonoBehaviour
     private int itemID;
     private int weaponID;
     private int numbersOfSlots;
+    private Item currentItem;
 
     void Start()
     {
@@ -42,6 +43,11 @@ public class ItemManager : MonoBehaviour
                     if (hitColider.transform.position == itemOrientation.transform.position)
                     {
                         createSlot(hitColider.gameObject, false);
+                        currentItem = items[itemID];
+                        if (currentItem.isAmmo)
+                        {
+                            weapons[currentItem.weaponID].ammoAmount++;
+                        }
                         return;
                     }
                 }
@@ -57,17 +63,29 @@ public class ItemManager : MonoBehaviour
                             {
                                 slot.AddItem(items[itemID]);
                                 Destroy(hitColider.gameObject);
+                                currentItem = items[itemID];
+                                if (currentItem.isAmmo)
+                                {
+                                    weapons[currentItem.weaponID].ammoAmount++;
+                                }
                                 return;
                             }
                         }
                         if (itemExist(hitColider.gameObject))
                         {
                             createSlot(hitColider.gameObject, false);
+                            currentItem = items[itemID];
+                            if (currentItem.isAmmo)
+                            {
+                                weapons[currentItem.weaponID].ammoAmount++;
+                            }
                             return;
                         }
+                        
                     }
                         
                 }
+                
 
             }
             else if (hitColider.gameObject.tag == "Weapons")

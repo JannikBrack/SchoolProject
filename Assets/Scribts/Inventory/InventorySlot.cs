@@ -12,6 +12,7 @@ public class InventorySlot : MonoBehaviour
     private PlayerHealth playerHealth;
 
     public bool owningItem;
+    public bool owningAmmo;
     #endregion
 
     #region itemVariables
