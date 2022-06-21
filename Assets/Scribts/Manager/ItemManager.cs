@@ -101,6 +101,7 @@ public class ItemManager : MonoBehaviour
                 }
             }
         }
+        UpdateAmmoAmount();
     }
 
     private void createSlot(GameObject hitColider, bool isWeapon)
@@ -126,7 +127,7 @@ public class ItemManager : MonoBehaviour
         }
 
     }
-    #region items
+
     private bool itemExist(GameObject hitColider)
     {
         foreach (Item item in items)
@@ -152,13 +153,38 @@ public class ItemManager : MonoBehaviour
         else return false;
     }
 
-    #endregion
-
     public void RemoveSlot(InventorySlot removingSlot)
     {
         slots.Remove(removingSlot);
         Destroy(removingSlot.gameObject);
         numbersOfSlots--;
+    }
+
+    public void RemoveUsedAmmo(int itemID, int removeAmount)
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.itemSlotID == itemID)
+            {
+                slot.RemoveStackSize(removeAmount);
+                return;
+            }
+        }
+    }
+
+    public int GetAmmoAmount(int itemID)
+    {
+        int ammoAmount = 0;
+
+        foreach (InventorySlot slot in slots)
+        {
+            if (slot.itemSlotID == itemID)
+            {
+                ammoAmount += slot.GetStackSize();
+            }
+            else return 0;
+        }
+        return ammoAmount;
     }
 
     private bool gunExist(GameObject hitColider)
@@ -221,6 +247,21 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
+
+    private void UpdateAmmoAmount()
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            foreach (Item item in items)
+            {
+                if (item.weaponID == weapon.weaponID)
+                {
+                    weapon.ammoAmount = GetAmmoAmount(item.itemID);
+                }
+            }
+        }
+    }
+
     public void WeaponLevelUp(int lvl)
     {
         foreach (var weapon in weapons)

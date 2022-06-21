@@ -12,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] LayerMask canBeShot;
     [SerializeField] InvOpenClose invOpenClose;
     [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] ItemManager itemManager;
     public GameObject[] uiSlots = new GameObject[3];
     public GameObject[] invWeaponSlots = new GameObject[3];
     [SerializeField] Color color;
@@ -21,6 +22,11 @@ public class WeaponManager : MonoBehaviour
     private bool EmptySlot;
     private float CooldownTime;
     private bool emptyWeapon;
+
+    private int magAmmoAmount;
+    private int magSize;
+    private int ammoAmount;
+    private int reloadAmmo;
 
 
 
@@ -33,6 +39,7 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
+        RefreshImportantInteger();
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             activeSlot = 0;
@@ -107,36 +114,42 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    private void RefreshImportantInteger()
+    {
+        if(loadout[activeSlot] != null)
+        {
+            magAmmoAmount = CurrentMagAmmoAmount;
+            magSize = MagazineSize;
+            ammoAmount = AmmoAmount;
+        }
+    }
+
     private void Reload()
     {
-        int magAmmoAmount = CurrentMagAmmoAmount;
-        int magSize = MagazineSize;
-        int ammoAmount = AmmoAmount;
-        int reloadAmmo;
-        if (loadout[activeSlot] != null && MagazineSize <= AmmoAmount)
+        
+        if (loadout[activeSlot] != null && magSize <= ammoAmount)
         {
             //ReloadAnimation
 
             reloadAmmo = magSize - magAmmoAmount;
-            Debug.Log(reloadAmmo);
             CurrentMagAmmoAmount += reloadAmmo;
-            AmmoAmount -= reloadAmmo;
+            itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID,reloadAmmo);
 
             emptyWeapon = false;
         }
-        else if (loadout[activeSlot] != null && MagazineSize > AmmoAmount)
+        else if (loadout[activeSlot] != null && magSize > ammoAmount)
         {
             //ReloadAnimation
             reloadAmmo = magSize - magAmmoAmount;
             if (reloadAmmo >= AmmoAmount)
             {
                 CurrentMagAmmoAmount += AmmoAmount;
-                AmmoAmount = 0;
+                itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID, AmmoAmount);
             }
             else
             {
                 CurrentMagAmmoAmount += reloadAmmo;
-                AmmoAmount -= reloadAmmo;
+                itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID, reloadAmmo);
             }
             emptyWeapon = false;
         }

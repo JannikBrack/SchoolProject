@@ -75,5 +75,17 @@ public class InventorySlot : MonoBehaviour
         itemName.text = weapon.weaponName;
         weaponID = weapon.weaponID;
     }
+
+    public void RemoveStackSize(int removeAmount)
+    {
+        stackSize -= removeAmount;
+        if (stackSize == 0) itemManager.RemoveSlot(this);
+        stackSizeText.text = stackSize.ToString();
+    }
+
+    public int GetStackSize()
+    {
+        return stackSize;
+    }
     #endregion
 }

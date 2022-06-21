@@ -15,6 +15,7 @@ public class Weapon : ScriptableObject
     public int magazineSize;
     public int currentMagAmmoAmount;
     public int ammoAmount;
+    public int ammoID;
 
     public float aimSpeed;
     public bool isAimable;

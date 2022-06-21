@@ -11,7 +11,6 @@ public class PlayerManager : MonoBehaviour
     {
         instance = this;
         Lvl1SetUp();
-        LoadPlayLevel(10);
     }
     #endregion
 

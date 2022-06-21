@@ -226,8 +226,8 @@ MonoBehaviour:
   itemImage: {fileID: 967725821043798426}
   stackSizeText: {fileID: 8857480870450893853}
   itemName: {fileID: 6642003779932661579}
-  itemManager: {fileID: 0}
   owningItem: 0
+  owningAmmo: 0
   StackedItem: 0
   stackSize: 0
   maxStackSize: 0
@@ -498,7 +498,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 10, y: -5}
-  m_SizeDelta: {x: 55.4205, y: 41.3868}
+  m_SizeDelta: {x: 75, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6285023518363636309
 CanvasRenderer:
