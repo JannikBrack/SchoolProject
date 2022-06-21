@@ -132,7 +132,7 @@ public class CPMPlayer : MonoBehaviour
                     rotX = 90;
             }
 
-            if ((playerHealth.GetHealth() <= (playerHealth.GetMaxHealth() * 0.05f)) && PlayerManager.instance.fastChicken) moveSpeed = 10.5f;
+            if ((playerHealth.GetHealth() <= (playerHealth.GetMaxHealth() * 0.1f)) && PlayerManager.instance.fastChicken) moveSpeed = 10.5f;
             else moveSpeed = 7;
 
 

@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     {
         instance = this;
         Lvl1SetUp();
+        LoadPlayLevel(10);
     }
     #endregion
 
@@ -142,6 +143,11 @@ public class PlayerManager : MonoBehaviour
     {
         for (int i = 1; i < lvl; i++)
         {
+            if (playerLevel == nextSkillPoint && playerLevel <= 50)
+            {
+                skillpointAmount++;
+                nextSkillPoint += 10;
+            }
             playerLevel++;
 
             nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
@@ -162,7 +168,12 @@ public class PlayerManager : MonoBehaviour
     {
         for (int i = 1; i < lvl; i++)
         {
-            
+            if (playerLevel == nextSkillPoint && playerLevel <= 50)
+            {
+                skillpointAmount++;
+                nextSkillPoint += 10;
+            }
+
             playerLevel++;
 
             nextHealth = lastHealth + (lastHealth * 0.065f);
@@ -172,6 +183,12 @@ public class PlayerManager : MonoBehaviour
 
             nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
         }
+        if (playerLevel == nextSkillPoint && playerLevel <= 50)
+        {
+            skillpointAmount++;
+            nextSkillPoint += 10;
+        }
+
         enemyManager.levelSetUp(playerLevel);
         itemManager.WeaponLevelUp(lvl);
         UpdateUI();

@@ -32,9 +32,9 @@ public class PlayerHealth : MonoBehaviour
                 if (PlayerManager.instance.closeCall && amountOfDamage > playerHealth)
                 {
                     int ranNum = Random.Range(0, 100);
-                    if (ranNum <= 15)
+                    if (ranNum <= 20)
                     {
-                        playerHealth = 0.01f;
+                        playerHealth = lvlPlayerhealth * 0.1f;
                     }
                     else
                     {
@@ -54,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
                     PlayerManager.instance.deadPlayer = true;
                 }
             }
+            playerHealth = Mathf.Round(playerHealth);
             healthbar.fillAmount = playerHealth / lvlPlayerhealth;
             LP_Amount.text = playerHealth.ToString() + " HP";
         }
