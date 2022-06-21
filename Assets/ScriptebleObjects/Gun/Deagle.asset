@@ -25,5 +25,5 @@ MonoBehaviour:
   isAimable: 0
   damage: 200
   dropChances: 0
-  prefab: {fileID: 959242151971703331, guid: dfc911d461dd49c40b4df0dd690f9a19, type: 3}
+  prefab: {fileID: 773729805011524374, guid: 67e8059c4e1c71241907f0e62f6f8a74, type: 3}
   weaponIcon: {fileID: 21300000, guid: 5b2a2da6575ad4742a89959414581e02, type: 3}

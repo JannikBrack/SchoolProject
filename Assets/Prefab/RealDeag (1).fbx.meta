@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: df22b4932dd35ea48bc367c7ea16a5d4
+guid: 4ba62c5bcf115b7428485577f0ce689f
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: roughMAT
+    second: {fileID: 2100000, guid: 730a3961477748c47adafc9443dc186d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
