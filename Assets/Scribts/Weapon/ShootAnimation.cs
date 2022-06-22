@@ -12,7 +12,6 @@ public class ShootAnimation : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.Play("Shoot");
-            shoot = 0;
         }
     }
 }
