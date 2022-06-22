@@ -103,6 +103,7 @@ public class PlayerManager : MonoBehaviour
 
         enemyManager.levelSetUp(playerLevel);
         itemManager.WeaponLevelReset();
+        itemManager.SetUpStarterEquip();
     }
     public void LevelUp()
     {

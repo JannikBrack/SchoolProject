@@ -297,4 +297,10 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
+
+    public void SetUpStarterEquip()
+    {
+        for(int i = 0; i < 10; i++)
+        Instantiate(items[4].itemPrefab, transform.position, Quaternion.identity);
+    }
 }

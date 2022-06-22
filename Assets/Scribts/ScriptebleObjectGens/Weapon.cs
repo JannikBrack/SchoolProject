@@ -17,6 +17,8 @@ public class Weapon : ScriptableObject
     public int ammoAmount;
     public int ammoID;
 
+    public ShootAnimation ShootAnimation;
+
     public float aimSpeed;
     public bool isAimable;
 
