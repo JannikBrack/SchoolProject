@@ -130,17 +130,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2581448955462082092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c73d51fab1c96241a781866319ad055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 50
-  ChaseSpeed: 7
+  animator: {fileID: 1407288825375865408}
+  ChaseSpeed: 6.5
   AttackSpeed: 50
-  IdleSpeed: 5
+  IdleSpeed: 4
   damage: 0.25
-  cooldownTime: 1
+  cooldownTime: 1.5
 --- !u!114 &6520443114478540451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,8 +354,21 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: becd8fd17b61daf4d85f40a2b586e275, type: 2}
+    - target: {fileID: 5866666021909216657, guid: aa97772c9ea72e049afa5662c28a9baa, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: aa97772c9ea72e049afa5662c28a9baa, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa97772c9ea72e049afa5662c28a9baa, type: 3}
+--- !u!95 &1407288825375865408 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: aa97772c9ea72e049afa5662c28a9baa, type: 3}
+  m_PrefabInstance: {fileID: 4822550439992428497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5001139013459533882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aa97772c9ea72e049afa5662c28a9baa, type: 3}

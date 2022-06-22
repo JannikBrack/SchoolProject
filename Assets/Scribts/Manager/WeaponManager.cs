@@ -28,8 +28,6 @@ public class WeaponManager : MonoBehaviour
     private int ammoAmount;
     private int reloadAmmo;
 
-
-
     #endregion
     private void Awake()
     {
@@ -227,6 +225,8 @@ public class WeaponManager : MonoBehaviour
         {
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {
+                Debug.Log(1);
+                loadout[activeSlot].ShootAnimation.shoot = 1;
                 GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
                 newHole.transform.LookAt(hit.point + hit.normal);
                 if (hit.collider.gameObject.CompareTag("Enemy"))

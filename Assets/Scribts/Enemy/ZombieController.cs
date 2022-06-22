@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class ZombieController : MonoBehaviour
 {
     [SerializeField] float lookRadius;
+    [SerializeField] Animator animator;
 
     public float ChaseSpeed;
     public float AttackSpeed;
@@ -13,10 +14,10 @@ public class ZombieController : MonoBehaviour
 
     float ChaseTime;
     [SerializeField] float cooldownTime;
+    private float attackCooldown;
     Transform target;
     NavMeshAgent agent;
     float distance;
-
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,8 @@ public class ZombieController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = PlayerManager.instance.player.transform;
         agent.speed = ChaseSpeed;
-        StartCooldown();
+        ResetCooldown();
+        attackCooldown = 0.18f;
     }
 
     // Update is called once per frame
@@ -33,30 +35,31 @@ public class ZombieController : MonoBehaviour
         damage = EnemyManager.instance.zombie_Damage;
 
         if (PlayerManager.instance.deadPlayer || PlayerManager.instance.gamePaused) agent.isStopped = true;
-        else agent.isStopped = false;
         distance = Vector3.Distance(target.position, transform.position);
         if (distance <= lookRadius && !PlayerManager.instance.deadPlayer)
         {
-            Chase();
+            
             if (distance <= 7f)
             {
                 Charge();
             }
             else
             {
-                StartCooldown();
-                agent.speed = IdleSpeed;
-                agent.SetDestination(target.position);
+                Chase();
             }
-
         }
         else
         {
+            ResetCooldown();
+            agent.speed = IdleSpeed;
+            agent.SetDestination(target.position);
+            animator.SetTrigger("Idle");
             Patrol();
         }
     }
     private void Charge()
     {
+        animator.SetTrigger("Idle");
         agent.SetDestination(transform.position);
         if (ChaseTime > 0)
         {
@@ -70,16 +73,29 @@ public class ZombieController : MonoBehaviour
     }
     private void Attack()
     {
-        agent.SetDestination(target.position);
-        agent.speed = AttackSpeed;
+        Debug.Log(distance <= agent.stoppingDistance);
         if (distance <= agent.stoppingDistance)
         {
-
+            Debug.Log(1);
+            animator.SetTrigger("Kick");
             agent.SetDestination(transform.position);
-            target.GetComponent<PlayerHealth>().GetDamage(damage);
-            FaceTarget();
-            StartCooldown();
-            
+            if (attackCooldown > 0)
+                attackCooldown -= Time.deltaTime;
+            else
+            {
+                target.GetComponent<PlayerHealth>().GetDamage(damage);
+                FaceTarget();
+                ResetCooldown();
+                attackCooldown = 0.18f;
+            }
+        }
+        else
+        {
+            Debug.Log(0);
+            animator.SetTrigger("Dash");
+
+            agent.SetDestination(target.position);
+            agent.speed = AttackSpeed;
         }
     }
     private void Patrol()
@@ -90,6 +106,8 @@ public class ZombieController : MonoBehaviour
     }
     private void Chase()
     {
+        FaceTarget();
+        animator.SetTrigger("Run");
         agent.speed = ChaseSpeed;
         agent.SetDestination(target.position);
     }
@@ -99,7 +117,7 @@ public class ZombieController : MonoBehaviour
         Quaternion lookrotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookrotation, Time.deltaTime * 5f);
     }
-    private void StartCooldown()
+    private void ResetCooldown()
     {
         ChaseTime = cooldownTime;
     }
