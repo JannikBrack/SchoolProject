@@ -38,35 +38,23 @@ public class ItemManager : MonoBehaviour
             {
                 if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
-
-                        createSlot(hitColider.gameObject, false);
-                        currentItem = items[itemID];
-                        if (currentItem.isAmmo)
-                        {
-                            weapons[currentItem.weaponID].ammoAmount++;
-                        }
-                        return;
+                    createSlot(hitColider.gameObject, false);
+                    currentItem = items[itemID];
+                    if (currentItem.isAmmo)
+                    {
+                        weapons[currentItem.weaponID].ammoAmount++;
+                    }
+                    return;
 
                 }
                 else
                 {
-                        foreach (InventorySlot slot in slots)
+                    foreach (InventorySlot slot in slots)
+                    {
+                        if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
                         {
-                            if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
-                            {
-                                slot.AddItem(items[itemID]);
-                                Destroy(hitColider.gameObject);
-                                currentItem = items[itemID];
-                                if (currentItem.isAmmo)
-                                {
-                                    weapons[currentItem.weaponID].ammoAmount++;
-                                }
-                                return;
-                            }
-                        }
-                        if (itemExist(hitColider.gameObject))
-                        {
-                            createSlot(hitColider.gameObject, false);
+                            slot.AddItem(items[itemID]);
+                            Destroy(hitColider.gameObject);
                             currentItem = items[itemID];
                             if (currentItem.isAmmo)
                             {
@@ -74,8 +62,17 @@ public class ItemManager : MonoBehaviour
                             }
                             return;
                         }
-
-                        
+                    }
+                    if (itemExist(hitColider.gameObject))
+                    {
+                        createSlot(hitColider.gameObject, false);
+                        currentItem = items[itemID];
+                        if (currentItem.isAmmo)
+                        {
+                            weapons[currentItem.weaponID].ammoAmount++;
+                        }
+                        return;
+                    }
                 }
                 
 
@@ -292,7 +289,7 @@ public class ItemManager : MonoBehaviour
 
     public void SetUpStarterEquip()
     {
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 30; i++)
         Instantiate(items[4].itemPrefab, itemOrientation.transform.position, Quaternion.identity);
     }
 }
