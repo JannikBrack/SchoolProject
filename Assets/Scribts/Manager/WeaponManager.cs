@@ -255,6 +255,15 @@ public class WeaponManager : MonoBehaviour
         CooldownTime = cooldown;
     }
 
+    //is Switching Icons
+    public void SwitchWeaponIcon(Weapon weapon, bool setActive)
+    {
+        uiSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
+        uiSlots[weapon.weaponType].SetActive(setActive);
+        invWeaponSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
+        invWeaponSlots[weapon.weaponType].GetComponent<Image>().name = weapon.weaponIcon.name;
+        invWeaponSlots[weapon.weaponType].SetActive(setActive);
+    }
     #endregion
 
     #region Get/Set Methods
