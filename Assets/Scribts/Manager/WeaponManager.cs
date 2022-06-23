@@ -230,8 +230,8 @@ public class WeaponManager : MonoBehaviour
             //Shoot
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {
-                Debug.Log(1);
                 loadout[activeSlot].ShootAnimation.shoot = 1;
+
                 GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
                 newHole.transform.LookAt(hit.point + hit.normal);
                 if (hit.collider.gameObject.CompareTag("Enemy"))
@@ -244,6 +244,7 @@ public class WeaponManager : MonoBehaviour
                 }
                 else
                     Destroy(newHole, 5f);
+
                 loadout[activeSlot].currentMagAmmoAmount--;
             }
         }

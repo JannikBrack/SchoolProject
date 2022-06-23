@@ -4215,7 +4215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1077973080
 Transform:
   m_ObjectHideFlags: 0
@@ -8658,15 +8658,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weaponParent: {fileID: 1674836578}
   bulletholePrefab: {fileID: 7107421714853025335, guid: 16e6f2a823f16754d8a8fec38962433a, type: 3}
-  cam: {fileID: 1504741074}
-  canBeShot:
-    serializedVersion: 2
-    m_Bits: 704
-  invOpenClose: {fileID: 2032696893}
-  ammoText: {fileID: 974943412}
-  itemManager: {fileID: 2032696894}
   uiSlots:
   - {fileID: 627629812}
   - {fileID: 2095284920}
@@ -8675,6 +8667,14 @@ MonoBehaviour:
   - {fileID: 134863443}
   - {fileID: 821794015}
   - {fileID: 1626540249}
+  weaponParent: {fileID: 1674836578}
+  cam: {fileID: 1504741074}
+  invOpenClose: {fileID: 2032696893}
+  itemManager: {fileID: 2032696894}
+  ammoText: {fileID: 974943412}
+  canBeShot:
+    serializedVersion: 2
+    m_Bits: 704
   color: {r: 0.21960786, g: 0.22352943, b: 0.22352943, a: 1}
 --- !u!114 &2032696890
 MonoBehaviour:

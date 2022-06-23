@@ -130,7 +130,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2581448955462082092}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c73d51fab1c96241a781866319ad055, type: 3}
   m_Name: 
@@ -175,7 +175,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9245f6102eabdd34cb6c502dbe586e79, type: 2}
   - {fileID: 11400000, guid: 454eba9de6c19384d9d2bb33f2b1c2cc, type: 2}
   - {fileID: 11400000, guid: a9d2b1b58f225224ea5051e24802182b, type: 2}
-  lootWeapons: []
 --- !u!1 &5300174115519758413
 GameObject:
   m_ObjectHideFlags: 0

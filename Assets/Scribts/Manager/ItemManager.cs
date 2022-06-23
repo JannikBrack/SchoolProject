@@ -38,10 +38,7 @@ public class ItemManager : MonoBehaviour
             {
                 if (slots.Count == 0 && itemExist(hitColider.gameObject))
                 {
-                    hitColider.gameObject.transform.position = Vector3.MoveTowards(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.25f);
-                    hitColider.gameObject.transform.localScale = Vector3.Lerp(hitColider.gameObject.transform.localScale, new Vector3(0f, 0f, 0f), 0.01f);
-                    if (hitColider.transform.position == itemOrientation.transform.position)
-                    {
+
                         createSlot(hitColider.gameObject, false);
                         currentItem = items[itemID];
                         if (currentItem.isAmmo)
@@ -49,14 +46,10 @@ public class ItemManager : MonoBehaviour
                             weapons[currentItem.weaponID].ammoAmount++;
                         }
                         return;
-                    }
+
                 }
                 else
                 {
-                    hitColider.gameObject.transform.position = Vector3.MoveTowards(hitColider.gameObject.transform.position, itemOrientation.transform.position, 0.25f);
-                    hitColider.gameObject.transform.localScale = Vector3.Lerp(hitColider.gameObject.transform.localScale, new Vector3(0f, 0f, 0f), 0.01f);
-                    if (hitColider.transform.position == itemOrientation.transform.position)
-                    {
                         foreach (InventorySlot slot in slots)
                         {
                             if (itemExist(hitColider.gameObject) && sameItemInSlot(slot) && !itemStackIsFull(slot) && slot.StackedItem)
@@ -81,8 +74,7 @@ public class ItemManager : MonoBehaviour
                             }
                             return;
                         }
-                        
-                    }
+
                         
                 }
                 
@@ -182,7 +174,7 @@ public class ItemManager : MonoBehaviour
             {
                 ammoAmount += slot.GetStackSize();
             }
-            else return 0;
+            else return ammoAmount;
         }
         return ammoAmount;
     }
@@ -301,6 +293,6 @@ public class ItemManager : MonoBehaviour
     public void SetUpStarterEquip()
     {
         for(int i = 0; i < 10; i++)
-        Instantiate(items[4].itemPrefab, transform.position, Quaternion.identity);
+        Instantiate(items[4].itemPrefab, itemOrientation.transform.position, Quaternion.identity);
     }
 }
