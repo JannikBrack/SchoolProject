@@ -6,29 +6,40 @@ public class WeaponManager : MonoBehaviour
 {
     #region Variables
     public Weapon[] loadout;
-    [SerializeField] Transform weaponParent;
     [SerializeField] GameObject bulletholePrefab;
-    [SerializeField] Transform cam;
-    [SerializeField] LayerMask canBeShot;
-    [SerializeField] InvOpenClose invOpenClose;
-    [SerializeField] TextMeshProUGUI ammoText;
-    [SerializeField] ItemManager itemManager;
     public GameObject[] uiSlots = new GameObject[3];
     public GameObject[] invWeaponSlots = new GameObject[3];
+
+    [SerializeField] Transform weaponParent;
+    [SerializeField] Transform cam;
+    
+    [SerializeField] InvOpenClose invOpenClose;
+    [SerializeField] ItemManager itemManager;
+
+    [SerializeField] TextMeshProUGUI ammoText;
+
+    [SerializeField] LayerMask canBeShot;
+
+    
     [SerializeField] Color color;
+
     private GameObject currentWeapon;
-    GameObject newEquipment;
+    private GameObject newEquipment;
+
     private int activeSlot;
     private bool EmptySlot;
     private float CooldownTime;
     private bool emptyWeapon;
 
+    //Ammonition
     private int magAmmoAmount;
     private int magSize;
     private int ammoAmount;
     private int reloadAmmo;
 
     #endregion
+
+    //ResetEquip
     private void Awake()
     {
         Equip(0);
@@ -38,6 +49,8 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         RefreshImportantInteger();
+
+        //Equip Weapons
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             activeSlot = 0;
@@ -63,14 +76,18 @@ public class WeaponManager : MonoBehaviour
             uiSlots[0].GetComponent<Image>().color = color;
         }
 
+        //Test if Player can reload 
         if (Input.GetKeyDown(KeyCode.R)) Reload();
 
+        //test if the weapon slot is Empty
         if (loadout[activeSlot] != null && ((loadout[activeSlot].ammoAmount == 0 && loadout[activeSlot].currentMagAmmoAmount == 0) || loadout[activeSlot].currentMagAmmoAmount == 0)) emptyWeapon = true;
 
+        //Fix ammunitionUI if a Weapon is Equiped which does not need ammunition. Else show current ammoamount.
         if (activeSlot == 2 || loadout[activeSlot] == null) ammoText.text = "-/-";
         else
             ammoText.text = loadout[activeSlot].currentMagAmmoAmount.ToString() + "/" + loadout[activeSlot].magazineSize.ToString();
 
+        //Cooldown for single shotweapon
         if (CooldownTime > 0)
         {
             CooldownTime -= Time.deltaTime;
@@ -91,6 +108,7 @@ public class WeaponManager : MonoBehaviour
     #endregion
 
     #region Methods
+    //Equips the chosen Weaponslot
     public void Equip(int slot)
     {
         if (loadout[slot] == null)
@@ -109,6 +127,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    //Get iportant Information from other Classes
     private void RefreshImportantInteger()
     {
         if(loadout[activeSlot] != null)
@@ -119,9 +138,9 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    //is allowing the player to reload the gun, based on the ammunition in the inventory and how huge the magazine capacity size is
     private void Reload()
     {
-        
         if (loadout[activeSlot] != null && magSize <= ammoAmount)
         {
             //ReloadAnimation
@@ -148,10 +167,10 @@ public class WeaponManager : MonoBehaviour
             }
             emptyWeapon = false;
         }
-        
-        
     }
 
+    /*The player can attack in 3 different ways: punching, hitting with the knife, and shooting
+     *There is also a damage calculation if-query when the player bought the Skill "Deadly Precision"*/
     void Attack()
     {
         Transform spawn = cam;
@@ -196,7 +215,7 @@ public class WeaponManager : MonoBehaviour
         }
         else if (loadout[2] != null && activeSlot == 2)
         {
-            //punch
+            //Knife attack
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
             {
                 if (hit.collider.gameObject.CompareTag("Enemy"))
@@ -208,6 +227,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            //Shoot
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {
                 Debug.Log(1);
@@ -228,18 +248,13 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
+
+    //Resets the cooldown to shoot a singleshot
     private void ResetCooldown(float cooldown)
     {
         CooldownTime = cooldown;
     }
-    public void SwitchWeaponIcon(Weapon weapon, bool setActive)
-    {
-        uiSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
-        uiSlots[weapon.weaponType].SetActive(setActive);
-        invWeaponSlots[weapon.weaponType].GetComponent<Image>().sprite = weapon.weaponIcon;
-        invWeaponSlots[weapon.weaponType].GetComponent<Image>().name = weapon.weaponIcon.name;
-        invWeaponSlots[weapon.weaponType].SetActive(setActive);
-    }
+
     #endregion
 
     #region Get/Set Methods
