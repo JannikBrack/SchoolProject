@@ -106,7 +106,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959242151971703330}
-  - component: {fileID: -9217702216672232739}
   m_Layer: 3
   m_Name: 1
   m_TagString: Weapons
@@ -130,20 +129,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9217702216672232739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959242151971703331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d087caf2e1e4a4481a9127d9383da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intensity: 2
-  smooth: 10
 --- !u!1 &959242152581060092
 GameObject:
   m_ObjectHideFlags: 0
