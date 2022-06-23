@@ -11,32 +11,12 @@ struct Cmd
 public class CPMPlayer : MonoBehaviour
 {
     #region Variables
-    [SerializeField] Transform playerView;     // Camera
 
-
-    [SerializeField] float playerViewYOffset = 0.6f; // The height at which the camera is bound to
+    //Camera Settings
+    [SerializeField] Transform playerView;
+    [SerializeField] float playerViewYOffset = 0.6f;
     [SerializeField] float xMouseSensitivity = 30.0f;
     [SerializeField] float yMouseSensitivity = 30.0f;
-    //
-    /*Frame occuring factors*/
-    [SerializeField] float gravity = 20.0f;
-
-    [SerializeField] float friction = 6; //Ground friction
-
-    [Header("Movement Vatiables")]
-    [SerializeField] float moveSpeed = 7.0f;                
-    [SerializeField] float runAcceleration = 14.0f;         
-    [SerializeField] float runDeacceleration = 10.0f;       
-    [SerializeField] float airAcceleration = 2.0f;          
-    [SerializeField] float airDecceleration = 2.0f;         
-    [SerializeField] float airControl = 0.3f;               
-    [SerializeField] float sideStrafeAcceleration = 50.0f;  
-    [SerializeField] float sideStrafeSpeed = 1.0f;          
-    [SerializeField] float jumpSpeed = 8.0f;                
-    [SerializeField] bool holdJumpToBhop = false;
-
-    //Character Controller
-    private CharacterController _controller;
 
     // Camera rotations
     private float rotX = 0.0f;
@@ -46,19 +26,41 @@ public class CPMPlayer : MonoBehaviour
     private Vector3 weaponOrigen;
     private float playerTopVelocity = 0.0f;
 
-    // players can queue the next jump just before he hits the ground
+    // Gravity & Friction
+    [SerializeField] float gravity = 20.0f;
+    [SerializeField] float friction = 6;
+
+    //Movement Vatiables
+    [Header("Movement Vatiables")]
+    [SerializeField] private float moveSpeed = 7.0f;                
+    [SerializeField] private float runAcceleration = 14.0f;         
+    [SerializeField] private float runDeacceleration = 10.0f;       
+    [SerializeField] private float airAcceleration = 2.0f;          
+    [SerializeField] private float airDecceleration = 2.0f;         
+    [SerializeField] private float airControl = 0.3f;               
+    [SerializeField] private float sideStrafeAcceleration = 50.0f;  
+    [SerializeField] private float sideStrafeSpeed = 1.0f;          
+    [SerializeField] private float jumpSpeed = 8.0f;                
+    [SerializeField] private bool holdJumpToBhop = false;
+
+    //Character Controller
+    private CharacterController _controller;
+
+    //Player can queue the next jump just before he hits the ground
     private bool wishJump = false;
 
-    // Used to display real time fricton vaes
+    //Used to display real time fricton
     private float playerFriction = 0.0f;
 
-    // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
+    //Player commands, stores commands (Forward, back, jump, etc)
     private Cmd _cmd;
 
+    //Manages the inventory
     [Header("Inventory")]
     public InvOpenClose InvOpenClose;
     [SerializeField] GameObject Inventory;
 
+    //Important variables for walljumping
     [Header("WallJump")]
     [SerializeField] private float wallDistance = 0.5f;
     [SerializeField] private bool wallLeft = false;
@@ -68,21 +70,31 @@ public class CPMPlayer : MonoBehaviour
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
 
+    //Healthamount for Fast Chicken;
     [Header("PlayerHealth")]
     [SerializeField] PlayerHealth playerHealth;
 
     //Dash
     private float dashCooldownTime;
     private float dashTime;
-    [SerializeField] bool canDash;
-    [SerializeField] bool dashing;
+    [SerializeField] private bool canDash;
+    [SerializeField] private bool dashing;
+
+    //Variables Managing the Player like Skills or if the Player is dead...
+    private bool deadPlayer;
+    private bool fastChicken;
+    private bool sideStep;
     #endregion
 
     #region Start&Update
+
+    //Load Presettings
     private void Start()
     {
+        LoadBooleans();
         ResetCooldown();
-        // Hide the cursor
+
+        //Hide the cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (playerView == null)
@@ -92,7 +104,7 @@ public class CPMPlayer : MonoBehaviour
                 playerView = mainCamera.gameObject.transform;
         }
 
-        // Put the camera inside the capsule collider
+        //Put the camera inside the capsule collider
         playerView.position = new Vector3(
             transform.position.x,
             transform.position.y + playerViewYOffset,
@@ -103,7 +115,9 @@ public class CPMPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerManager.instance.deadPlayer)
+        LoadBooleans();
+
+        if (!deadPlayer)
         {
             wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
             wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
@@ -125,14 +139,14 @@ public class CPMPlayer : MonoBehaviour
                 rotX -= Input.GetAxisRaw("Mouse Y") * xMouseSensitivity * 0.02f;
                 rotY += Input.GetAxisRaw("Mouse X") * yMouseSensitivity * 0.02f;
 
-                // Clamp the X rotation
+                //Clamp the X rotation
                 if (rotX < -90)
                     rotX = -90;
                 else if (rotX > 90)
                     rotX = 90;
             }
 
-            if ((playerHealth.GetHealth() <= (playerHealth.GetMaxHealth() * 0.1f)) && PlayerManager.instance.fastChicken) moveSpeed = 10.5f;
+            if ((playerHealth.GetHealth() <= (playerHealth.GetMaxHealth() * 0.1f)) && fastChicken) moveSpeed = 10.5f;
             else moveSpeed = 7;
 
 
@@ -141,7 +155,7 @@ public class CPMPlayer : MonoBehaviour
 
             /* Movement, here's the important part */
             QueueJump();
-            if(Input.GetKey(KeyCode.F) && PlayerManager.instance.sideStep && canDash)
+            if(Input.GetKey(KeyCode.F) && sideStep && canDash)
             {
                 dashing = true;
             }
@@ -161,7 +175,7 @@ public class CPMPlayer : MonoBehaviour
             else if (!_controller.isGrounded)
                 AirMove();
 
-            // Move the controller
+            //Move the controller
             _controller.Move(playerVelocity * Time.deltaTime);
 
             /* Calculate top velocity */
@@ -171,7 +185,7 @@ public class CPMPlayer : MonoBehaviour
                 playerTopVelocity = udp.magnitude;
 
             //Need to move the camera after the player has been moved because otherwise the camera will clip the player if going fast enough and will always be 1 frame behind.
-            // Set the camera's position to the transform
+            //Set the camera's position to the transform
             playerView.position = new Vector3(
                 transform.position.x,
                 transform.position.y + playerViewYOffset,
@@ -229,13 +243,13 @@ public class CPMPlayer : MonoBehaviour
         wishdir.Normalize();
         moveDirectionNorm = wishdir;
 
-        // CPM: Aircontrol
+        //CPM: Aircontrol
         float wishspeed2 = wishspeed;
         if (Vector3.Dot(playerVelocity, wishdir) < 0)
             accel = airDecceleration;
         else
             accel = airAcceleration;
-        // If the player is ONLY strafing left or right
+        //If the player is ONLY strafing left or right
         if(_cmd.forwardMove == 0 && _cmd.rightMove != 0)
         {
             if(wishspeed > sideStrafeSpeed)
@@ -246,15 +260,15 @@ public class CPMPlayer : MonoBehaviour
         Accelerate(wishdir, wishspeed, accel);
         if(airControl > 0)
             AirControl(wishdir, wishspeed2);
-        // !CPM: Aircontrol
+        //!CPM: Aircontrol
 
-        // Apply gravity
+        //Apply gravity
         playerVelocity.y -= gravity * Time.deltaTime;
     }
 
 
-    /**
-     * Air control occurs when the player is in the air, it allows
+
+    /* Air control occurs when the player is in the air, it allows
      * players to move side to side much faster rather than being
      * 'sluggish' when it comes to cornering.
      */
@@ -265,12 +279,12 @@ public class CPMPlayer : MonoBehaviour
         float dot;
         float k;
 
-        // Can't control movement if not moving forward or backward
+        //Can't control movement if not moving forward or backward
         if(Mathf.Abs(_cmd.forwardMove) < 0.001 || Mathf.Abs(wishspeed) < 0.001)
             return;
         zspeed = playerVelocity.y;
         playerVelocity.y = 0;
-        /* Next two lines are equivalent to idTech's VectorNormalize() */
+        //Next two lines are equivalent to idTech's VectorNormalize()
         speed = playerVelocity.magnitude;
         playerVelocity.Normalize();
 
@@ -278,7 +292,7 @@ public class CPMPlayer : MonoBehaviour
         k = 32;
         k *= airControl * dot * dot * Time.deltaTime;
 
-        // Change direction while slowing down
+        //Change direction while slowing down
         if (dot > 0)
         {
             playerVelocity.x = playerVelocity.x * speed + wishdir.x * k;
@@ -290,13 +304,11 @@ public class CPMPlayer : MonoBehaviour
         }
 
         playerVelocity.x *= speed;
-        playerVelocity.y = zspeed; // Note this line
+        playerVelocity.y = zspeed;
         playerVelocity.z *= speed;
     }
 
-    /**
-     * Called every frame when the engine detects that the player is on the ground
-     */
+    //Called every frame when the engine detects that the player is on the ground
     private void GroundMove()
     {
         Vector3 wishdir;
@@ -329,6 +341,8 @@ public class CPMPlayer : MonoBehaviour
             wishJump = false;
         }
     }
+
+    //Makes Player Dash in -180 Degrees
     private void Dash()
     {
         if (dashCooldownTime > 0)
@@ -367,16 +381,22 @@ public class CPMPlayer : MonoBehaviour
         dashing = false;
     }
 
+    //Load PlayerManager booleans
+    private void LoadBooleans()
+    {
+        deadPlayer = PlayerManager.instance.deadPlayer;
+        fastChicken = PlayerManager.instance.fastChicken;
+        sideStep = PlayerManager.instance.sideStep;
+    }
     #endregion
 
     #region Applyfriction
 
-    /**
-     * Applies friction to the player, called in both the air and on the ground
-     */
+
+    //Applies friction to the player, called in both the air and on the ground
     private void ApplyFriction(float t)
     {
-        Vector3 vec = playerVelocity; // Equivalent to: VectorCopy();
+        Vector3 vec = playerVelocity;
         float speed;
         float newspeed;
         float control;
@@ -386,7 +406,7 @@ public class CPMPlayer : MonoBehaviour
         speed = vec.magnitude;
         drop = 0.0f;
 
-        /* Only if the player is on the ground then apply friction */
+        //Only if the player is on the ground then apply friction
         if(_controller.isGrounded)
         {
             control = speed < runDeacceleration ? runDeacceleration : speed;
@@ -406,7 +426,7 @@ public class CPMPlayer : MonoBehaviour
     #endregion
 
     #region Accelerate
-
+    //Calculate the Speed as Acceleration
     private void Accelerate(Vector3 wishdir, float wishspeed, float accel)
     {
         float addspeed;

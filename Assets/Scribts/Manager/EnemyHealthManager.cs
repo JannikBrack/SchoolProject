@@ -12,8 +12,6 @@ public class EnemyHealthManager : MonoBehaviour
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
-    [SerializeField] Weapon[] lootWeapons;
-
     public float EnemyHealth { get => enemyHealth; set => enemyHealth = value; }
     public float XP_Dropamount { get => xP_Dropamount; set => xP_Dropamount = value; }
     public float EnemyHealthPercent { get => enemyHealthPercent; set => enemyHealthPercent = value; }
@@ -53,13 +51,7 @@ public class EnemyHealthManager : MonoBehaviour
                     }
                 }
             }
-            else if (!(lootWeapons.Length <= 0))
-            {
-                foreach (var weapon in lootWeapons)
-                {
-                    if (randomNumber <= weapon.dropChances) Instantiate(weapon.prefab, transform.position, Quaternion.identity);
-                }
-            }
+            
 
             Destroy(gameObject);
         }

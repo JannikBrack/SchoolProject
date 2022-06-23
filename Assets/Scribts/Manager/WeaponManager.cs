@@ -71,9 +71,6 @@ public class WeaponManager : MonoBehaviour
         else
             ammoText.text = loadout[activeSlot].currentMagAmmoAmount.ToString() + "/" + loadout[activeSlot].magazineSize.ToString();
 
-        if (currentWeapon != null)
-            Aim(Input.GetMouseButton(1) && loadout[activeSlot].isAimable);
-
         if (CooldownTime > 0)
         {
             CooldownTime -= Time.deltaTime;
@@ -153,18 +150,6 @@ public class WeaponManager : MonoBehaviour
         }
         
         
-    }
-
-    void Aim(bool isAiming)
-    {
-        if (isAiming)
-        {
-            
-        }
-        else
-        {
-            
-        }
     }
 
     void Attack()

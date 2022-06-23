@@ -6,26 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newWeapon", menuName = "Weapon")]
 public class Weapon : ScriptableObject
 {
+    //Weapon Identification
     public string weaponName;
     public int weaponID;
     public int weaponType;
 
+    //ShootingSettings
     public float firerate;
     public float cooldownTime;
     public int magazineSize;
     public int currentMagAmmoAmount;
     public int ammoAmount;
     public int ammoID;
-
-    public ShootAnimation ShootAnimation;
-
-    public float aimSpeed;
-    public bool isAimable;
-
     public float damage;
 
-    public double dropChances;
-
+    //Objects and Scribts
     public GameObject prefab;
     public Sprite weaponIcon;
+    public ShootAnimation ShootAnimation;
 }
