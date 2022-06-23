@@ -1147,6 +1147,7 @@ GameObject:
   - component: {fileID: 258819290}
   - component: {fileID: 258819289}
   - component: {fileID: 258819291}
+  - component: {fileID: 258819292}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1219,6 +1220,44 @@ MonoBehaviour:
   zombie_Health: 0
   zombie_Damage: 0
   zombie_Xp_Dropamount: 0
+--- !u!114 &258819292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258819288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f821650ab39ca0141972da9447b4d8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - name: 1
+    enemys:
+    - {fileID: 2357331766231563465, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+    counts: 02000000
+    rate: 1
+  - name: Test
+    enemys:
+    - {fileID: 2357331766231563465, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
+    - {fileID: 2357331766231563465, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
+    counts: 0200000001000000
+    rate: 2
+  - name: Test2
+    enemys: []
+    counts: 
+    rate: 1
+  - name: Test3
+    enemys: []
+    counts: 
+    rate: 1
+  Spawnpoits:
+  - {fileID: 1077973080}
+  - {fileID: 1207665784}
+  timeBetweenWaves: 20
+  waveCountdown: 0
+  state: 2
 --- !u!1 &316816475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,10 +3825,10 @@ RectTransform:
   m_Father: {fileID: 40919615}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 57.5, y: -330}
+  m_SizeDelta: {x: 125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981339368
 MonoBehaviour:
@@ -4208,14 +4247,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1077973080}
-  - component: {fileID: 1077973081}
   m_Layer: 0
   m_Name: TestSpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1077973080
 Transform:
   m_ObjectHideFlags: 0
@@ -4231,20 +4269,6 @@ Transform:
   m_Father: {fileID: 1034332662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1077973081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077973079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846acd2f6be8aed4ebf357a97d5a4616, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: 4683a19c5fdef354ca26a98962b11ae4, type: 3}
 --- !u!1 &1080547870
 GameObject:
   m_ObjectHideFlags: 0
@@ -4625,14 +4649,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1207665784}
-  - component: {fileID: 1207665785}
   m_Layer: 0
   m_Name: TestSpawn1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1207665784
 Transform:
   m_ObjectHideFlags: 0
@@ -4648,20 +4671,6 @@ Transform:
   m_Father: {fileID: 1034332662}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1207665785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207665783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846acd2f6be8aed4ebf357a97d5a4616, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toSpawn: {fileID: 0}
-  toSpawnGun: {fileID: 2581448955462082092, guid: ffbd7776c1ae8ea4aa7e7649f885359d, type: 3}
 --- !u!1 &1250882315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7597,10 +7606,10 @@ RectTransform:
   m_Father: {fileID: 40919615}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 57.5, y: -70}
+  m_SizeDelta: {x: 125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1828601338
 MonoBehaviour:
@@ -7877,10 +7886,10 @@ RectTransform:
   m_Father: {fileID: 40919615}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 57.5, y: -200}
+  m_SizeDelta: {x: 125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1866200779
 MonoBehaviour:

@@ -23,5 +23,5 @@ MonoBehaviour:
   dropChances: 100
   maxDrops: 20
   minDrops: 10
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 395106985547502804, guid: 80c91f895daff8440978c7bf45b8fb7d, type: 3}
   itemIcon: {fileID: 21300000, guid: f861a6bb5996667488b524c9a2c04f9d, type: 3}
