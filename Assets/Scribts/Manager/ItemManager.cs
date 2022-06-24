@@ -290,6 +290,6 @@ public class ItemManager : MonoBehaviour
     public void SetUpStarterEquip()
     {
         for(int i = 0; i < 30; i++)
-        Instantiate(items[4].itemPrefab, itemOrientation.transform.position, Quaternion.identity);
+        Instantiate(items[4].itemPrefab, new Vector3(itemOrientation.transform.position.x, itemOrientation.transform.position.y * Random.Range(0.1f,0.5f), itemOrientation.transform.position.z), Quaternion.identity);
     }
 }
