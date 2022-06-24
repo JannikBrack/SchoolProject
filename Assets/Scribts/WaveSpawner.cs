@@ -18,7 +18,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] Wave[] waves;
     [SerializeField] EnemyManager enemyManager;
     [SerializeField] PlayerManager playerManager;
-    [SerializeField] Transform[] Spawnpoits;
+    [SerializeField] Transform[] spawnpoints;
 
     [SerializeField] int stage1;
     [SerializeField] int stage2;
@@ -29,17 +29,20 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] int savedState = 0;
 
     [SerializeField] float timeBetweenWaves;
-    private float waveCountdown;
+    [SerializeField] float waveCountdown;
 
 
     public SpawnState state = SpawnState.COUNTING;
 
+    //sets countdown
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
     }
+    
     private void Update()
     {
+        //resets complet waves if player dies
         if (playerManager.deadPlayer)
         {
             savedState = nextWave;
@@ -47,6 +50,8 @@ public class WaveSpawner : MonoBehaviour
             waveCountdown = timeBetweenWaves;
             nextWave = 0;
         }
+
+        //complettes the wave if all enemys are dead
         if (state == SpawnState.WAITING)
         {
             if (!EnemyIsAlive())
@@ -56,6 +61,8 @@ public class WaveSpawner : MonoBehaviour
             }
             else return;
         }
+
+        //if the countdown is 0, it starts a new wave
         if (waveCountdown <= 0)
         {
             if (state != SpawnState.SPAWNING)
@@ -69,6 +76,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
+    // resets important variables for the next wave
     private void WaveCompleted()
     {
         waveCountdown = timeBetweenWaves;
@@ -92,11 +100,13 @@ public class WaveSpawner : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Enemy") == null) return false;
         return true;
     }
-
+    
+    //spawning all enemies in the enemy array depending on the parallel array whitch contains the spwan amount
     IEnumerator SpawnWave(Wave _wave)
     {
+        Debug.Log(_wave.enemys.Length);
         state = SpawnState.SPAWNING;
-        for (int n = 0; n < _wave.enemys.Length; n++)
+        for (int n = 0; n < _wave.enemys.Length -1; n++)
         {
             for (int j = 0; j < _wave.counts[n]; j++)
             {
@@ -113,10 +123,11 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemy(Transform _enemy)
     {
-        int randomNum = Random.Range(0, 1);
-        Instantiate(_enemy, Spawnpoits[randomNum].position, Spawnpoits[randomNum].rotation);
+        int randomNum = Random.Range(0, 7);
+        Instantiate(_enemy, spawnpoints[randomNum].position, spawnpoints[randomNum].rotation);
     }
 
+    //leveling the enemys depending on the completed wave amount
     private void CheckWaveStates()
     {
         if (savedState == 0)

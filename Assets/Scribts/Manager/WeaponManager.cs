@@ -82,7 +82,7 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) Reload();
 
         //test if the weapon slot is Empty
-        if (loadout[activeSlot] != null && ((loadout[activeSlot].ammoAmount == 0 && loadout[activeSlot].currentMagAmmoAmount == 0) || loadout[activeSlot].currentMagAmmoAmount == 0)) emptyWeapon = true;
+        if ( activeSlot != 2 && loadout[activeSlot] != null && ((loadout[activeSlot].ammoAmount == 0 && loadout[activeSlot].currentMagAmmoAmount == 0) || loadout[activeSlot].currentMagAmmoAmount == 0)) emptyWeapon = true;
 
         //Fix ammunitionUI if a Weapon is Equiped which does not need ammunition. Else show current ammoamount.
         if (activeSlot == 2 || loadout[activeSlot] == null) ammoText.text = "-/-";
@@ -90,7 +90,7 @@ public class WeaponManager : MonoBehaviour
             ammoText.text = loadout[activeSlot].currentMagAmmoAmount.ToString() + "/" + loadout[activeSlot].magazineSize.ToString();
 
         //Cooldown for single shotweapon
-        if(loadout[activeSlot].weaponType == 0)
+        if(loadout[activeSlot] != null &&  loadout[activeSlot].weaponType == 0)
         {
             if (CooldownTime > 0)
             {
@@ -100,7 +100,7 @@ public class WeaponManager : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
                 {
-                    Attack();
+                    Attack(false);
                     if (loadout[activeSlot] != null)
                         ResetCooldown(loadout[activeSlot].cooldownTime);
                     else
@@ -108,7 +108,7 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         }
-        else if (loadout[activeSlot].weaponType == 1)
+        else if (loadout[activeSlot] != null && loadout[activeSlot].weaponType == 1)
         {
             if (CooldownTime > 0)
             {
@@ -118,7 +118,26 @@ public class WeaponManager : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
                 {
-                    Attack();
+                    Attack(false);
+                    if (loadout[activeSlot] != null)
+                        ResetCooldown(loadout[activeSlot].cooldownTime);
+                    else
+                        ResetCooldown(0);
+                }
+            }
+        }
+        else if (loadout[activeSlot] != null && loadout[activeSlot].weaponType == 2)
+        {
+            if (CooldownTime > 0)
+            {
+                CooldownTime -= Time.deltaTime;
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused)
+                {
+                    Debug.Log(1);
+                    Attack(true);
                     if (loadout[activeSlot] != null)
                         ResetCooldown(loadout[activeSlot].cooldownTime);
                     else
@@ -201,8 +220,9 @@ public class WeaponManager : MonoBehaviour
 
     /*The player can attack in 3 different ways: punching, hitting with the knife, and shooting
      *There is also a damage calculation if-query when the player bought the Skill "Deadly Precision"*/
-    void Attack()
+    void Attack(bool melee)
     {
+        Debug.Log(2);
         Transform spawn = cam;
         RaycastHit hit = new RaycastHit();
         float calculatedDamage = 0f;
@@ -230,24 +250,14 @@ public class WeaponManager : MonoBehaviour
             calculatedDamage = 0.05f;
         }
         else calculatedDamage = loadout[activeSlot].damage;
-        if (emptySlot)
+
+        Debug.Log(melee);
+
+        if (melee)
         {
-            Debug.Log(0);
-            //punch
-            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
-            {
-                if (hit.collider.gameObject.CompareTag("Enemy"))
-                {
-                    EnemyHealthManager enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealthManager>();
-                    if (loadout[activeSlot] == null) enemyHealth.GetDamage(2f);
-                }
-            }
-        }
-        else if (loadout[2] != null && activeSlot == 2)
-        {
-            Debug.Log(1);
+            Debug.Log(true);
             //Knife attack
-            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
+            if (Physics.Raycast(spawn.position, spawn.forward, out hit, 4f, canBeShot))
             {
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
@@ -258,7 +268,6 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(2);
             //Shoot
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {

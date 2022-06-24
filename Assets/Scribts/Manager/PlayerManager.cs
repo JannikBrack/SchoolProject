@@ -2,35 +2,39 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
+
+//This is a class to store variables
 public class PlayerManager : MonoBehaviour
 {
-    #region Singleton
     public static PlayerManager instance;
 
+    
     void Awake()
     {
+        //Allowing to make instances of this script
         instance = this;
         Lvl1SetUp();
     }
-    #endregion
 
     public GameObject player;
+
+    //Images to change if Skill is baught
     public Image cc_Background;
     public Image dp_Background;
     public Image fh_Background;
     public Image ss_Background;
     public Image fc_Background;
-
-    public PlayerHealth health;
-
+    
     [SerializeField] TextMeshProUGUI numberofSP;
     [SerializeField] TextMeshProUGUI playerLevelUI;
 
     [SerializeField] EnemyManager enemyManager;
     [SerializeField] ItemManager itemManager;
+    public PlayerHealth health;
 
     public int playerLevel;
 
+    
     public float xP_Amount;
     public float xP_Meeter;
     public float skillpointAmount;
@@ -77,16 +81,21 @@ public class PlayerManager : MonoBehaviour
         #endregion
     }
 
+    
     private void UpdateUI()
     {
         numberofSP.text = skillpointAmount.ToString() + " Skillpoints";
         playerLevelUI.text = "Player Level: " + playerLevel.ToString();
     }
+
+    //Method is used to give the player the xp amount from a meeter after he died
     public void MeeterToAmount()
     {
         xP_Amount =  xP_Amount + xP_Meeter;
         xP_Meeter = 0;
     }
+
+    //Loads the settings for Level 1
     private void Lvl1SetUp()
     {
         playerLevel = 1;
@@ -105,6 +114,8 @@ public class PlayerManager : MonoBehaviour
         itemManager.WeaponLevelReset();
         itemManager.SetUpStarterEquip();
     }
+
+    //Is leveling the stats (like health and damage or enemy health / damage) depending on the Xp amount
     public void LevelUp()
     {
             if (xP_Amount < nextLvl_Up)
@@ -138,6 +149,8 @@ public class PlayerManager : MonoBehaviour
             itemManager.WeaponLevelUp(playerLevel);
             UpdateUI();
     }
+
+    //Two alternative methods to load a statslvl
     public void LoadPlayLevel(int lvl, float lastXp_Amount, float last_Health)
     {
         for (int i = 1; i < lvl; i++)
@@ -192,6 +205,7 @@ public class PlayerManager : MonoBehaviour
         UpdateUI();
     }
 
+    //Methods to buy the skills
     public void buyCloseCall()
     {
         if (skillpointAmount > 0 && !closeCall)

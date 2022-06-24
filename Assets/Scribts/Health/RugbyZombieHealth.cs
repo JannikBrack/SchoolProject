@@ -18,6 +18,8 @@ public class RugbyZombieHealth : MonoBehaviour
         healthBar.transform.localScale = new Vector3(3 * enemyHealthPercent, 0.25f, 0.01f);
         enemyMaxHealth = EnemyManager.instance.zombie_Health;
     }
+
+    //updates the enemy stats for scaling, hides and shows the health bar when the player is near by
     private void FixedUpdate()
     {
         enemyHealthPercent = enemyHealthManager.EnemyHealthPercent;
@@ -45,6 +47,7 @@ public class RugbyZombieHealth : MonoBehaviour
         }
 
     }
+    //sends the scaling data to enemyhealthmanager
     private void UpdateData()
     {
         enemyHealthManager.EnemyHealth = enemyHealth;

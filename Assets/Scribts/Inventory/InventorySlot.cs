@@ -35,6 +35,8 @@ public class InventorySlot : MonoBehaviour
     }
 
     #region ItemCode
+
+    //adding new item and setting important variables to prevent different items on one slot
     public void AddNewItem(Item item)
     {
         itemSlotID = item.itemID;
@@ -54,6 +56,7 @@ public class InventorySlot : MonoBehaviour
         stackSizeText.text = stackSize.ToString();
     }
 
+    //removes the items if it is healing or useble
     public void RemoveItem()
     {
         Item item = itemManager.GetItem(itemSlotID);
@@ -69,6 +72,7 @@ public class InventorySlot : MonoBehaviour
     #endregion
 
     #region WeaponCode
+    //adds a weapon to a slot if the weapon in the hotbar is full
     public void AddNewWeapon(Weapon weapon)
     {
         itemImage.GetComponent<Image>().sprite = weapon.weaponIcon;

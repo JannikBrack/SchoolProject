@@ -16,7 +16,7 @@ public class RubbyZombieCotroller : MonoBehaviour
     NavMeshAgent agent;
     float distance;
 
-    // Start is called before the first frame update
+    //sets iportant variabless
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -25,7 +25,7 @@ public class RubbyZombieCotroller : MonoBehaviour
         StartCooldown();
     }
 
-    // Update is called once per frame
+    // tells the ai where to go depending on the distance between the player and the zombie
     void FixedUpdate()
     {
         damage = EnemyManager.instance.zombie_Damage * 2;
@@ -51,6 +51,7 @@ public class RubbyZombieCotroller : MonoBehaviour
             Patrol();
         }
     }
+    //charging for attack depenting on a cooldown
     private void Charge()
     {
         agent.SetDestination(transform.position);

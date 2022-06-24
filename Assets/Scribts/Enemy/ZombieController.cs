@@ -19,7 +19,7 @@ public class ZombieController : MonoBehaviour
     NavMeshAgent agent;
     float distance;
 
-    // Start is called before the first frame update
+    //sets iportant variables
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -29,7 +29,7 @@ public class ZombieController : MonoBehaviour
         attackCooldown = 0.18f;
     }
 
-    // Update is called once per frame
+    // tells the ai where to go depending on the distance between the player and the zombie
     void FixedUpdate()
     {
         damage = EnemyManager.instance.zombie_Damage;
@@ -39,7 +39,7 @@ public class ZombieController : MonoBehaviour
         if (distance <= lookRadius && !PlayerManager.instance.deadPlayer)
         {
             
-            if (distance <= 7f)
+            if (distance <= 10f)
             {
                 Charge();
             }
@@ -57,6 +57,8 @@ public class ZombieController : MonoBehaviour
             Patrol();
         }
     }
+
+    //charging for attack depenting on a cooldown
     private void Charge()
     {
         //animator.SetTrigger("Idle");
@@ -71,6 +73,8 @@ public class ZombieController : MonoBehaviour
         }
         
     }
+
+    // attacks the player
     private void Attack()
     {
         if (distance <= agent.stoppingDistance)
@@ -95,6 +99,7 @@ public class ZombieController : MonoBehaviour
             agent.speed = AttackSpeed;
         }
     }
+
     private void Patrol()
     {
         agent.speed = IdleSpeed;

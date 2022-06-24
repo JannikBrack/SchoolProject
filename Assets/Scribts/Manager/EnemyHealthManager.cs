@@ -12,6 +12,8 @@ public class EnemyHealthManager : MonoBehaviour
 
     [Header("ItemSpawning")]
     [SerializeField] Item[] lootItems;
+
+    //getter setter
     public float EnemyHealth { get => enemyHealth; set => enemyHealth = value; }
     public float XP_Dropamount { get => xP_Dropamount; set => xP_Dropamount = value; }
     public float EnemyHealthPercent { get => enemyHealthPercent; set => enemyHealthPercent = value; }
@@ -22,6 +24,7 @@ public class EnemyHealthManager : MonoBehaviour
         EnemyHealthPercent = 1;
     }
 
+    //method that controlles the damage from the player and drops items and xp for the player
     public void GetDamage(float amountOfDamage)
     {
         EnemyHealth -= amountOfDamage;

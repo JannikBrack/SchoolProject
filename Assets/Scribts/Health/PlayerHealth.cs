@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.K)) GetDamage(playerHealth);
     }
 
+    //methode to subrtact healt depending on the enemy stats and controlls death
     public void GetDamage(float amountOfDamage)
     {
         if (!PlayerManager.instance.deadPlayer)
@@ -59,6 +60,8 @@ public class PlayerHealth : MonoBehaviour
             LP_Amount.text = playerHealth.ToString() + " HP";
         }
     }
+    
+    //allows the player to respawn
     public void Respawn()
     {
         //Refill Health
@@ -83,12 +86,16 @@ public class PlayerHealth : MonoBehaviour
 
         
     }
+
+    //refills player health up to an amount (for respawning)
     public void RefillPlayerHealth(float refillAmount)
     {
         playerHealth += refillAmount;
         LP_Amount.text = playerHealth.ToString() + " HP";
         healthbar.fillAmount = playerHealth / lvlPlayerhealth;
     }
+
+    //refills player health up to given percent (for healing items
     public void RefillPlayerHealth(double refillPercent)
     {
         float refillingHealth = (float)(lvlPlayerhealth * refillPercent);
@@ -98,6 +105,8 @@ public class PlayerHealth : MonoBehaviour
         LP_Amount.text = playerHealth.ToString() + " HP";
         healthbar.fillAmount = playerHealth / lvlPlayerhealth;
     }
+
+    //sets the health (for scaling stats)
     public void SetHealth(float newHealth)
     {
         playerHealth = newHealth;
@@ -105,6 +114,8 @@ public class PlayerHealth : MonoBehaviour
         healthbar.fillAmount = 1;
         LP_Amount.text = playerHealth.ToString() + " HP";
     }
+
+    //getting methods
     public float GetHealth()
     {
         return playerHealth;

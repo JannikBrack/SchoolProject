@@ -20,7 +20,7 @@ MonoBehaviour:
   healPercent: 0
   isAmmo: 1
   weaponID: 1
-  dropChances: 100
+  dropChances: 80
   maxDrops: 30
   minDrops: 20
   itemPrefab: {fileID: 395106985547502804, guid: 5f8399228af437a43b4dc55cc614cd21, type: 3}

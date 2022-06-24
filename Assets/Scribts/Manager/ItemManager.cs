@@ -24,11 +24,13 @@ public class ItemManager : MonoBehaviour
     private int numbersOfSlots;
     private Item currentItem;
 
+    //Resets the number of Inventory slots
     void Start()
     {
         numbersOfSlots = 0;
     }
 
+    //Searching for items or weapos in the liftable layer
     private void FixedUpdate()
     {
         Collider[] hitColiders = Physics.OverlapSphere(transform.position, 5f,liftable);
@@ -90,9 +92,11 @@ public class ItemManager : MonoBehaviour
                 }
             }
         }
+
         UpdateAmmoAmount();
     }
 
+    //Creates a inventory slot when a new item is picked up depending on if it is an weapon or not
     private void createSlot(GameObject hitColider, bool isWeapon)
     {
         if (isWeapon)
@@ -117,6 +121,7 @@ public class ItemManager : MonoBehaviour
 
     }
 
+    //searching the item in the item array retuns true if the item exists and saves the item id
     private bool itemExist(GameObject hitColider)
     {
         foreach (Item item in items)
@@ -130,18 +135,21 @@ public class ItemManager : MonoBehaviour
         return false;
     }
 
+    //searches the item in the specific solt
     private bool sameItemInSlot(InventorySlot slot)
     {
         if (itemID == slot.itemSlotID) return true;
         else return false;
     }
 
+    //looking if the inventory slot is full
     private bool itemStackIsFull(InventorySlot slot)
     {
         if (slot.stackSize == slot.maxStackSize) return true;
         else return false;
     }
 
+    //Revoves items from the slot and emptyslots
     public void RemoveSlot(InventorySlot removingSlot)
     {
         slots.Remove(removingSlot);
@@ -149,6 +157,7 @@ public class ItemManager : MonoBehaviour
         numbersOfSlots--;
     }
 
+    //removes the ammo form the inventory which is loaded in the magazine
     public void RemoveUsedAmmo(int itemID, int removeAmount)
     {
         foreach (InventorySlot slot in slots)
@@ -161,6 +170,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    //gets the current ammo amount of each ammunition that the ui could be updatet correctly
     public int GetAmmoAmount(int itemID)
     {
         int ammoAmount = 0;
@@ -176,6 +186,7 @@ public class ItemManager : MonoBehaviour
         return ammoAmount;
     }
 
+    //searching the weapon in the weapon array retuns true if the weapon exists and safes the weapon id
     private bool gunExist(GameObject hitColider)
     {
         foreach (Weapon weapon in weapons)
@@ -187,30 +198,6 @@ public class ItemManager : MonoBehaviour
             }
         }
         return false;
-    }
-
-    private void createNewWeaponSlot(Weapon weapon)
-    {
-        Instantiate(inventorySlotPrefab, itemParent.transform.position, Quaternion.identity).transform.SetParent(itemParent.transform);
-        slots = itemParent.GetComponentsInChildren<InventorySlot>().ToList<InventorySlot>();
-        slots[numbersOfSlots].AddNewWeapon(weapon);
-        slots[numbersOfSlots].tag = "WeaponSlot";
-        slots[numbersOfSlots].owningItem = true;
-        numbersOfSlots++;
-    }
-
-    public void SwitchWeapons(int weaponType)
-    {
-        if (!weaponManager.invWeaponSlots[weaponType].activeInHierarchy) return;
-        foreach(var weapon in weapons)
-        {
-            if (weapon.weaponIcon == null) continue;
-            else if (weapon.weaponIcon.name.Equals(weaponManager.invWeaponSlots[weaponType].name))
-            {
-                createNewWeaponSlot(weapon);
-                return;
-            }
-        }
     }
 
     public Item GetItem(int itemID)
@@ -237,6 +224,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    //updates the current ammo amount
     private void UpdateAmmoAmount()
     {
         foreach (Weapon weapon in weapons)
@@ -250,15 +238,12 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
-
+    
+    //meathod to scale the weapons
     public void WeaponLevelUp(int lvl)
     {
         foreach (var weapon in weapons)
         {
-            if (weapon.weaponType == 0)
-            {
-                //weapon scaling
-            }
             if (weapon.weaponType == 1)
             {
                 if (lvl == 1)
@@ -273,20 +258,16 @@ public class ItemManager : MonoBehaviour
                 else
                     for (int i = 2; i < 26; i++)
                     {
-                        Debug.Log(i);
                         if (i <= 25f) weapon.damage = weapon.damage + (weapon.damage * 0.2f);
                         else
                             return;
                     }
 
             }
-            if (weapon.weaponType == 2)
-            {
-                //weapon scaling
-            }
         }
     }
 
+    //spawns a fix amount of ammo near the player as staterequip
     public void SetUpStarterEquip()
     {
         for(int i = 0; i < 30; i++)

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Ak
   weaponID: 1
   weaponType: 0
-  cooldownTime: 0.05
+  cooldownTime: 0.1
   magazineSize: 30
   currentMagAmmoAmount: 0
   ammoAmount: 0

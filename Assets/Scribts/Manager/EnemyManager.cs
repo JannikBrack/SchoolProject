@@ -21,6 +21,7 @@ public class EnemyManager : MonoBehaviour
     public float zombie_Damage;
     public float zombie_Xp_Dropamount;
 
+    //levels the enemy with increasing completed waves
     public void levelSetUp(int lvl)
     {
         if (lvl == 1)

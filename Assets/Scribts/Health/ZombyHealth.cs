@@ -23,6 +23,8 @@ public class ZombyHealth : MonoBehaviour
     {
         enemyMaxHealth = EnemyManager.instance.zombie_Health;
     }
+
+    //updates the enemy stats for scaling, hides and shows the health bar when the player is near by
     private void FixedUpdate()
     {
         enemyHealthPercent = enemyHealthManager.EnemyHealthPercent;
@@ -50,6 +52,7 @@ public class ZombyHealth : MonoBehaviour
         }
     }
 
+    //sends the scaling data to enemyhealthmanager
     private void UpdateData()
     {
         enemyHealthManager.EnemyHealth = enemyHealth;

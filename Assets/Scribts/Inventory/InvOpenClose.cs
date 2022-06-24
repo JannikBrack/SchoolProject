@@ -8,7 +8,7 @@ public class InvOpenClose : MonoBehaviour
     [SerializeField] GameObject InvPrefab;
     public bool InvOpen = false;
 
-    // Update is called once per frame
+    //opens or closes the inventory when tab is pressed
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
