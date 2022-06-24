@@ -10,7 +10,9 @@ public class WeaponManager : MonoBehaviour
     public GameObject[] uiSlots = new GameObject[3];
     public GameObject[] invWeaponSlots = new GameObject[3];
 
-    [SerializeField] Transform weaponParent;
+    [SerializeField] Transform secParent;
+    [SerializeField] Transform primParent;
+    [SerializeField] Transform meelParent;
     [SerializeField] Transform cam;
     
     [SerializeField] InvOpenClose invOpenClose;
@@ -27,7 +29,7 @@ public class WeaponManager : MonoBehaviour
     private GameObject newEquipment;
 
     private int activeSlot;
-    private bool EmptySlot;
+    private bool emptySlot;
     private float CooldownTime;
     private bool emptyWeapon;
 
@@ -88,21 +90,44 @@ public class WeaponManager : MonoBehaviour
             ammoText.text = loadout[activeSlot].currentMagAmmoAmount.ToString() + "/" + loadout[activeSlot].magazineSize.ToString();
 
         //Cooldown for single shotweapon
-        if (CooldownTime > 0)
+        if(loadout[activeSlot].weaponType == 0)
         {
-            CooldownTime -= Time.deltaTime;
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
+            if (CooldownTime > 0)
             {
-                Attack();
-                if (loadout[activeSlot] != null)
-                    ResetCooldown(loadout[activeSlot].cooldownTime);
-                else
-                    ResetCooldown(0);
+                CooldownTime -= Time.deltaTime;
+            }
+            else
+            {
+                if (Input.GetMouseButton(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
+                {
+                    Attack();
+                    if (loadout[activeSlot] != null)
+                        ResetCooldown(loadout[activeSlot].cooldownTime);
+                    else
+                        ResetCooldown(0);
+                }
             }
         }
+        else if (loadout[activeSlot].weaponType == 1)
+        {
+            if (CooldownTime > 0)
+            {
+                CooldownTime -= Time.deltaTime;
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused && !emptyWeapon)
+                {
+                    Attack();
+                    if (loadout[activeSlot] != null)
+                        ResetCooldown(loadout[activeSlot].cooldownTime);
+                    else
+                        ResetCooldown(0);
+                }
+            }
+        }
+
+
 
     }
     #endregion
@@ -114,13 +139,18 @@ public class WeaponManager : MonoBehaviour
         if (loadout[slot] == null)
         {
             Destroy(currentWeapon);
-            EmptySlot = true;
+            emptySlot = true;
         }
         else
         {
-            EmptySlot = false;
+            emptySlot = false;
             if (currentWeapon != null) Destroy(currentWeapon);
-            newEquipment = Instantiate(loadout[slot].prefab, weaponParent.position, weaponParent.rotation, weaponParent) as GameObject;
+            if (loadout[slot].weaponType == 1)
+            newEquipment = Instantiate(loadout[slot].prefab, secParent.position, secParent.rotation, secParent) as GameObject;
+            else if (loadout[slot].weaponType == 2)
+                newEquipment = Instantiate(loadout[slot].prefab, meelParent.position, meelParent.rotation, meelParent) as GameObject;
+            else if (loadout[slot].weaponType == 0)
+                newEquipment = Instantiate(loadout[slot].prefab, primParent.position, primParent.rotation, primParent) as GameObject;
             newEquipment.transform.localPosition = Vector3.zero;
             newEquipment.transform.localEulerAngles = Vector3.zero;
             currentWeapon = newEquipment;
@@ -200,9 +230,9 @@ public class WeaponManager : MonoBehaviour
             calculatedDamage = 0.05f;
         }
         else calculatedDamage = loadout[activeSlot].damage;
-
-        if (EmptySlot)
+        if (emptySlot)
         {
+            Debug.Log(0);
             //punch
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
             {
@@ -215,6 +245,7 @@ public class WeaponManager : MonoBehaviour
         }
         else if (loadout[2] != null && activeSlot == 2)
         {
+            Debug.Log(1);
             //Knife attack
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 2f, canBeShot))
             {
@@ -227,6 +258,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            Debug.Log(2);
             //Shoot
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {

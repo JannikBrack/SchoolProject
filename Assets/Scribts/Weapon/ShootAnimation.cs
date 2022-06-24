@@ -9,9 +9,6 @@ public class ShootAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            animator.Play("Shoot");
-        }
+        
     }
 }

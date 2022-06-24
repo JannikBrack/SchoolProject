@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2556584895251040888}
   - component: {fileID: 1501119244696176093}
   - component: {fileID: 3689007428869730583}
-  - component: {fileID: -6816685863335414064}
+  - component: {fileID: 8503686959154231933}
   m_Layer: 3
-  m_Name: 0
+  m_Name: 2
   m_TagString: Weapons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-6816685863335414064
+--- !u!65 &8503686959154231933
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

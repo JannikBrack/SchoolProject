@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestItemSpawner : MonoBehaviour
+public class SpawnItem : MonoBehaviour
 {
     [SerializeField] private Item toSpawn;
     [SerializeField] private GameObject toSpawnGun;

@@ -23,7 +23,6 @@ public class EnemyManager : MonoBehaviour
 
     public void levelSetUp(int lvl)
     {
-        Debug.Log(lvl);
         if (lvl == 1)
         {
             enemy_Level = 1f;

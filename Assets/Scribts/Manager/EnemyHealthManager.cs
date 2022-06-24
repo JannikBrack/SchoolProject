@@ -27,7 +27,6 @@ public class EnemyHealthManager : MonoBehaviour
         EnemyHealth -= amountOfDamage;
 
         EnemyHealthPercent = EnemyHealth / EnemyMaxHealth;
-        Debug.Log(EnemyHealth);
         if (enemyHealth <= 0)
         {
             float randomNumber = Random.Range(0, 100);

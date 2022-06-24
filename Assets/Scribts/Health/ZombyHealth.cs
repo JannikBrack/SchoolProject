@@ -17,6 +17,10 @@ public class ZombyHealth : MonoBehaviour
     private void Awake()
     {
         healthBar.transform.localScale = new Vector3(3 * enemyHealthPercent, 0.25f, 0.01f);
+        
+    }
+    private void Start()
+    {
         enemyMaxHealth = EnemyManager.instance.zombie_Health;
     }
     private void FixedUpdate()

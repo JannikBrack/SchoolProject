@@ -12,7 +12,6 @@ public class Weapon : ScriptableObject
     public int weaponType;
 
     //ShootingSettings
-    public float firerate;
     public float cooldownTime;
     public int magazineSize;
     public int currentMagAmmoAmount;
