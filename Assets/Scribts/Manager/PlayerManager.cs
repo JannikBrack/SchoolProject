@@ -97,11 +97,11 @@ public class PlayerManager : MonoBehaviour
         lastHealth = 2000f;
         health.SetHealth(lastHealth);
 
-        nextLvl_Up = 100f;
+        nextLvl_Up = 10f;
 
         nextSkillPoint = 10f;
 
-        enemyManager.levelSetUp(playerLevel);
+        enemyManager.levelSetUp(1);
         itemManager.WeaponLevelReset();
         itemManager.SetUpStarterEquip();
     }
@@ -130,12 +130,11 @@ public class PlayerManager : MonoBehaviour
                     health.SetHealth(nextHealth);
 
                     xP_Amount -= nextLvl_Up;
-                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.05f);
+                    nextLvl_Up = nextLvl_Up + (nextLvl_Up * 0.025f);
 
                     if (xP_Amount < 0) xP_Amount = 0f;
                 }
             }
-            enemyManager.levelSetUp(playerLevel);
             itemManager.WeaponLevelUp(playerLevel);
             UpdateUI();
     }
@@ -160,7 +159,6 @@ public class PlayerManager : MonoBehaviour
         nextHealth = Mathf.Round(nextHealth);
         lastHealth = nextHealth;
         health.SetHealth(nextHealth);
-        enemyManager.levelSetUp(playerLevel);
         itemManager.WeaponLevelUp(lvl);
         UpdateUI();
     }

@@ -53,13 +53,13 @@ public class ZombieController : MonoBehaviour
             ResetCooldown();
             agent.speed = IdleSpeed;
             agent.SetDestination(target.position);
-            animator.SetTrigger("Idle");
+            //animator.SetTrigger("Idle");
             Patrol();
         }
     }
     private void Charge()
     {
-        animator.SetTrigger("Idle");
+        //animator.SetTrigger("Idle");
         agent.SetDestination(transform.position);
         if (ChaseTime > 0)
         {
@@ -73,11 +73,9 @@ public class ZombieController : MonoBehaviour
     }
     private void Attack()
     {
-        Debug.Log(distance <= agent.stoppingDistance);
         if (distance <= agent.stoppingDistance)
         {
-            Debug.Log(1);
-            animator.SetTrigger("Kick");
+            //animator.SetTrigger("Kick");
             agent.SetDestination(transform.position);
             if (attackCooldown > 0)
                 attackCooldown -= Time.deltaTime;
@@ -91,8 +89,7 @@ public class ZombieController : MonoBehaviour
         }
         else
         {
-            Debug.Log(0);
-            animator.SetTrigger("Dash");
+            //animator.SetTrigger("Dash");
 
             agent.SetDestination(target.position);
             agent.speed = AttackSpeed;
@@ -107,7 +104,7 @@ public class ZombieController : MonoBehaviour
     private void Chase()
     {
         FaceTarget();
-        animator.SetTrigger("Run");
+        //animator.SetTrigger("Run");
         agent.speed = ChaseSpeed;
         agent.SetDestination(target.position);
     }

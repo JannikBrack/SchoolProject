@@ -16,11 +16,20 @@ public class WaveSpawner : MonoBehaviour
     }
 
     [SerializeField] Wave[] waves;
+    [SerializeField] EnemyManager enemyManager;
+    [SerializeField] PlayerManager playerManager;
     [SerializeField] Transform[] Spawnpoits;
-    private int nextWave = 0;
 
-    [SerializeField]private float timeBetweenWaves;
-    public float waveCountdown;
+    [SerializeField] int stage1;
+    [SerializeField] int stage2;
+    [SerializeField] int stage3;
+    [SerializeField] int stage4;
+
+    [SerializeField] int nextWave = 0;
+    [SerializeField] int savedState = 0;
+
+    [SerializeField] float timeBetweenWaves;
+    private float waveCountdown;
 
 
     public SpawnState state = SpawnState.COUNTING;
@@ -31,18 +40,19 @@ public class WaveSpawner : MonoBehaviour
     }
     private void Update()
     {
+        if (playerManager.deadPlayer)
+        {
+            savedState = nextWave;
+            state = SpawnState.COUNTING;
+            waveCountdown = timeBetweenWaves;
+            nextWave = 0;
+        }
         if (state == SpawnState.WAITING)
         {
             if (!EnemyIsAlive())
             {
-                if (!(nextWave + 1 > waves.Length - 1))
-                {
-                    waveCountdown = timeBetweenWaves;
-                    nextWave++;
-                    state = SpawnState.COUNTING;
-                }
-                else return; 
-                
+                WaveCompleted();   
+                CheckWaveStates();
             }
             else return;
         }
@@ -57,6 +67,24 @@ public class WaveSpawner : MonoBehaviour
         {
             waveCountdown -= Time.deltaTime;
         }
+    }
+
+    private void WaveCompleted()
+    {
+        waveCountdown = timeBetweenWaves;
+        state = SpawnState.COUNTING;
+
+        if (!(nextWave + 1 < waves.Length - 1))
+        {
+            return;
+            
+        }
+        else
+        {
+            nextWave++;
+            if (nextWave > savedState) savedState = nextWave;
+        }
+        
     }
 
     private bool EnemyIsAlive()
@@ -85,7 +113,57 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemy(Transform _enemy)
     {
-        int randomNum = Random.Range(0, Spawnpoits.Length);
+        int randomNum = Random.Range(0, 1);
         Instantiate(_enemy, Spawnpoits[randomNum].position, Spawnpoits[randomNum].rotation);
+    }
+
+    private void CheckWaveStates()
+    {
+        if (savedState == 0)
+        {
+            if (nextWave < stage1)
+            {
+                enemyManager.levelSetUp(1);
+            }
+            else if (nextWave == stage1)
+            {
+                enemyManager.levelSetUp(2);
+            }
+            else if (nextWave == stage2)
+            {
+                enemyManager.levelSetUp(3);
+            }
+            else if (nextWave == stage3)
+            {
+                enemyManager.levelSetUp(4);
+            }
+            else if (nextWave == stage4)
+            {
+                enemyManager.levelSetUp(5);
+            }
+        }
+        else
+        {
+            if (savedState < stage1)
+            {
+                enemyManager.levelSetUp(1);
+            }
+            else if (savedState == stage1)
+            {
+                enemyManager.levelSetUp(2);
+            }
+            else if (savedState == stage2)
+            {
+                enemyManager.levelSetUp(3);
+            }
+            else if (savedState == stage3)
+            {
+                enemyManager.levelSetUp(4);
+            }
+            else if (savedState == stage4)
+            {
+                enemyManager.levelSetUp(5);
+            }
+        }
     }
 }

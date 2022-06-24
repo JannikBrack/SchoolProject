@@ -209,7 +209,7 @@ public class WeaponManager : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     EnemyHealthManager enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealthManager>();
-                    if (loadout[activeSlot] == null) enemyHealth.GetDamage(enemyHealth.EnemyHealth * 0.05f);
+                    if (loadout[activeSlot] == null) enemyHealth.GetDamage(2f);
                 }
             }
         }
