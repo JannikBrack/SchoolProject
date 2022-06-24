@@ -8,7 +8,7 @@ struct Cmd
     public float upMove;
 }
 
-public class CPMPlayer : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     #region Variables
 
