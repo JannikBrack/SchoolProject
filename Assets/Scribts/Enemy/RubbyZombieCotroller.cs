@@ -5,6 +5,8 @@ using UnityEngine.AI;
 public class RubbyZombieCotroller : MonoBehaviour
 {
     [SerializeField] float lookRadius;
+    [SerializeField] Animator animator;
+
 
     public float ChaseSpeed;
     public float IdleSpeed;
@@ -40,6 +42,7 @@ public class RubbyZombieCotroller : MonoBehaviour
             }
             else
             {
+                animator.SetTrigger("Chase");
                 StartCooldown();
                 agent.speed = IdleSpeed;
                 agent.SetDestination(target.position);
@@ -54,9 +57,12 @@ public class RubbyZombieCotroller : MonoBehaviour
     //charging for attack depenting on a cooldown
     private void Charge()
     {
+        FaceTarget();
         agent.SetDestination(transform.position);
         if (ChaseTime > 0)
         {
+            if(!(distance < 10f))
+            animator.SetTrigger("Charge");
             ChaseTime -= Time.deltaTime;
         }
         else
@@ -71,16 +77,19 @@ public class RubbyZombieCotroller : MonoBehaviour
         agent.speed = ChaseSpeed;
         if (distance <= agent.stoppingDistance)
         {
-
+            if (distance <= 4f)
+            animator.SetTrigger("Idle");
             agent.SetDestination(transform.position);
             target.GetComponent<PlayerHealth>().GetDamage(damage);
             FaceTarget();
             StartCooldown();
 
         }
+        else animator.SetTrigger("Attack");
     }
     private void Patrol()
     {
+        animator.SetTrigger("Idle");
         agent.speed = IdleSpeed;
         Vector3 patrolPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         if (!(agent.stoppingDistance <= Vector3.Distance(patrolPosition, transform.position))) agent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));

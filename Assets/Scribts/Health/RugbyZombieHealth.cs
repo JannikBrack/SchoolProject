@@ -13,7 +13,7 @@ public class RugbyZombieHealth : MonoBehaviour
     private float enemyHealthPercent;
     private float enemyMaxHealth;
 
-    private void Awake()
+    private void Start()
     {
         healthBar.transform.localScale = new Vector3(3 * enemyHealthPercent, 0.25f, 0.01f);
         enemyMaxHealth = EnemyManager.instance.zombie_Health;

@@ -68,11 +68,6 @@ public class ItemManager : MonoBehaviour
                     if (itemExist(hitColider.gameObject))
                     {
                         createSlot(hitColider.gameObject, false);
-                        currentItem = items[itemID];
-                        if (currentItem.isAmmo)
-                        {
-                            weapons[currentItem.weaponID].ammoAmount++;
-                        }
                         return;
                     }
                 }
@@ -227,11 +222,12 @@ public class ItemManager : MonoBehaviour
     //updates the current ammo amount
     private void UpdateAmmoAmount()
     {
+        
         foreach (Weapon weapon in weapons)
         {
             foreach (Item item in items)
             {
-                if (item.weaponID == weapon.weaponID)
+                if (item.isAmmo && item.weaponID == weapon.weaponID)
                 {
                     weapon.ammoAmount = GetAmmoAmount(item.itemID);
                 }

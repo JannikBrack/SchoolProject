@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c73d51fab1c96241a781866319ad055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 50
+  lookRadius: 25
   animator: {fileID: 2092617336850322117}
   ChaseSpeed: 6.5
   AttackSpeed: 50
@@ -362,7 +362,7 @@ Animator:
   m_GameObject: {fileID: 427615849002738391}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 293a347bd13c65e4ab6bb8971ad0422c, type: 2}
+  m_Controller: {fileID: 9100000, guid: becd8fd17b61daf4d85f40a2b586e275, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

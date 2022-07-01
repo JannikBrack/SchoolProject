@@ -38,13 +38,14 @@ public class ZombieController : MonoBehaviour
         distance = Vector3.Distance(target.position, transform.position);
         if (distance <= lookRadius && !PlayerManager.instance.deadPlayer)
         {
-            
             if (distance <= 10f)
             {
+                Debug.Log(1);
                 Charge();
             }
             else
             {
+                Debug.Log(2);
                 Chase();
             }
         }
@@ -53,7 +54,6 @@ public class ZombieController : MonoBehaviour
             ResetCooldown();
             agent.speed = IdleSpeed;
             agent.SetDestination(target.position);
-            //animator.SetTrigger("Idle");
             Patrol();
         }
     }
@@ -61,10 +61,11 @@ public class ZombieController : MonoBehaviour
     //charging for attack depenting on a cooldown
     private void Charge()
     {
-        //animator.SetTrigger("Idle");
+        
         agent.SetDestination(transform.position);
         if (ChaseTime > 0)
         {
+            animator.SetTrigger("Idle");
             ChaseTime -= Time.deltaTime;
         }
         else
@@ -79,7 +80,6 @@ public class ZombieController : MonoBehaviour
     {
         if (distance <= agent.stoppingDistance)
         {
-            //animator.SetTrigger("Kick");
             agent.SetDestination(transform.position);
             if (attackCooldown > 0)
                 attackCooldown -= Time.deltaTime;
@@ -93,7 +93,7 @@ public class ZombieController : MonoBehaviour
         }
         else
         {
-            //animator.SetTrigger("Dash");
+            animator.SetTrigger("Dash");
 
             agent.SetDestination(target.position);
             agent.speed = AttackSpeed;
@@ -102,6 +102,7 @@ public class ZombieController : MonoBehaviour
 
     private void Patrol()
     {
+        animator.SetTrigger("Patrol"); 
         agent.speed = IdleSpeed;
         Vector3 patrolPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         if (!(agent.stoppingDistance <= Vector3.Distance(patrolPosition, transform.position))) agent.SetDestination(new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)));
@@ -109,7 +110,7 @@ public class ZombieController : MonoBehaviour
     private void Chase()
     {
         FaceTarget();
-        //animator.SetTrigger("Run");
+        animator.SetTrigger("Run");
         agent.speed = ChaseSpeed;
         agent.SetDestination(target.position);
     }

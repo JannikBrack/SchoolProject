@@ -14,7 +14,7 @@ ModelImporter:
     second: Kyle|metarigAction (2)
   - first:
       74: -2024384230648109819
-    second: Attacl
+    second: Attack
   - first:
       74: 842011099488704110
     second: Charge
@@ -59,7 +59,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -88,7 +88,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -135,7 +135,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Attacl
+      name: Attack
       takeName: Kyle|metarigAction
       internalID: 0
       firstFrame: 76
@@ -146,7 +146,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

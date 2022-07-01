@@ -222,7 +222,6 @@ public class WeaponManager : MonoBehaviour
      *There is also a damage calculation if-query when the player bought the Skill "Deadly Precision"*/
     void Attack(bool melee)
     {
-        Debug.Log(2);
         Transform spawn = cam;
         RaycastHit hit = new RaycastHit();
         float calculatedDamage = 0f;
@@ -251,11 +250,9 @@ public class WeaponManager : MonoBehaviour
         }
         else calculatedDamage = loadout[activeSlot].damage;
 
-        Debug.Log(melee);
 
         if (melee)
         {
-            Debug.Log(true);
             //Knife attack
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 4f, canBeShot))
             {
@@ -271,7 +268,7 @@ public class WeaponManager : MonoBehaviour
             //Shoot
             if (Physics.Raycast(spawn.position, spawn.forward, out hit, 1000f, canBeShot))
             {
-                loadout[activeSlot].ShootAnimation.shoot = 1;
+                loadout[activeSlot].ShootAnimation.Shoot();
 
                 GameObject newHole = Instantiate(bulletholePrefab, hit.point + hit.normal * 0.001f, Quaternion.identity);
                 newHole.transform.LookAt(hit.point + hit.normal);
