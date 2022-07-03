@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7800166000805045962}
-  - component: {fileID: 3740375681336724414}
   m_Layer: 0
   m_Name: Deagle
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3740375681336724414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515857221752100023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5740aa255e0d594db28f677f146af9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 8508042101872193876}
 --- !u!1001 &2844083221948812485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,10 +108,5 @@ PrefabInstance:
 --- !u!4 &2374118155834698542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90603806023760a47a461237ff4a40c1, type: 3}
-  m_PrefabInstance: {fileID: 2844083221948812485}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8508042101872193876 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 90603806023760a47a461237ff4a40c1, type: 3}
   m_PrefabInstance: {fileID: 2844083221948812485}
   m_PrefabAsset: {fileID: 0}

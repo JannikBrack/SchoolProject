@@ -40,12 +40,10 @@ public class ZombieController : MonoBehaviour
         {
             if (distance <= 10f)
             {
-                Debug.Log(1);
                 Charge();
             }
             else
             {
-                Debug.Log(2);
                 Chase();
             }
         }

@@ -45,16 +45,16 @@ public class WaveSpawner : MonoBehaviour
         //resets complet waves if player dies
         if (playerManager.deadPlayer)
         {
-            savedState = nextWave;
-            state = SpawnState.COUNTING;
-            waveCountdown = timeBetweenWaves;
-            nextWave = 0;
+            GameObject[] remainEnemys = FindObjectsOfType<GameObject>();
+            foreach (GameObject gameObject in remainEnemys)
+                if (gameObject.tag == "Enemy" || gameObject.tag == "Item") Destroy(gameObject);
+            nextWave--;
         }
 
         //complettes the wave if all enemys are dead
         if (state == SpawnState.WAITING)
         {
-            if (!EnemyIsAlive())
+            if (!playerManager.deadPlayer && !EnemyIsAlive())
             {
                 WaveCompleted();   
                 CheckWaveStates();
@@ -79,6 +79,7 @@ public class WaveSpawner : MonoBehaviour
     // resets important variables for the next wave
     private void WaveCompleted()
     {
+        savedState = nextWave - 1;
         waveCountdown = timeBetweenWaves;
         state = SpawnState.COUNTING;
 
@@ -90,7 +91,6 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             nextWave++;
-            if (nextWave > savedState) savedState = nextWave;
         }
         
     }
@@ -104,8 +104,9 @@ public class WaveSpawner : MonoBehaviour
     //spawning all enemies in the enemy array depending on the parallel array whitch contains the spwan amount
     IEnumerator SpawnWave(Wave _wave)
     {
+        Debug.Log(_wave.name);
         state = SpawnState.SPAWNING;
-        for (int n = 0; n < _wave.enemys.Length -1; n++)
+        for (int n = 0; n < _wave.enemys.Length; n++)
         {
             for (int j = 0; j < _wave.counts[n]; j++)
             {
@@ -129,31 +130,6 @@ public class WaveSpawner : MonoBehaviour
     //leveling the enemys depending on the completed wave amount
     private void CheckWaveStates()
     {
-        if (savedState == 0)
-        {
-            if (nextWave < stage1)
-            {
-                enemyManager.levelSetUp(1);
-            }
-            else if (nextWave == stage1)
-            {
-                enemyManager.levelSetUp(2);
-            }
-            else if (nextWave == stage2)
-            {
-                enemyManager.levelSetUp(3);
-            }
-            else if (nextWave == stage3)
-            {
-                enemyManager.levelSetUp(4);
-            }
-            else if (nextWave == stage4)
-            {
-                enemyManager.levelSetUp(5);
-            }
-        }
-        else
-        {
             if (savedState < stage1)
             {
                 enemyManager.levelSetUp(1);
@@ -174,6 +150,5 @@ public class WaveSpawner : MonoBehaviour
             {
                 enemyManager.levelSetUp(5);
             }
-        }
     }
 }

@@ -12,7 +12,6 @@ public class ShootAnimation : MonoBehaviour
     {
         if(state == weaponState.SHOOT) 
         {
-            Debug.Log("Fire");
             state = weaponState.WAIT;
         }
     }

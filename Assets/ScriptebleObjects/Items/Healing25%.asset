@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd9d47707bb8544b92e8947d6d21c84, type: 3}
   m_Name: Healing25%
   m_EditorClassIdentifier: 
-  isStackable: 1
-  maxStackSize: 20
   itemID: 2
   isUsable: 1
+  isStackable: 1
+  maxStackSize: 20
   isHealing: 1
   healPercent: 0.25
   isAmmo: 0
   weaponID: 0
-  itemPrefab: {fileID: 3054432550975441819, guid: 72d601b21b4ab2847bb8fe6e240c8ad5, type: 3}
-  itemIcon: {fileID: 21300000, guid: f861a6bb5996667488b524c9a2c04f9d, type: 3}
   dropChances: 25
   maxDrops: 3
   minDrops: 1
+  itemPrefab: {fileID: 6990569494542978305, guid: d6b0af13fc5925d459b239ff6944b7d1, type: 3}
+  itemIcon: {fileID: 21300000, guid: 74e5bf1fd0e2b9c46b71508067885ca5, type: 3}

@@ -124,7 +124,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7320500491723404086}
-  - component: {fileID: 2075155605231841758}
   m_Layer: 0
   m_Name: dagger
   m_TagString: Untagged
@@ -148,20 +147,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 280}
---- !u!114 &2075155605231841758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7988388231753148812}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5740aa255e0d594db28f677f146af9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  shoot: 0
 --- !u!1 &8416242568376408959
 GameObject:
   m_ObjectHideFlags: 0

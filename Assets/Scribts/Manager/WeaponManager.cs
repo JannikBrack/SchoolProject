@@ -136,7 +136,6 @@ public class WeaponManager : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && !invOpenClose.InvOpen && !PlayerManager.instance.deadPlayer && !PlayerManager.instance.gamePaused)
                 {
-                    Debug.Log(1);
                     Attack(true);
                     if (loadout[activeSlot] != null)
                         ResetCooldown(loadout[activeSlot].cooldownTime);
