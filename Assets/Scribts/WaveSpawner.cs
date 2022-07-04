@@ -48,38 +48,42 @@ public class WaveSpawner : MonoBehaviour
             GameObject[] remainEnemys = FindObjectsOfType<GameObject>();
             foreach (GameObject gameObject in remainEnemys)
                 if (gameObject.tag == "Enemy" || gameObject.tag == "Item") Destroy(gameObject);
-            nextWave--;
-        }
-
-        //complettes the wave if all enemys are dead
-        if (state == SpawnState.WAITING)
-        {
-            if (!playerManager.deadPlayer && !EnemyIsAlive())
-            {
-                WaveCompleted();   
-                CheckWaveStates();
-            }
-            else return;
-        }
-
-        //if the countdown is 0, it starts a new wave
-        if (waveCountdown <= 0)
-        {
-            if (state != SpawnState.SPAWNING)
-            {
-                StartCoroutine(SpawnWave(waves[nextWave]));
-            }
+            state = SpawnState.COUNTING;
+            nextWave = savedState;
         }
         else
         {
-            waveCountdown -= Time.deltaTime;
+            //complettes the wave if all enemys are dead
+            if (state == SpawnState.WAITING)
+            {
+                if (!playerManager.deadPlayer && !EnemyIsAlive())
+                {
+                    WaveCompleted();
+                    CheckWaveStates();
+                }
+                else return;
+            }
+
+            //if the countdown is 0, it starts a new wave
+            if (waveCountdown <= 0)
+            {
+                if (state != SpawnState.SPAWNING)
+                {
+                    StartCoroutine(SpawnWave(waves[nextWave]));
+                }
+            }
+            else
+            {
+                waveCountdown -= Time.deltaTime;
+            }
         }
+
+        
     }
 
     // resets important variables for the next wave
     private void WaveCompleted()
     {
-        savedState = nextWave - 1;
         waveCountdown = timeBetweenWaves;
         state = SpawnState.COUNTING;
 
@@ -91,6 +95,7 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             nextWave++;
+            savedState = nextWave - 1;
         }
         
     }

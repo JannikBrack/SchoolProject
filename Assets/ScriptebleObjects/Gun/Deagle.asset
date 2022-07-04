@@ -18,9 +18,9 @@ MonoBehaviour:
   cooldownTime: 0.25
   magazineSize: 10
   currentMagAmmoAmount: 10
-  ammoAmount: 17
+  ammoAmount: 0
   ammoID: 4
   damage: 200
-  prefab: {fileID: 515857221752100023, guid: 68ed4187e5a8ba74caf75c59b9168275, type: 3}
+  prefab: {fileID: 6073836190427873932, guid: eeeae6b851d80fc438faf15ee77fe104, type: 3}
   weaponIcon: {fileID: 21300000, guid: 15e11ee6ca2a0384ab7b1d0b129fedbd, type: 3}
   ShootAnimation: {fileID: 3740375681336724414, guid: 68ed4187e5a8ba74caf75c59b9168275, type: 3}
