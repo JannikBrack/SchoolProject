@@ -9602,6 +9602,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 11400000, guid: 57f1b17fc33c00647ba3e686ffe7a8fb, type: 2}
   bulletholePrefab: {fileID: 7107421714853025335, guid: 16e6f2a823f16754d8a8fec38962433a, type: 3}
   uiSlots:
   - {fileID: 627629812}
@@ -9649,7 +9650,7 @@ MonoBehaviour:
   sideStrafeAcceleration: 50
   sideStrafeSpeed: 1
   jumpSpeed: 8
-  holdJumpToBhop: 1
+  holdJumpToBhop: 0
   InvOpenClose: {fileID: 2032696893}
   Inventory: {fileID: 2080165457}
   wallDistance: 1

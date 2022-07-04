@@ -44,7 +44,7 @@ public class WeaponManager : MonoBehaviour
     //ResetEquip
     private void Awake()
     {
-        Equip(0);
+        Equip(1);
     }
     #region Start&Update
 
@@ -158,9 +158,12 @@ public class WeaponManager : MonoBehaviour
         {
             Destroy(currentWeapon);
             emptySlot = true;
+            newEquipment = Instantiate(loadout[3].prefab, cam.position, cam.rotation, cam) as GameObject;
+            currentWeapon = newEquipment;
         }
         else
         {
+            //Destroy(currentWeapon);
             emptySlot = false;
             if (currentWeapon != null) Destroy(currentWeapon);
             if (loadout[slot].weaponType == 1)
