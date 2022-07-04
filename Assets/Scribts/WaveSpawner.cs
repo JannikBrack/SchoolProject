@@ -109,7 +109,6 @@ public class WaveSpawner : MonoBehaviour
     //spawning all enemies in the enemy array depending on the parallel array whitch contains the spwan amount
     IEnumerator SpawnWave(Wave _wave)
     {
-        Debug.Log(_wave.name);
         state = SpawnState.SPAWNING;
         for (int n = 0; n < _wave.enemys.Length; n++)
         {
