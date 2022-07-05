@@ -166,9 +166,8 @@ public class ItemManager : MonoBehaviour
     }
 
     //gets the current ammo amount of each ammunition that the ui could be updatet correctly
-    public int GetAmmoAmount(int itemID)
+    public int GetAmmoAmount(int itemID, int ammoAmount)
     {
-        int ammoAmount = 0;
 
         foreach (InventorySlot slot in slots)
         {
@@ -229,7 +228,7 @@ public class ItemManager : MonoBehaviour
             {
                 if (item.isAmmo && item.weaponID == weapon.weaponID)
                 {
-                    weapon.ammoAmount = GetAmmoAmount(item.itemID);
+                    weapon.ammoAmount = GetAmmoAmount(item.itemID, weapon.ammoAmount);
                 }
             }
         }
