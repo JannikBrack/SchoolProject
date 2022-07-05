@@ -112,7 +112,6 @@ public class PlayerManager : MonoBehaviour
 
         enemyManager.levelSetUp(1);
         itemManager.WeaponLevelReset();
-        itemManager.SetUpStarterEquip();
     }
 
     //Is leveling the stats (like health and damage or enemy health / damage) depending on the Xp amount

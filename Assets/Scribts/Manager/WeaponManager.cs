@@ -198,6 +198,7 @@ public class WeaponManager : MonoBehaviour
 
             reloadAmmo = magSize - magAmmoAmount;
             CurrentMagAmmoAmount += reloadAmmo;
+            AmmoAmount -= reloadAmmo;
             itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID,reloadAmmo);
 
             emptyWeapon = false;
@@ -206,17 +207,16 @@ public class WeaponManager : MonoBehaviour
         {
             //ReloadAnimation
             reloadAmmo = magSize - magAmmoAmount;
-            Debug.Log(reloadAmmo);
             if (reloadAmmo >= AmmoAmount)
             {
-                Debug.Log(1);
                 CurrentMagAmmoAmount += AmmoAmount;
+                AmmoAmount = 0;
                 itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID, AmmoAmount);
             }
             else
             {
-                Debug.Log(2);
                 CurrentMagAmmoAmount += reloadAmmo;
+                AmmoAmount -= reloadAmmo;
                 itemManager.RemoveUsedAmmo(loadout[activeSlot].ammoID, reloadAmmo);
             }
             emptyWeapon = false;

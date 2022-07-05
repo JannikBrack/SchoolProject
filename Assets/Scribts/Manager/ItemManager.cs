@@ -28,6 +28,7 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         numbersOfSlots = 0;
+        foreach(Weapon weapon in weapons) weapon.ammoAmount = 0;
     }
 
     //Searching for items or weapos in the liftable layer
